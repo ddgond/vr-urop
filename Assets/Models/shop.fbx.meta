@@ -1,0 +1,236 @@
+fileFormatVersion: 2
+guid: e368b17c6b4d4474eaba807673b211bf
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Camera
+    100002: Form42__1
+    100004: Form43__1
+    100006: Form56__1
+    100008: Form59__1
+    100010: Form61__1
+    100012: Form63__1
+    100014: Form67__1
+    100016: Form68__1
+    100018: Form70__1
+    100020: Form84__1
+    100022: Form86__1
+    100024: Form87__1
+    100026: Lamp
+    100028: Lamp.001
+    100030: Lamp.002
+    100032: Lamp.003
+    100034: //RootNode
+    400000: Camera
+    400002: Form42__1
+    400004: Form43__1
+    400006: Form56__1
+    400008: Form59__1
+    400010: Form61__1
+    400012: Form63__1
+    400014: Form67__1
+    400016: Form68__1
+    400018: Form70__1
+    400020: Form84__1
+    400022: Form86__1
+    400024: Form87__1
+    400026: Lamp
+    400028: Lamp.001
+    400030: Lamp.002
+    400032: Lamp.003
+    400034: //RootNode
+    2000000: Camera
+    2100000: material_1_display3
+    2100002: material_1_trans_green
+    2100004: material_1_black
+    2100006: material_1_display2
+    2100008: material_1_wood
+    2100010: material_1_silver
+    2100012: material_1
+    2100014: material_1_display4
+    2100016: material_1_structure
+    2100018: material_1_sink
+    2100020: material_1_display1
+    2100022: material_1_counter_top
+    2300000: Form42__1
+    2300002: Form43__1
+    2300004: Form56__1
+    2300006: Form59__1
+    2300008: Form61__1
+    2300010: Form63__1
+    2300012: Form67__1
+    2300014: Form68__1
+    2300016: Form70__1
+    2300018: Form84__1
+    2300020: Form86__1
+    2300022: Form87__1
+    3300000: Form42__1
+    3300002: Form43__1
+    3300004: Form56__1
+    3300006: Form59__1
+    3300008: Form61__1
+    3300010: Form63__1
+    3300012: Form67__1
+    3300014: Form68__1
+    3300016: Form70__1
+    3300018: Form84__1
+    3300020: Form86__1
+    3300022: Form87__1
+    4300000: Form67__1
+    4300002: Form86__1
+    4300004: Form84__1
+    4300006: Form42__1
+    4300008: Form63__1
+    4300010: Form87__1
+    4300012: Form61__1
+    4300014: Form43__1
+    4300016: Form68__1
+    4300018: Form56__1
+    4300020: Form70__1
+    4300022: Form59__1
+    10800000: Lamp
+    10800002: Lamp.001
+    10800004: Lamp.002
+    10800006: Lamp.003
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: material_1
+    second: {fileID: 2100000, guid: 8f7ff4cf5b847ab4584d3b14d0cfe393, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: material_1_black
+    second: {fileID: 2100000, guid: f0cd337ddb30d9e469a1d3ad604aaace, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: material_1_counter_top
+    second: {fileID: 2100000, guid: 8dbe3381e1685604b91fc6f14b772f14, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: material_1_display1
+    second: {fileID: 2100000, guid: 52b95f7a0f40b2e4394c8b8adb044f30, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: material_1_display2
+    second: {fileID: 2100000, guid: 433299f9775ec0f4d900956d1fdaf1cf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: material_1_display3
+    second: {fileID: 2100000, guid: 76d14aeebdcfd1049b7246da599433ac, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: material_1_display4
+    second: {fileID: 2100000, guid: d3b41e9c7da59a34594e70e6789c4526, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: material_1_silver
+    second: {fileID: 2100000, guid: 719b21e04c9ca594495239ff580eeb4e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: material_1_sink
+    second: {fileID: 2100000, guid: c800443e2a659d14c90148babbd997c0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: material_1_structure
+    second: {fileID: 2100000, guid: 6805a2b2c54ea874186b2775ce15df5a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: material_1_trans_green
+    second: {fileID: 2100000, guid: 951449ab4240ceb4bbe196a37ed618ca, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: material_1_wood
+    second: {fileID: 2100000, guid: 78faaf727f4d5414e9778402fd75e482, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
