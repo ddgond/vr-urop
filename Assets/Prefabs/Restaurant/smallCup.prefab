@@ -115,7 +115,7 @@ MonoBehaviour:
   handFollowTransform: {fileID: 0}
   handFollowTransformPosition: 1
   handFollowTransformRotation: 1
-  highlightOnHover: 1
+  highlightOnHover: 0
   hideHighlight: []
 --- !u!1001 &245090440585880879
 PrefabInstance:

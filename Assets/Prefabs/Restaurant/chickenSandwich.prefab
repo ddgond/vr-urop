@@ -104,7 +104,7 @@ MonoBehaviour:
   handFollowTransform: {fileID: 0}
   handFollowTransformPosition: 1
   handFollowTransformRotation: 1
-  highlightOnHover: 1
+  highlightOnHover: 0
   hideHighlight: []
 --- !u!114 &7275495148697496606
 MonoBehaviour:

@@ -454,7 +454,7 @@ namespace Valve.VR
                         texture.Apply();
                     }
 
-                    material = new Material(shader != null ? shader : Shader.Find("Standard"));
+                    material = new Material(shader != null ? shader : Shader.Find("Lightweight Render Pipeline/Unlit"));
                     material.mainTexture = texture;
                     //material.hideFlags = HideFlags.DontUnloadUnusedAsset;
 
@@ -826,7 +826,7 @@ namespace Valve.VR
         }
 
         /// <summary>
-        /// Helper function to handle the inconvenient fact that the packing for RenderModel_t is 
+        /// Helper function to handle the inconvenient fact that the packing for RenderModel_t is
         /// different on Linux/OSX (4) than it is on Windows (8)
         /// </summary>
         /// <param name="pRenderModel">native pointer to the RenderModel_t</param>
@@ -848,7 +848,7 @@ namespace Valve.VR
         }
 
         /// <summary>
-        /// Helper function to handle the inconvenient fact that the packing for RenderModel_TextureMap_t is 
+        /// Helper function to handle the inconvenient fact that the packing for RenderModel_TextureMap_t is
         /// different on Linux/OSX (4) than it is on Windows (8)
         /// </summary>
         /// <param name="pRenderModel">native pointer to the RenderModel_TextureMap_t</param>

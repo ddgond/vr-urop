@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8257885445586613714}
   - component: {fileID: 5292321785282318031}
   - component: {fileID: 3969141342358280287}
-  - component: {fileID: 1861783734590175458}
+  - component: {fileID: 5276864344353049978}
   m_Layer: 0
   m_Name: chickenWrap
   m_TagString: Untagged
@@ -103,7 +103,7 @@ MonoBehaviour:
   handFollowTransform: {fileID: 0}
   handFollowTransformPosition: 1
   handFollowTransformRotation: 1
-  highlightOnHover: 1
+  highlightOnHover: 0
   hideHighlight: []
 --- !u!114 &3969141342358280287
 MonoBehaviour:
@@ -122,7 +122,7 @@ MonoBehaviour:
   textBoxOffset: {x: 0, y: 0.15, z: 0}
   text: Chicken Wrap
   cooldownBaseDuration: 30
---- !u!65 &1861783734590175458
+--- !u!65 &5276864344353049978
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,5 +133,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.03991426, y: 0.020350942, z: 0.015815753}
-  m_Center: {x: 0.00092912314, y: -0.0013706445, z: -0.000014572592}
+  m_Size: {x: 0.035391636, y: 0.008918341, z: 0.012067052}
+  m_Center: {x: 0, y: 0, z: 0}
