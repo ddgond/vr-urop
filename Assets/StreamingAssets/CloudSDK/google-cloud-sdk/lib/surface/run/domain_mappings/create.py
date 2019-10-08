@@ -32,6 +32,7 @@ DOMAIN_MAPPINGS_HELP_DOCS_URL = ('https://cloud.google.com/run/docs/'
                                  'mapping-custom-domains/')
 
 
+@base.ReleaseTracks(base.ReleaseTrack.BETA)
 class Create(base.Command):
   """Create domain mappings."""
 
@@ -47,8 +48,18 @@ class Create(base.Command):
   }
 
   @staticmethod
-  def Args(parser):
-    flags.AddRegionArg(parser)
+  def CommonArgs(parser):
+    # Flags specific to managed CR
+    managed_group = flags.GetManagedArgGroup(parser)
+    flags.AddRegionArg(managed_group)
+    # Flags specific to CRoGKE
+    gke_group = flags.GetGkeArgGroup(parser)
+    concept_parsers.ConceptParser([resource_args.CLUSTER_PRESENTATION
+                                  ]).AddToParser(gke_group)
+    # Flags specific to connecting to a Kubernetes cluster (kubeconfig)
+    kubernetes_group = flags.GetKubernetesArgGroup(parser)
+    flags.AddKubeconfigFlags(kubernetes_group)
+    # Flags not specific to any platform
     parser.add_argument(
         '--service', required=True,
         help='Create domain mapping for the given service.')
@@ -59,12 +70,17 @@ class Create(base.Command):
         required=True,
         prefixes=False)
     concept_parsers.ConceptParser([
-        resource_args.CLUSTER_PRESENTATION,
         domain_mapping_presentation]).AddToParser(parser)
+    flags.AddPlatformArg(parser)
     parser.display_info.AddFormat(
         """table(
+        name:label=NAME,
         type:label="RECORD TYPE",
         rrdata:label=CONTENTS)""")
+
+  @staticmethod
+  def Args(parser):
+    Create.CommonArgs(parser)
 
   def Run(self, args):
     """Create a domain mapping."""
@@ -73,9 +89,10 @@ class Create(base.Command):
 
     # Check if the provided domain has already been verified
     # if mapping to a non-CRoGKE service
-    if conn_context.supports_one_platform:
+    if flags.IsManaged(args):
       client = global_methods.GetServerlessClientInstance()
-      all_domains = global_methods.ListVerifiedDomains(client)
+      all_domains = global_methods.ListVerifiedDomains(
+          client, flags.GetRegion(args))
       # If not already verified, explain and error out
       if all(d.id not in domain_mapping_ref.Name() for d in all_domains):
         if not all_domains:
@@ -92,4 +109,18 @@ class Create(base.Command):
                 help=DOMAIN_MAPPINGS_HELP_DOCS_URL, domains=domains_text))
 
     with serverless_operations.Connect(conn_context) as client:
-      return client.CreateDomainMapping(domain_mapping_ref, args.service)
+      mapping = client.CreateDomainMapping(domain_mapping_ref, args.service)
+      for record in mapping.records:
+        record.name = record.name or mapping.route_name
+      return mapping.records
+
+
+@base.ReleaseTracks(base.ReleaseTrack.ALPHA)
+class AlphaCreate(Create):
+  """Create domain mappings."""
+
+  @staticmethod
+  def Args(parser):
+    Create.CommonArgs(parser)
+
+AlphaCreate.__doc__ = Create.__doc__

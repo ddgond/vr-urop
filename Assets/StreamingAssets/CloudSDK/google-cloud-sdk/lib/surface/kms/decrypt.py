@@ -122,6 +122,14 @@ class Decrypt(base.Command):
 
     crypto_key_ref = flags.ParseCryptoKeyName(args)
 
+    # Check that the key id does not include /cryptoKeyVersion/ which may occur
+    # as encrypt command does allow version, so it is easy for user to make a
+    # mistake here.
+    if '/cryptoKeyVersions/' in crypto_key_ref.cryptoKeysId:
+      raise exceptions.InvalidArgumentException(
+          '--key', '{} includes cryptoKeyVersion which is not valid for '
+          'decrypt.'.format(crypto_key_ref.cryptoKeysId))
+
     client = cloudkms_base.GetClientInstance()
     messages = cloudkms_base.GetMessagesModule()
 
@@ -133,7 +141,13 @@ class Decrypt(base.Command):
     resp = client.projects_locations_keyRings_cryptoKeys.Decrypt(req)
 
     try:
-      log.WriteToFileOrStdout(
-          args.plaintext_file, resp.plaintext, binary=True, overwrite=True)
+      if resp.plaintext is None:
+        with files.FileWriter(args.plaintext_file):
+          # to create an empty file
+          pass
+        log.Print('Decrypted file is empty')
+      else:
+        log.WriteToFileOrStdout(
+            args.plaintext_file, resp.plaintext, binary=True, overwrite=True)
     except files.Error as e:
       raise exceptions.BadFileException(e)

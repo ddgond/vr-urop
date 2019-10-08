@@ -26,7 +26,7 @@ def AddNodeAffinityFlagToParser(parser):
   sole_tenancy_group = parser.add_group('Sole Tenancy.', mutex=True)
   sole_tenancy_group.add_argument(
       '--node-affinity-file',
-      type=arg_parsers.BufferedFileInput(),
+      type=arg_parsers.FileContents(),
       help="""\
           The JSON/YAML file containing the configuration of desired nodes onto
           which this instance could be scheduled. These rules filter the nodes
@@ -49,3 +49,13 @@ def AddNodeAffinityFlagToParser(parser):
       help='The name of the node group to schedule this instance on.')
   sole_tenancy_group.add_argument(
       '--node', help='The name of the node to schedule this instance on.')
+
+
+def AddMinNodeCpusArg(parser):
+  parser.add_argument(
+      '--min-node-cpus',
+      type=int,
+      help="""\
+      Minimum number of virtual CPUs this instance will consume when running on
+      a sole-tenant node.
+      """)

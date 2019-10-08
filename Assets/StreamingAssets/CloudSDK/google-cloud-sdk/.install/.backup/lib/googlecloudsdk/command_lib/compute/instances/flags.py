@@ -43,12 +43,12 @@ import ipaddress
 import six
 
 ZONE_PROPERTY_EXPLANATION = """\
-If not specified, you may be prompted to select a zone. `gcloud` will attempt
-to identify the zone by searching for resources in your project. If the zone
-cannot be determined, you will then be prompted with all Google Cloud
-Platform zones.
+If not specified, the user may be prompted to select a zone. `gcloud` will
+attempt to identify the zone by searching for resources in the user's project.
+If the zone cannot be determined, the user will then be prompted with all Google
+Cloud Platform zones.
 
-To avoid prompting when this flag is omitted, you can set the
+To avoid prompting when this flag is omitted, the user can set the
 ``compute/zone'' property:
 
   $ gcloud config set compute/zone ZONE
@@ -286,7 +286,7 @@ def AddImageArgs(parser, enable_snapshots=False):
         will be created from. You can provide this as a full URL
         to the snapshot or just the snapshot name. For example, the following
         are valid values:
-          * https://www.googleapis.com/compute/v1/projects/myproject/global/snapshots/snapshot
+          * https://compute.googleapis.com/compute/v1/projects/myproject/global/snapshots/snapshot
           * snapshot
         """)
 
@@ -420,7 +420,7 @@ def AddDiskArgs(parser, enable_regional_disks=False, enable_kms=False,
       unit of ``KB'' for kilobyte, ``MB'' for megabyte, ``GB'' for gigabyte,
       or ``TB'' for terabyte. For example, ``10GB'' will produce a 10 gigabyte
       disk. The minimum size a boot disk can have is 10 GB. Disk size must be a
-      multiple of 1 GB. Limit your boot disk size to 2TB to account for MBR
+      multiple of 1 GB. Limit boot disk size to 2TB to account for MBR
       partition table limitations.
       """)
 
@@ -495,7 +495,9 @@ def AddDiskArgs(parser, enable_regional_disks=False, enable_kms=False,
 
 
 def AddCreateDiskArgs(parser, enable_kms=False, enable_snapshots=False,
-                      container_mount_enabled=False, resource_policy=False):
+                      container_mount_enabled=False, resource_policy=False,
+                      source_snapshot_csek=False,
+                      image_csek=False):
   """Adds create-disk argument for instances and instance-templates."""
 
   disk_device_name_help = _GetDiskDeviceNameHelp(
@@ -617,7 +619,7 @@ def AddCreateDiskArgs(parser, enable_kms=False, enable_snapshots=False,
       create the disk. You can provide this as a full URL
       to the snapshot or just the snapshot name. For example, the following
       are valid values:
-        * https://www.googleapis.com/compute/v1/projects/myproject/global/snapshots/snapshot
+        * https://compute.googleapis.com/compute/v1/projects/myproject/global/snapshots/snapshot
         * snapshot
       """
     spec['source-snapshot'] = str
@@ -625,12 +627,42 @@ def AddCreateDiskArgs(parser, enable_kms=False, enable_snapshots=False,
   if resource_policy:
     disk_help += """
       *disk-resource-policy*::: Resource policy that will be applied to created
-      disk. You can provide full or partial URL. See
+      disk. You can provide full or partial URL. For more details see
         * https://cloud.google.com/sdk/gcloud/reference/beta/compute/resource-policies/
         * https://cloud.google.com/compute/docs/disks/scheduled-snapshots
-      for more details about resource-policies.
       """
     spec['disk-resource-policy'] = arg_parsers.ArgList(max_length=1)
+
+  if source_snapshot_csek:
+    disk_help += """
+      *source-snapshot-csek-required*::: The CSK protected source disk snapshot
+      that will be used to create the disk. This can be provided as a full URL
+      to the snapshot or just the snapshot name. For example, the following
+      are valid values:
+       * https://www.googleapis.com/compute/v1/projects/myproject/global/snapshots/snapshot
+       * snapshot
+      Must be specified with `source-snapshot-csek-key-file`.
+
+      *source-snapshot-csek-key-file::: Path to a Customer-Supplied Encryption
+      Key (CSEK) key file for the source snapshot. Must be specified with
+      `source-snapshot-csek-required`.
+      """
+    spec['source-snapshot-csek-key-file'] = str
+
+  if image_csek:
+    disk_help += """
+      *image-csek-required*::: Specifies the name of the CSK protected image
+      that the disk will be initialized with. A new disk will be created based
+      on the given image. To view a list of public images and projects, run
+      `$ gcloud compute images list`. It is best practice to use image when
+      a specific version of an image is needed. If both image and image-family
+      flags are omitted a blank disk will be created. Must be specified with
+      `image-csek-key-file`.
+
+      *image-csek-key-file::: Path to a Customer-Supplied Encryption Key (CSEK)
+      key file for the image. Must be specified with `image-csek-required`.
+    """
+    spec['image-csek-key-file'] = str
 
   parser.add_argument(
       '--create-disk',
@@ -666,9 +698,9 @@ def AddCustomMachineTypeArgs(parser):
       action='store_true',
       help='Use the extended custom machine type.')
   custom_group.add_argument(
-      '--custom-vm-gen',
+      '--custom-vm-type',
       help="""
-      Specifies VM generation. n1 - VMs with CPU platforms Skylake and older,
+      Specifies VM type. n1 - VMs with CPU platforms Skylake and older,
       n2 - VMs with CPU platform Cascade Lake. n2 offers flexible sizing from
       2 to 80 vCPUs, and 1 to 640GBs of memory.
       It also features a number of performance enhancements including exposing
@@ -747,12 +779,17 @@ def GetAddressRef(resources, address, region):
       })
 
 
-def ValidateDiskFlags(args, enable_kms=False, enable_snapshots=False):
+def ValidateDiskFlags(args, enable_kms=False, enable_snapshots=False,
+                      enable_source_snapshot_csek=False,
+                      enable_image_csek=False):
   """Validates the values of all disk-related flags."""
   ValidateDiskCommonFlags(args)
   ValidateDiskAccessModeFlags(args)
   ValidateDiskBootFlags(args, enable_kms=enable_kms)
-  ValidateCreateDiskFlags(args, enable_snapshots=enable_snapshots)
+  ValidateCreateDiskFlags(
+      args, enable_snapshots=enable_snapshots,
+      enable_source_snapshot_csek=enable_source_snapshot_csek,
+      enable_image_csek=enable_image_csek)
 
 
 def ValidateDiskCommonFlags(args):
@@ -859,7 +896,9 @@ def ValidateDiskBootFlags(args, enable_kms=False):
             'boot disk.')
 
 
-def ValidateCreateDiskFlags(args, enable_snapshots=False):
+def ValidateCreateDiskFlags(args, enable_snapshots=False,
+                            enable_source_snapshot_csek=False,
+                            enable_image_csek=False):
   """Validates the values of create-disk related flags."""
   require_csek_key_create = getattr(args, 'require_csek_key_create', None)
   csek_key_file = getattr(args, 'csek_key_file', None)
@@ -884,6 +923,8 @@ def ValidateCreateDiskFlags(args, enable_snapshots=False):
     image_value = disk.get('image')
     image_family_value = disk.get('image-family')
     source_snapshot = disk.get('source-snapshot')
+    image_csek_file = disk.get('image_csek')
+    source_snapshot_csek_file = disk.get('source_snapshot_csek_file')
 
     disk_source = set()
     if image_value:
@@ -892,15 +933,24 @@ def ValidateCreateDiskFlags(args, enable_snapshots=False):
       disk_source.add(image_family_value)
     if source_snapshot:
       disk_source.add(source_snapshot)
+    if image_csek_file:
+      disk_source.add(image_csek_file)
+    if source_snapshot_csek_file:
+      disk_source.add(source_snapshot_csek_file)
 
-    source_error_message = (
-        'Cannot specify [image] and [image-family] for a '
-        '[--create-disk]. The fields are mutually exclusive.')
+    mutex_attributes = ['[image]', '[image-family]']
+    if enable_image_csek:
+      mutex_attributes.append('[image-csek-required]')
     if enable_snapshots:
-      source_error_message = (
-          'Must specify exactly one of [image], [image-family] or '
-          '[source-snapshot] for a [--create-disk]. '
-          'These fields are mutually exclusive.')
+      mutex_attributes.append('[source-snapshot]')
+    if enable_source_snapshot_csek:
+      mutex_attributes.append('[source-snapshot-csek-required]')
+    formatted_attributes = '{}, or {}'.format(', '.join(mutex_attributes[:-1]),
+                                              mutex_attributes[-1])
+    source_error_message = (
+        'Must specify exactly one of {} for a '
+        '[--create-disk]. These fields are mutually exclusive.'.format(
+            formatted_attributes))
     if len(disk_source) > 1:
       raise exceptions.ToolException(source_error_message)
 
@@ -1071,6 +1121,15 @@ def AddMinCpuPlatformArgs(parser, track, required=False):
       You can find more information on-line:
       [](https://cloud.google.com/compute/docs/instances/specify-min-cpu-platform)
       """.format(track.prefix + ' ' if track.prefix else ''))
+
+
+def AddMinNodeCpuArg(parser):
+  parser.add_argument(
+      '--min-node-cpu',
+      help="""\
+      Minimum number of virtual CPUs this instance will consume when running on
+      a sole-tenant node.
+      """)
 
 
 def AddPreemptibleVmArgs(parser):
@@ -1330,7 +1389,7 @@ def ValidatePublicDnsFlags(args):
 
   network_interface = getattr(args, 'network_interface', None)
   public_dns = getattr(args, 'public_dns', None)
-  if public_dns is True:
+  if public_dns:
     if (network_interface is not None and
         network_interface != constants.DEFAULT_NETWORK_INTERFACE):
       raise exceptions.ToolException(
@@ -1344,7 +1403,7 @@ def ValidatePublicPtrFlags(args):
 
   network_interface = getattr(args, 'network_interface', None)
   public_ptr = getattr(args, 'public_ptr', None)
-  if public_ptr is True:
+  if public_ptr is True:  # pylint:disable=g-bool-id-comparison
     if (network_interface is not None and
         network_interface != constants.DEFAULT_NETWORK_INTERFACE):
       raise exceptions.ToolException(
@@ -1352,7 +1411,7 @@ def ValidatePublicPtrFlags(args):
           '\'{0}\' rather than \'{1}\'.'.format(
               constants.DEFAULT_NETWORK_INTERFACE, network_interface))
 
-  if args.public_ptr_domain is not None and args.no_public_ptr is True:
+  if args.public_ptr_domain is not None and args.no_public_ptr is True:  # pylint:disable=g-bool-id-comparison
     raise exceptions.ConflictingArgumentsException('--public-ptr-domain',
                                                    '--no-public-ptr')
 
@@ -1496,10 +1555,10 @@ def AddKonletArgs(parser):
       Each argument must have a separate flag. Arguments are appended in the
       order of flags. Example:
 
-      Assuming the default entry point of your container (or an entry point
+      Assuming the default entry point of the container (or an entry point
       overridden with --container-command flag) is a Bourne shell-compatible
       executable, in order to execute 'ls -l' command in the container,
-      you could use:
+      the user could use:
 
       `--container-arg="-c" --container-arg="ls -l"`
 
@@ -1807,7 +1866,7 @@ def AddHostnameArg(parser):
       '--hostname',
       help="""\
       Specify the hostname of the instance to be created. The specified
-      homename must be RFC1035 compliant. If hostname is not specified, the
+      hostname must be RFC1035 compliant. If hostname is not specified, the
       default hostname is [INSTANCE_NAME].c.[PROJECT_ID].internal when using
       the global DNS, and [INSTANCE_NAME].[ZONE].c.[PROJECT_ID].internal
       when using zonal DNS.

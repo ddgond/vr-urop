@@ -29,9 +29,11 @@ from googlecloudsdk.calliope import exceptions as calliope_exceptions
 from googlecloudsdk.command_lib.compute.instances import flags
 from googlecloudsdk.command_lib.compute.instances.os_inventory import exceptions
 from googlecloudsdk.core.resource import resource_projector
+import six
 
 
-@base.ReleaseTracks(base.ReleaseTrack.BETA, base.ReleaseTrack.ALPHA)
+@base.ReleaseTracks(base.ReleaseTrack.GA, base.ReleaseTrack.BETA,
+                    base.ReleaseTrack.ALPHA)
 class Describe(base.DescribeCommand):
   """Describe a Google Compute Engine virtual instance's OS inventory data.
 
@@ -69,7 +71,7 @@ class Describe(base.DescribeCommand):
               "table[box,title='Installed Packages (RPM)']
                 (Name:sort=1,Arch,Version)",
             InstalledPackages.wua:format=
-              "table[box,title='Installed Packages (Windows Update Agent)'](
+              "table[all-box,title='Installed Packages (Windows Update Agent)'](
                 Title:sort=1:wrap,
                 Categories.list():wrap,
                 KBArticleIDs.list():wrap=14,
@@ -94,7 +96,7 @@ class Describe(base.DescribeCommand):
               "table[box,title='Package Updates Available (Yum)']
                 (Name:sort=1,Arch,Version)",
             PackageUpdates.wua:format=
-              "table[box,title='Package Updates Available (Windows Update Agent)'](
+              "table[all-box,title='Package Updates Available (Windows Update Agent)'](
                 Title:sort=1:wrap,
                 Categories.list():wrap,
                 KBArticleIDs.list():wrap=14,
@@ -131,7 +133,7 @@ class Describe(base.DescribeCommand):
       return response.queryValue.items
     except calliope_exceptions.ToolException as e:
       if ('The resource \'guestInventory/\' of type \'Guest Attribute\' was not'
-          ' found.') in str(e):
+          ' found.') in six.text_type(e):
         problems = [{
             '',
             'OS inventory data was not found. Make sure the OS Config agent '

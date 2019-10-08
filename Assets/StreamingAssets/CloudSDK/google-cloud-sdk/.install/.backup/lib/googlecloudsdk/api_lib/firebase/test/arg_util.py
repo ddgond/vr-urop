@@ -25,6 +25,7 @@ from googlecloudsdk.calliope import actions
 from googlecloudsdk.calliope import arg_parsers
 from googlecloudsdk.calliope import base
 from googlecloudsdk.core import log
+import six
 
 ANDROID_INSTRUMENTATION_TEST = 'ANDROID INSTRUMENTATION TEST'
 ANDROID_ROBO_TEST = 'ANDROID ROBO TEST'
@@ -53,6 +54,7 @@ def AddCommonTestRunArgs(parser):
       '--async',
       action='store_true',
       default=None,
+      dest='async_',
       help='Invoke a test asynchronously without waiting for test results.')
   parser.add_argument(
       '--num-flaky-test-attempts',
@@ -333,8 +335,7 @@ def AddIosTestArgs(parser):
   parser.add_argument(
       '--type',
       category=base.COMMONLY_USED_FLAGS,
-      hidden=True,
-      choices=['xctest'],
+      choices=['xctest', 'game-loop'],
       help='The type of iOS test to run.')
   parser.add_argument(
       '--test',
@@ -482,6 +483,34 @@ def AddAndroidBetaArgs(parser):
       """)
 
 
+def AddIosBetaArgs(parser):
+  """Register args which are only available in the iOS beta run command.
+
+  Args:
+    parser: An argparse parser used to add args that follow a command.
+  """
+
+  # The following args are specific to iOS game-loop tests.
+
+  parser.add_argument(
+      '--scenario-numbers',
+      metavar='int',
+      type=arg_parsers.ArgList(element_type=int, min_length=1, max_length=1024),
+      help='A list of game-loop scenario numbers which will be run as part of '
+           'the test (default: scenario 1). A maximum of 1024 scenarios may be '
+           'specified in one test matrix, but the maximum number may also be '
+           'limited by the overall test *--timeout* setting. This flag is only '
+           'valid when *--type=game-loop* is also set.'
+  )
+  parser.add_argument(
+      '--app',
+      help='The path to the application archive (.ipa file) for game-loop '
+           'testing. The path may be in the local filesystem or in Google '
+           'Cloud Storage using gs:// notation. This flag is only valid when '
+           '*--type=game-loop* is also set.'
+  )
+
+
 def AddMatrixArgs(parser):
   """Register the repeatable args which define the axes for a test matrix.
 
@@ -605,7 +634,7 @@ def ApplyLowerPriorityArgs(args, lower_pri_args, issue_cli_warning=False):
   for arg in lower_pri_args:
     if getattr(args, arg, None) is None:
       log.debug('Applying default {0}: {1}'
-                .format(arg, str(lower_pri_args[arg])))
+                .format(arg, six.text_type(lower_pri_args[arg])))
       setattr(args, arg, lower_pri_args[arg])
     elif issue_cli_warning and getattr(args, arg) != lower_pri_args[arg]:
       ext_name = exceptions.ExternalArgNameFrom(arg)
@@ -620,4 +649,4 @@ def _FormatArgValue(value):
   if isinstance(value, list):
     return ' '.join(value)
   else:
-    return str(value)
+    return six.text_type(value)

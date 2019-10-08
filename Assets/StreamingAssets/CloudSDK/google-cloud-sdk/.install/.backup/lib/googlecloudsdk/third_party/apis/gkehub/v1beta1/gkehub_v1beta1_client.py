@@ -35,167 +35,10 @@ class GkehubV1beta1(base_api.BaseApiClient):
         default_global_params=default_global_params,
         additional_http_headers=additional_http_headers,
         response_encoding=response_encoding)
-    self.projects_locations_global_memberships = self.ProjectsLocationsGlobalMembershipsService(self)
-    self.projects_locations_global = self.ProjectsLocationsGlobalService(self)
     self.projects_locations_memberships = self.ProjectsLocationsMembershipsService(self)
     self.projects_locations_operations = self.ProjectsLocationsOperationsService(self)
     self.projects_locations = self.ProjectsLocationsService(self)
     self.projects = self.ProjectsService(self)
-
-  class ProjectsLocationsGlobalMembershipsService(base_api.BaseApiService):
-    """Service class for the projects_locations_global_memberships resource."""
-
-    _NAME = u'projects_locations_global_memberships'
-
-    def __init__(self, client):
-      super(GkehubV1beta1.ProjectsLocationsGlobalMembershipsService, self).__init__(client)
-      self._upload_configs = {
-          }
-
-    def Create(self, request, global_params=None):
-      r"""Adds a new Membership.
-
-      Args:
-        request: (GkehubProjectsLocationsGlobalMembershipsCreateRequest) input message
-        global_params: (StandardQueryParameters, default: None) global arguments
-      Returns:
-        (Operation) The response message.
-      """
-      config = self.GetMethodConfig('Create')
-      return self._RunMethod(
-          config, request, global_params=global_params)
-
-    Create.method_config = lambda: base_api.ApiMethodInfo(
-        flat_path=u'v1beta1/projects/{projectsId}/locations/global/memberships',
-        http_method=u'POST',
-        method_id=u'gkehub.projects.locations.global.memberships.create',
-        ordered_params=[u'parent'],
-        path_params=[u'parent'],
-        query_params=[u'membershipId'],
-        relative_path=u'v1beta1/{+parent}/memberships',
-        request_field=u'membership',
-        request_type_name=u'GkehubProjectsLocationsGlobalMembershipsCreateRequest',
-        response_type_name=u'Operation',
-        supports_download=False,
-    )
-
-    def Delete(self, request, global_params=None):
-      r"""Removes a single Membership.
-
-      Args:
-        request: (GkehubProjectsLocationsGlobalMembershipsDeleteRequest) input message
-        global_params: (StandardQueryParameters, default: None) global arguments
-      Returns:
-        (Operation) The response message.
-      """
-      config = self.GetMethodConfig('Delete')
-      return self._RunMethod(
-          config, request, global_params=global_params)
-
-    Delete.method_config = lambda: base_api.ApiMethodInfo(
-        flat_path=u'v1beta1/projects/{projectsId}/locations/global/memberships/{membershipsId}',
-        http_method=u'DELETE',
-        method_id=u'gkehub.projects.locations.global.memberships.delete',
-        ordered_params=[u'name'],
-        path_params=[u'name'],
-        query_params=[],
-        relative_path=u'v1beta1/{+name}',
-        request_field='',
-        request_type_name=u'GkehubProjectsLocationsGlobalMembershipsDeleteRequest',
-        response_type_name=u'Operation',
-        supports_download=False,
-    )
-
-    def Get(self, request, global_params=None):
-      r"""Gets details of a single Membership.
-
-      Args:
-        request: (GkehubProjectsLocationsGlobalMembershipsGetRequest) input message
-        global_params: (StandardQueryParameters, default: None) global arguments
-      Returns:
-        (Membership) The response message.
-      """
-      config = self.GetMethodConfig('Get')
-      return self._RunMethod(
-          config, request, global_params=global_params)
-
-    Get.method_config = lambda: base_api.ApiMethodInfo(
-        flat_path=u'v1beta1/projects/{projectsId}/locations/global/memberships/{membershipsId}',
-        http_method=u'GET',
-        method_id=u'gkehub.projects.locations.global.memberships.get',
-        ordered_params=[u'name'],
-        path_params=[u'name'],
-        query_params=[],
-        relative_path=u'v1beta1/{+name}',
-        request_field='',
-        request_type_name=u'GkehubProjectsLocationsGlobalMembershipsGetRequest',
-        response_type_name=u'Membership',
-        supports_download=False,
-    )
-
-    def List(self, request, global_params=None):
-      r"""Lists Memberships in a given project and location.
-
-      Args:
-        request: (GkehubProjectsLocationsGlobalMembershipsListRequest) input message
-        global_params: (StandardQueryParameters, default: None) global arguments
-      Returns:
-        (ListMembershipsResponse) The response message.
-      """
-      config = self.GetMethodConfig('List')
-      return self._RunMethod(
-          config, request, global_params=global_params)
-
-    List.method_config = lambda: base_api.ApiMethodInfo(
-        flat_path=u'v1beta1/projects/{projectsId}/locations/global/memberships',
-        http_method=u'GET',
-        method_id=u'gkehub.projects.locations.global.memberships.list',
-        ordered_params=[u'parent'],
-        path_params=[u'parent'],
-        query_params=[u'filter', u'orderBy', u'pageSize', u'pageToken'],
-        relative_path=u'v1beta1/{+parent}/memberships',
-        request_field='',
-        request_type_name=u'GkehubProjectsLocationsGlobalMembershipsListRequest',
-        response_type_name=u'ListMembershipsResponse',
-        supports_download=False,
-    )
-
-    def Patch(self, request, global_params=None):
-      r"""Updates an existing Membership.
-
-      Args:
-        request: (GkehubProjectsLocationsGlobalMembershipsPatchRequest) input message
-        global_params: (StandardQueryParameters, default: None) global arguments
-      Returns:
-        (Operation) The response message.
-      """
-      config = self.GetMethodConfig('Patch')
-      return self._RunMethod(
-          config, request, global_params=global_params)
-
-    Patch.method_config = lambda: base_api.ApiMethodInfo(
-        flat_path=u'v1beta1/projects/{projectsId}/locations/global/memberships/{membershipsId}',
-        http_method=u'PATCH',
-        method_id=u'gkehub.projects.locations.global.memberships.patch',
-        ordered_params=[u'name'],
-        path_params=[u'name'],
-        query_params=[u'updateMask'],
-        relative_path=u'v1beta1/{+name}',
-        request_field=u'membership',
-        request_type_name=u'GkehubProjectsLocationsGlobalMembershipsPatchRequest',
-        response_type_name=u'Operation',
-        supports_download=False,
-    )
-
-  class ProjectsLocationsGlobalService(base_api.BaseApiService):
-    """Service class for the projects_locations_global resource."""
-
-    _NAME = u'projects_locations_global'
-
-    def __init__(self, client):
-      super(GkehubV1beta1.ProjectsLocationsGlobalService, self).__init__(client)
-      self._upload_configs = {
-          }
 
   class ProjectsLocationsMembershipsService(base_api.BaseApiService):
     """Service class for the projects_locations_memberships resource."""
@@ -206,6 +49,114 @@ class GkehubV1beta1(base_api.BaseApiClient):
       super(GkehubV1beta1.ProjectsLocationsMembershipsService, self).__init__(client)
       self._upload_configs = {
           }
+
+    def Create(self, request, global_params=None):
+      r"""Adds a new Membership.
+
+      Args:
+        request: (GkehubProjectsLocationsMembershipsCreateRequest) input message
+        global_params: (StandardQueryParameters, default: None) global arguments
+      Returns:
+        (Operation) The response message.
+      """
+      config = self.GetMethodConfig('Create')
+      return self._RunMethod(
+          config, request, global_params=global_params)
+
+    Create.method_config = lambda: base_api.ApiMethodInfo(
+        flat_path=u'v1beta1/projects/{projectsId}/locations/{locationsId}/memberships',
+        http_method=u'POST',
+        method_id=u'gkehub.projects.locations.memberships.create',
+        ordered_params=[u'parent'],
+        path_params=[u'parent'],
+        query_params=[u'membershipId'],
+        relative_path=u'v1beta1/{+parent}/memberships',
+        request_field=u'membership',
+        request_type_name=u'GkehubProjectsLocationsMembershipsCreateRequest',
+        response_type_name=u'Operation',
+        supports_download=False,
+    )
+
+    def Delete(self, request, global_params=None):
+      r"""Removes a single Membership.
+
+      Args:
+        request: (GkehubProjectsLocationsMembershipsDeleteRequest) input message
+        global_params: (StandardQueryParameters, default: None) global arguments
+      Returns:
+        (Operation) The response message.
+      """
+      config = self.GetMethodConfig('Delete')
+      return self._RunMethod(
+          config, request, global_params=global_params)
+
+    Delete.method_config = lambda: base_api.ApiMethodInfo(
+        flat_path=u'v1beta1/projects/{projectsId}/locations/{locationsId}/memberships/{membershipsId}',
+        http_method=u'DELETE',
+        method_id=u'gkehub.projects.locations.memberships.delete',
+        ordered_params=[u'name'],
+        path_params=[u'name'],
+        query_params=[],
+        relative_path=u'v1beta1/{+name}',
+        request_field='',
+        request_type_name=u'GkehubProjectsLocationsMembershipsDeleteRequest',
+        response_type_name=u'Operation',
+        supports_download=False,
+    )
+
+    def GenerateConnectManifest(self, request, global_params=None):
+      r"""Generate the manifest for deployment of GKE connect agent.
+
+      Args:
+        request: (GkehubProjectsLocationsMembershipsGenerateConnectManifestRequest) input message
+        global_params: (StandardQueryParameters, default: None) global arguments
+      Returns:
+        (GenerateConnectManifestResponse) The response message.
+      """
+      config = self.GetMethodConfig('GenerateConnectManifest')
+      return self._RunMethod(
+          config, request, global_params=global_params)
+
+    GenerateConnectManifest.method_config = lambda: base_api.ApiMethodInfo(
+        flat_path=u'v1beta1/projects/{projectsId}/locations/{locationsId}/memberships/{membershipsId}:generateConnectManifest',
+        http_method=u'GET',
+        method_id=u'gkehub.projects.locations.memberships.generateConnectManifest',
+        ordered_params=[u'name'],
+        path_params=[u'name'],
+        query_params=[u'connectAgent_name', u'connectAgent_namespace', u'connectAgent_proxy', u'imagePullSecretContent', u'isUpgrade', u'registry', u'version'],
+        relative_path=u'v1beta1/{+name}:generateConnectManifest',
+        request_field='',
+        request_type_name=u'GkehubProjectsLocationsMembershipsGenerateConnectManifestRequest',
+        response_type_name=u'GenerateConnectManifestResponse',
+        supports_download=False,
+    )
+
+    def Get(self, request, global_params=None):
+      r"""Gets details of a single Membership.
+
+      Args:
+        request: (GkehubProjectsLocationsMembershipsGetRequest) input message
+        global_params: (StandardQueryParameters, default: None) global arguments
+      Returns:
+        (Membership) The response message.
+      """
+      config = self.GetMethodConfig('Get')
+      return self._RunMethod(
+          config, request, global_params=global_params)
+
+    Get.method_config = lambda: base_api.ApiMethodInfo(
+        flat_path=u'v1beta1/projects/{projectsId}/locations/{locationsId}/memberships/{membershipsId}',
+        http_method=u'GET',
+        method_id=u'gkehub.projects.locations.memberships.get',
+        ordered_params=[u'name'],
+        path_params=[u'name'],
+        query_params=[],
+        relative_path=u'v1beta1/{+name}',
+        request_field='',
+        request_type_name=u'GkehubProjectsLocationsMembershipsGetRequest',
+        response_type_name=u'Membership',
+        supports_download=False,
+    )
 
     def GetIamPolicy(self, request, global_params=None):
       r"""Gets the access control policy for a resource.
@@ -228,7 +179,7 @@ set.
         method_id=u'gkehub.projects.locations.memberships.getIamPolicy',
         ordered_params=[u'resource'],
         path_params=[u'resource'],
-        query_params=[],
+        query_params=[u'options_requestedPolicyVersion'],
         relative_path=u'v1beta1/{+resource}:getIamPolicy',
         request_field='',
         request_type_name=u'GkehubProjectsLocationsMembershipsGetIamPolicyRequest',
@@ -236,9 +187,65 @@ set.
         supports_download=False,
     )
 
+    def List(self, request, global_params=None):
+      r"""Lists Memberships in a given project and location.
+
+      Args:
+        request: (GkehubProjectsLocationsMembershipsListRequest) input message
+        global_params: (StandardQueryParameters, default: None) global arguments
+      Returns:
+        (ListMembershipsResponse) The response message.
+      """
+      config = self.GetMethodConfig('List')
+      return self._RunMethod(
+          config, request, global_params=global_params)
+
+    List.method_config = lambda: base_api.ApiMethodInfo(
+        flat_path=u'v1beta1/projects/{projectsId}/locations/{locationsId}/memberships',
+        http_method=u'GET',
+        method_id=u'gkehub.projects.locations.memberships.list',
+        ordered_params=[u'parent'],
+        path_params=[u'parent'],
+        query_params=[u'filter', u'orderBy', u'pageSize', u'pageToken'],
+        relative_path=u'v1beta1/{+parent}/memberships',
+        request_field='',
+        request_type_name=u'GkehubProjectsLocationsMembershipsListRequest',
+        response_type_name=u'ListMembershipsResponse',
+        supports_download=False,
+    )
+
+    def Patch(self, request, global_params=None):
+      r"""Updates an existing Membership.
+
+      Args:
+        request: (GkehubProjectsLocationsMembershipsPatchRequest) input message
+        global_params: (StandardQueryParameters, default: None) global arguments
+      Returns:
+        (Operation) The response message.
+      """
+      config = self.GetMethodConfig('Patch')
+      return self._RunMethod(
+          config, request, global_params=global_params)
+
+    Patch.method_config = lambda: base_api.ApiMethodInfo(
+        flat_path=u'v1beta1/projects/{projectsId}/locations/{locationsId}/memberships/{membershipsId}',
+        http_method=u'PATCH',
+        method_id=u'gkehub.projects.locations.memberships.patch',
+        ordered_params=[u'name'],
+        path_params=[u'name'],
+        query_params=[u'updateMask'],
+        relative_path=u'v1beta1/{+name}',
+        request_field=u'membership',
+        request_type_name=u'GkehubProjectsLocationsMembershipsPatchRequest',
+        response_type_name=u'Operation',
+        supports_download=False,
+    )
+
     def SetIamPolicy(self, request, global_params=None):
       r"""Sets the access control policy on the specified resource. Replaces any.
 existing policy.
+
+Can return Public Errors: NOT_FOUND, INVALID_ARGUMENT and PERMISSION_DENIED
 
       Args:
         request: (GkehubProjectsLocationsMembershipsSetIamPolicyRequest) input message

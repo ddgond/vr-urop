@@ -17,7 +17,7 @@
 import enum
 
 
-BASE_URL = 'https://www.googleapis.com/compute/alpha/'
+BASE_URL = 'https://compute.googleapis.com/compute/alpha/'
 DOCS_URL = 'https://developers.google.com/compute/docs/reference/latest/'
 
 
@@ -127,6 +127,14 @@ class Collections(enum.Enum):
       'projects/locations/global/operations/{operation}',
       {},
       [u'operation'],
+      True
+  )
+  GLOBALPUBLICDELEGATEDPREFIXES = (
+      'globalPublicDelegatedPrefixes',
+      'projects/{project}/global/publicDelegatedPrefixes/'
+      '{publicDelegatedPrefix}',
+      {},
+      [u'project', u'publicDelegatedPrefix'],
       True
   )
   HEALTHCHECKS = (
@@ -286,11 +294,34 @@ class Collections(enum.Enum):
       [u'securityPolicy'],
       True
   )
+  PACKETMIRRORINGS = (
+      'packetMirrorings',
+      'projects/{project}/regions/{region}/packetMirrorings/{packetMirroring}',
+      {},
+      [u'project', u'region', u'packetMirroring'],
+      True
+  )
   PROJECTS = (
       'projects',
       'projects/{project}',
       {},
       [u'project'],
+      True
+  )
+  PUBLICADVERTISEDPREFIXES = (
+      'publicAdvertisedPrefixes',
+      'projects/{project}/global/publicAdvertisedPrefixes/'
+      '{publicAdvertisedPrefix}',
+      {},
+      [u'project', u'publicAdvertisedPrefix'],
+      True
+  )
+  PUBLICDELEGATEDPREFIXES = (
+      'publicDelegatedPrefixes',
+      'projects/{project}/regions/{region}/publicDelegatedPrefixes/'
+      '{publicDelegatedPrefix}',
+      {},
+      [u'project', u'region', u'publicDelegatedPrefix'],
       True
   )
   REGIONAUTOSCALERS = (

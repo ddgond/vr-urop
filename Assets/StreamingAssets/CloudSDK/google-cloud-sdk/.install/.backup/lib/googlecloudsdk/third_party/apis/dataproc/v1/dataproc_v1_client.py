@@ -56,6 +56,87 @@ class DataprocV1(base_api.BaseApiClient):
       self._upload_configs = {
           }
 
+    def Create(self, request, global_params=None):
+      r"""Creates new autoscaling policy.
+
+      Args:
+        request: (DataprocProjectsLocationsAutoscalingPoliciesCreateRequest) input message
+        global_params: (StandardQueryParameters, default: None) global arguments
+      Returns:
+        (AutoscalingPolicy) The response message.
+      """
+      config = self.GetMethodConfig('Create')
+      return self._RunMethod(
+          config, request, global_params=global_params)
+
+    Create.method_config = lambda: base_api.ApiMethodInfo(
+        flat_path=u'v1/projects/{projectsId}/locations/{locationsId}/autoscalingPolicies',
+        http_method=u'POST',
+        method_id=u'dataproc.projects.locations.autoscalingPolicies.create',
+        ordered_params=[u'parent'],
+        path_params=[u'parent'],
+        query_params=[],
+        relative_path=u'v1/{+parent}/autoscalingPolicies',
+        request_field=u'autoscalingPolicy',
+        request_type_name=u'DataprocProjectsLocationsAutoscalingPoliciesCreateRequest',
+        response_type_name=u'AutoscalingPolicy',
+        supports_download=False,
+    )
+
+    def Delete(self, request, global_params=None):
+      r"""Deletes an autoscaling policy. It is an error to delete an autoscaling policy that is in use by one or more clusters.
+
+      Args:
+        request: (DataprocProjectsLocationsAutoscalingPoliciesDeleteRequest) input message
+        global_params: (StandardQueryParameters, default: None) global arguments
+      Returns:
+        (Empty) The response message.
+      """
+      config = self.GetMethodConfig('Delete')
+      return self._RunMethod(
+          config, request, global_params=global_params)
+
+    Delete.method_config = lambda: base_api.ApiMethodInfo(
+        flat_path=u'v1/projects/{projectsId}/locations/{locationsId}/autoscalingPolicies/{autoscalingPoliciesId}',
+        http_method=u'DELETE',
+        method_id=u'dataproc.projects.locations.autoscalingPolicies.delete',
+        ordered_params=[u'name'],
+        path_params=[u'name'],
+        query_params=[],
+        relative_path=u'v1/{+name}',
+        request_field='',
+        request_type_name=u'DataprocProjectsLocationsAutoscalingPoliciesDeleteRequest',
+        response_type_name=u'Empty',
+        supports_download=False,
+    )
+
+    def Get(self, request, global_params=None):
+      r"""Retrieves autoscaling policy.
+
+      Args:
+        request: (DataprocProjectsLocationsAutoscalingPoliciesGetRequest) input message
+        global_params: (StandardQueryParameters, default: None) global arguments
+      Returns:
+        (AutoscalingPolicy) The response message.
+      """
+      config = self.GetMethodConfig('Get')
+      return self._RunMethod(
+          config, request, global_params=global_params)
+
+    Get.method_config = lambda: base_api.ApiMethodInfo(
+        flat_path=u'v1/projects/{projectsId}/locations/{locationsId}/autoscalingPolicies/{autoscalingPoliciesId}',
+        http_method=u'GET',
+        method_id=u'dataproc.projects.locations.autoscalingPolicies.get',
+        ordered_params=[u'name'],
+        path_params=[u'name'],
+        query_params=[],
+        relative_path=u'v1/{+name}',
+        request_field='',
+        request_type_name=u'DataprocProjectsLocationsAutoscalingPoliciesGetRequest',
+        response_type_name=u'AutoscalingPolicy',
+        supports_download=False,
+    )
+
     def GetIamPolicy(self, request, global_params=None):
       r"""Gets the access control policy for a resource. Returns an empty policy if the resource exists and does not have a policy set.
 
@@ -83,8 +164,35 @@ class DataprocV1(base_api.BaseApiClient):
         supports_download=False,
     )
 
+    def List(self, request, global_params=None):
+      r"""Lists autoscaling policies in the project.
+
+      Args:
+        request: (DataprocProjectsLocationsAutoscalingPoliciesListRequest) input message
+        global_params: (StandardQueryParameters, default: None) global arguments
+      Returns:
+        (ListAutoscalingPoliciesResponse) The response message.
+      """
+      config = self.GetMethodConfig('List')
+      return self._RunMethod(
+          config, request, global_params=global_params)
+
+    List.method_config = lambda: base_api.ApiMethodInfo(
+        flat_path=u'v1/projects/{projectsId}/locations/{locationsId}/autoscalingPolicies',
+        http_method=u'GET',
+        method_id=u'dataproc.projects.locations.autoscalingPolicies.list',
+        ordered_params=[u'parent'],
+        path_params=[u'parent'],
+        query_params=[u'pageSize', u'pageToken'],
+        relative_path=u'v1/{+parent}/autoscalingPolicies',
+        request_field='',
+        request_type_name=u'DataprocProjectsLocationsAutoscalingPoliciesListRequest',
+        response_type_name=u'ListAutoscalingPoliciesResponse',
+        supports_download=False,
+    )
+
     def SetIamPolicy(self, request, global_params=None):
-      r"""Sets the access control policy on the specified resource. Replaces any existing policy.
+      r"""Sets the access control policy on the specified resource. Replaces any existing policy.Can return Public Errors: NOT_FOUND, INVALID_ARGUMENT and PERMISSION_DENIED.
 
       Args:
         request: (DataprocProjectsLocationsAutoscalingPoliciesSetIamPolicyRequest) input message
@@ -134,6 +242,33 @@ class DataprocV1(base_api.BaseApiClient):
         request_field=u'testIamPermissionsRequest',
         request_type_name=u'DataprocProjectsLocationsAutoscalingPoliciesTestIamPermissionsRequest',
         response_type_name=u'TestIamPermissionsResponse',
+        supports_download=False,
+    )
+
+    def Update(self, request, global_params=None):
+      r"""Updates (replaces) autoscaling policy.Disabled check for update_mask, because all updates will be full replacements.
+
+      Args:
+        request: (AutoscalingPolicy) input message
+        global_params: (StandardQueryParameters, default: None) global arguments
+      Returns:
+        (AutoscalingPolicy) The response message.
+      """
+      config = self.GetMethodConfig('Update')
+      return self._RunMethod(
+          config, request, global_params=global_params)
+
+    Update.method_config = lambda: base_api.ApiMethodInfo(
+        flat_path=u'v1/projects/{projectsId}/locations/{locationsId}/autoscalingPolicies/{autoscalingPoliciesId}',
+        http_method=u'PUT',
+        method_id=u'dataproc.projects.locations.autoscalingPolicies.update',
+        ordered_params=[u'name'],
+        path_params=[u'name'],
+        query_params=[],
+        relative_path=u'v1/{+name}',
+        request_field='<request>',
+        request_type_name=u'AutoscalingPolicy',
+        response_type_name=u'AutoscalingPolicy',
         supports_download=False,
     )
 
@@ -256,7 +391,7 @@ class DataprocV1(base_api.BaseApiClient):
     )
 
     def Instantiate(self, request, global_params=None):
-      r"""Instantiates a template and begins execution.The returned Operation can be used to track execution of workflow by polling operations.get. The Operation will complete when entire workflow is finished.The running workflow can be aborted via operations.cancel. This will cause any inflight jobs to be cancelled and workflow-owned clusters to be deleted.The Operation.metadata will be WorkflowMetadata.On successful completion, Operation.response will be Empty.
+      r"""Instantiates a template and begins execution.The returned Operation can be used to track execution of workflow by polling operations.get. The Operation will complete when entire workflow is finished.The running workflow can be aborted via operations.cancel. This will cause any inflight jobs to be cancelled and workflow-owned clusters to be deleted.The Operation.metadata will be WorkflowMetadata. Also see Using WorkflowMetadata.On successful completion, Operation.response will be Empty.
 
       Args:
         request: (DataprocProjectsLocationsWorkflowTemplatesInstantiateRequest) input message
@@ -283,7 +418,7 @@ class DataprocV1(base_api.BaseApiClient):
     )
 
     def InstantiateInline(self, request, global_params=None):
-      r"""Instantiates a template and begins execution.This method is equivalent to executing the sequence CreateWorkflowTemplate, InstantiateWorkflowTemplate, DeleteWorkflowTemplate.The returned Operation can be used to track execution of workflow by polling operations.get. The Operation will complete when entire workflow is finished.The running workflow can be aborted via operations.cancel. This will cause any inflight jobs to be cancelled and workflow-owned clusters to be deleted.The Operation.metadata will be WorkflowMetadata.On successful completion, Operation.response will be Empty.
+      r"""Instantiates a template and begins execution.This method is equivalent to executing the sequence CreateWorkflowTemplate, InstantiateWorkflowTemplate, DeleteWorkflowTemplate.The returned Operation can be used to track execution of workflow by polling operations.get. The Operation will complete when entire workflow is finished.The running workflow can be aborted via operations.cancel. This will cause any inflight jobs to be cancelled and workflow-owned clusters to be deleted.The Operation.metadata will be WorkflowMetadata. Also see Using WorkflowMetadata.On successful completion, Operation.response will be Empty.
 
       Args:
         request: (DataprocProjectsLocationsWorkflowTemplatesInstantiateInlineRequest) input message
@@ -337,7 +472,7 @@ class DataprocV1(base_api.BaseApiClient):
     )
 
     def SetIamPolicy(self, request, global_params=None):
-      r"""Sets the access control policy on the specified resource. Replaces any existing policy.
+      r"""Sets the access control policy on the specified resource. Replaces any existing policy.Can return Public Errors: NOT_FOUND, INVALID_ARGUMENT and PERMISSION_DENIED.
 
       Args:
         request: (DataprocProjectsLocationsWorkflowTemplatesSetIamPolicyRequest) input message
@@ -437,6 +572,87 @@ class DataprocV1(base_api.BaseApiClient):
       self._upload_configs = {
           }
 
+    def Create(self, request, global_params=None):
+      r"""Creates new autoscaling policy.
+
+      Args:
+        request: (DataprocProjectsRegionsAutoscalingPoliciesCreateRequest) input message
+        global_params: (StandardQueryParameters, default: None) global arguments
+      Returns:
+        (AutoscalingPolicy) The response message.
+      """
+      config = self.GetMethodConfig('Create')
+      return self._RunMethod(
+          config, request, global_params=global_params)
+
+    Create.method_config = lambda: base_api.ApiMethodInfo(
+        flat_path=u'v1/projects/{projectsId}/regions/{regionsId}/autoscalingPolicies',
+        http_method=u'POST',
+        method_id=u'dataproc.projects.regions.autoscalingPolicies.create',
+        ordered_params=[u'parent'],
+        path_params=[u'parent'],
+        query_params=[],
+        relative_path=u'v1/{+parent}/autoscalingPolicies',
+        request_field=u'autoscalingPolicy',
+        request_type_name=u'DataprocProjectsRegionsAutoscalingPoliciesCreateRequest',
+        response_type_name=u'AutoscalingPolicy',
+        supports_download=False,
+    )
+
+    def Delete(self, request, global_params=None):
+      r"""Deletes an autoscaling policy. It is an error to delete an autoscaling policy that is in use by one or more clusters.
+
+      Args:
+        request: (DataprocProjectsRegionsAutoscalingPoliciesDeleteRequest) input message
+        global_params: (StandardQueryParameters, default: None) global arguments
+      Returns:
+        (Empty) The response message.
+      """
+      config = self.GetMethodConfig('Delete')
+      return self._RunMethod(
+          config, request, global_params=global_params)
+
+    Delete.method_config = lambda: base_api.ApiMethodInfo(
+        flat_path=u'v1/projects/{projectsId}/regions/{regionsId}/autoscalingPolicies/{autoscalingPoliciesId}',
+        http_method=u'DELETE',
+        method_id=u'dataproc.projects.regions.autoscalingPolicies.delete',
+        ordered_params=[u'name'],
+        path_params=[u'name'],
+        query_params=[],
+        relative_path=u'v1/{+name}',
+        request_field='',
+        request_type_name=u'DataprocProjectsRegionsAutoscalingPoliciesDeleteRequest',
+        response_type_name=u'Empty',
+        supports_download=False,
+    )
+
+    def Get(self, request, global_params=None):
+      r"""Retrieves autoscaling policy.
+
+      Args:
+        request: (DataprocProjectsRegionsAutoscalingPoliciesGetRequest) input message
+        global_params: (StandardQueryParameters, default: None) global arguments
+      Returns:
+        (AutoscalingPolicy) The response message.
+      """
+      config = self.GetMethodConfig('Get')
+      return self._RunMethod(
+          config, request, global_params=global_params)
+
+    Get.method_config = lambda: base_api.ApiMethodInfo(
+        flat_path=u'v1/projects/{projectsId}/regions/{regionsId}/autoscalingPolicies/{autoscalingPoliciesId}',
+        http_method=u'GET',
+        method_id=u'dataproc.projects.regions.autoscalingPolicies.get',
+        ordered_params=[u'name'],
+        path_params=[u'name'],
+        query_params=[],
+        relative_path=u'v1/{+name}',
+        request_field='',
+        request_type_name=u'DataprocProjectsRegionsAutoscalingPoliciesGetRequest',
+        response_type_name=u'AutoscalingPolicy',
+        supports_download=False,
+    )
+
     def GetIamPolicy(self, request, global_params=None):
       r"""Gets the access control policy for a resource. Returns an empty policy if the resource exists and does not have a policy set.
 
@@ -464,8 +680,35 @@ class DataprocV1(base_api.BaseApiClient):
         supports_download=False,
     )
 
+    def List(self, request, global_params=None):
+      r"""Lists autoscaling policies in the project.
+
+      Args:
+        request: (DataprocProjectsRegionsAutoscalingPoliciesListRequest) input message
+        global_params: (StandardQueryParameters, default: None) global arguments
+      Returns:
+        (ListAutoscalingPoliciesResponse) The response message.
+      """
+      config = self.GetMethodConfig('List')
+      return self._RunMethod(
+          config, request, global_params=global_params)
+
+    List.method_config = lambda: base_api.ApiMethodInfo(
+        flat_path=u'v1/projects/{projectsId}/regions/{regionsId}/autoscalingPolicies',
+        http_method=u'GET',
+        method_id=u'dataproc.projects.regions.autoscalingPolicies.list',
+        ordered_params=[u'parent'],
+        path_params=[u'parent'],
+        query_params=[u'pageSize', u'pageToken'],
+        relative_path=u'v1/{+parent}/autoscalingPolicies',
+        request_field='',
+        request_type_name=u'DataprocProjectsRegionsAutoscalingPoliciesListRequest',
+        response_type_name=u'ListAutoscalingPoliciesResponse',
+        supports_download=False,
+    )
+
     def SetIamPolicy(self, request, global_params=None):
-      r"""Sets the access control policy on the specified resource. Replaces any existing policy.
+      r"""Sets the access control policy on the specified resource. Replaces any existing policy.Can return Public Errors: NOT_FOUND, INVALID_ARGUMENT and PERMISSION_DENIED.
 
       Args:
         request: (DataprocProjectsRegionsAutoscalingPoliciesSetIamPolicyRequest) input message
@@ -518,6 +761,33 @@ class DataprocV1(base_api.BaseApiClient):
         supports_download=False,
     )
 
+    def Update(self, request, global_params=None):
+      r"""Updates (replaces) autoscaling policy.Disabled check for update_mask, because all updates will be full replacements.
+
+      Args:
+        request: (AutoscalingPolicy) input message
+        global_params: (StandardQueryParameters, default: None) global arguments
+      Returns:
+        (AutoscalingPolicy) The response message.
+      """
+      config = self.GetMethodConfig('Update')
+      return self._RunMethod(
+          config, request, global_params=global_params)
+
+    Update.method_config = lambda: base_api.ApiMethodInfo(
+        flat_path=u'v1/projects/{projectsId}/regions/{regionsId}/autoscalingPolicies/{autoscalingPoliciesId}',
+        http_method=u'PUT',
+        method_id=u'dataproc.projects.regions.autoscalingPolicies.update',
+        ordered_params=[u'name'],
+        path_params=[u'name'],
+        query_params=[],
+        relative_path=u'v1/{+name}',
+        request_field='<request>',
+        request_type_name=u'AutoscalingPolicy',
+        response_type_name=u'AutoscalingPolicy',
+        supports_download=False,
+    )
+
   class ProjectsRegionsClustersService(base_api.BaseApiService):
     """Service class for the projects_regions_clusters resource."""
 
@@ -529,7 +799,7 @@ class DataprocV1(base_api.BaseApiClient):
           }
 
     def Create(self, request, global_params=None):
-      r"""Creates a cluster in a project.
+      r"""Creates a cluster in a project. The returned Operation.metadata will be ClusterOperationMetadata.
 
       Args:
         request: (DataprocProjectsRegionsClustersCreateRequest) input message
@@ -555,7 +825,7 @@ class DataprocV1(base_api.BaseApiClient):
     )
 
     def Delete(self, request, global_params=None):
-      r"""Deletes a cluster in a project.
+      r"""Deletes a cluster in a project. The returned Operation.metadata will be ClusterOperationMetadata.
 
       Args:
         request: (DataprocProjectsRegionsClustersDeleteRequest) input message
@@ -581,7 +851,7 @@ class DataprocV1(base_api.BaseApiClient):
     )
 
     def Diagnose(self, request, global_params=None):
-      r"""Gets cluster diagnostic information. After the operation completes, the Operation.response field contains DiagnoseClusterOutputLocation.
+      r"""Gets cluster diagnostic information. The returned Operation.metadata will be ClusterOperationMetadata. After the operation completes, Operation.response contains DiagnoseClusterResults.
 
       Args:
         request: (DataprocProjectsRegionsClustersDiagnoseRequest) input message
@@ -686,7 +956,7 @@ class DataprocV1(base_api.BaseApiClient):
     )
 
     def Patch(self, request, global_params=None):
-      r"""Updates a cluster in a project.
+      r"""Updates a cluster in a project. The returned Operation.metadata will be ClusterOperationMetadata.
 
       Args:
         request: (DataprocProjectsRegionsClustersPatchRequest) input message
@@ -712,7 +982,7 @@ class DataprocV1(base_api.BaseApiClient):
     )
 
     def SetIamPolicy(self, request, global_params=None):
-      r"""Sets the access control policy on the specified resource. Replaces any existing policy.
+      r"""Sets the access control policy on the specified resource. Replaces any existing policy.Can return Public Errors: NOT_FOUND, INVALID_ARGUMENT and PERMISSION_DENIED.
 
       Args:
         request: (DataprocProjectsRegionsClustersSetIamPolicyRequest) input message
@@ -933,7 +1203,7 @@ class DataprocV1(base_api.BaseApiClient):
     )
 
     def SetIamPolicy(self, request, global_params=None):
-      r"""Sets the access control policy on the specified resource. Replaces any existing policy.
+      r"""Sets the access control policy on the specified resource. Replaces any existing policy.Can return Public Errors: NOT_FOUND, INVALID_ARGUMENT and PERMISSION_DENIED.
 
       Args:
         request: (DataprocProjectsRegionsJobsSetIamPolicyRequest) input message
@@ -1158,7 +1428,7 @@ class DataprocV1(base_api.BaseApiClient):
     )
 
     def SetIamPolicy(self, request, global_params=None):
-      r"""Sets the access control policy on the specified resource. Replaces any existing policy.
+      r"""Sets the access control policy on the specified resource. Replaces any existing policy.Can return Public Errors: NOT_FOUND, INVALID_ARGUMENT and PERMISSION_DENIED.
 
       Args:
         request: (DataprocProjectsRegionsOperationsSetIamPolicyRequest) input message
@@ -1330,7 +1600,7 @@ class DataprocV1(base_api.BaseApiClient):
     )
 
     def Instantiate(self, request, global_params=None):
-      r"""Instantiates a template and begins execution.The returned Operation can be used to track execution of workflow by polling operations.get. The Operation will complete when entire workflow is finished.The running workflow can be aborted via operations.cancel. This will cause any inflight jobs to be cancelled and workflow-owned clusters to be deleted.The Operation.metadata will be WorkflowMetadata.On successful completion, Operation.response will be Empty.
+      r"""Instantiates a template and begins execution.The returned Operation can be used to track execution of workflow by polling operations.get. The Operation will complete when entire workflow is finished.The running workflow can be aborted via operations.cancel. This will cause any inflight jobs to be cancelled and workflow-owned clusters to be deleted.The Operation.metadata will be WorkflowMetadata. Also see Using WorkflowMetadata.On successful completion, Operation.response will be Empty.
 
       Args:
         request: (DataprocProjectsRegionsWorkflowTemplatesInstantiateRequest) input message
@@ -1357,7 +1627,7 @@ class DataprocV1(base_api.BaseApiClient):
     )
 
     def InstantiateInline(self, request, global_params=None):
-      r"""Instantiates a template and begins execution.This method is equivalent to executing the sequence CreateWorkflowTemplate, InstantiateWorkflowTemplate, DeleteWorkflowTemplate.The returned Operation can be used to track execution of workflow by polling operations.get. The Operation will complete when entire workflow is finished.The running workflow can be aborted via operations.cancel. This will cause any inflight jobs to be cancelled and workflow-owned clusters to be deleted.The Operation.metadata will be WorkflowMetadata.On successful completion, Operation.response will be Empty.
+      r"""Instantiates a template and begins execution.This method is equivalent to executing the sequence CreateWorkflowTemplate, InstantiateWorkflowTemplate, DeleteWorkflowTemplate.The returned Operation can be used to track execution of workflow by polling operations.get. The Operation will complete when entire workflow is finished.The running workflow can be aborted via operations.cancel. This will cause any inflight jobs to be cancelled and workflow-owned clusters to be deleted.The Operation.metadata will be WorkflowMetadata. Also see Using WorkflowMetadata.On successful completion, Operation.response will be Empty.
 
       Args:
         request: (DataprocProjectsRegionsWorkflowTemplatesInstantiateInlineRequest) input message
@@ -1411,7 +1681,7 @@ class DataprocV1(base_api.BaseApiClient):
     )
 
     def SetIamPolicy(self, request, global_params=None):
-      r"""Sets the access control policy on the specified resource. Replaces any existing policy.
+      r"""Sets the access control policy on the specified resource. Replaces any existing policy.Can return Public Errors: NOT_FOUND, INVALID_ARGUMENT and PERMISSION_DENIED.
 
       Args:
         request: (DataprocProjectsRegionsWorkflowTemplatesSetIamPolicyRequest) input message

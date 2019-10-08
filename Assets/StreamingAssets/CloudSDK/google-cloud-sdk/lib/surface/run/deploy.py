@@ -27,10 +27,88 @@ from googlecloudsdk.command_lib.run import pretty_print
 from googlecloudsdk.command_lib.run import resource_args
 from googlecloudsdk.command_lib.run import serverless_operations
 from googlecloudsdk.command_lib.run import stages
-from googlecloudsdk.command_lib.util.args import labels_util
 from googlecloudsdk.command_lib.util.concepts import concept_parsers
 from googlecloudsdk.command_lib.util.concepts import presentation_specs
 from googlecloudsdk.core.console import progress_tracker
+
+
+def GetAllowUnauth(args, operations, service_ref, service_exists):
+  """Returns allow_unauth value for a service change.
+
+  Args:
+    args: argparse.Namespace, Command line arguments
+    operations: serverless_operations.ServerlessOperations, Serverless client.
+    service_ref: protorpc.messages.Message, A resource reference object
+      for the service See googlecloudsdk.core.resources.Registry.ParseResourceId
+      for details.
+    service_exists: True if the service being changed already exists.
+  Returns:
+    allow_unauth value where
+     True means to enable unauthenticated acess for the service.
+     False means to disable unauthenticated access for the service.
+     None means to retain the current value for the service.
+  """
+  allow_unauth = None
+  if flags.IsManaged(args):
+    allow_unauth = flags.GetAllowUnauthenticated(
+        args, operations, service_ref, not service_exists)
+    # Avoid failure removing a policy binding for a service that
+    # doesn't exist.
+    if not service_exists and not allow_unauth:
+      allow_unauth = None
+  return allow_unauth
+
+
+def GetStartDeployMessage(conn_context, service_ref):
+  """Returns a user mesage for starting a deploy.
+
+  Args:
+    conn_context: connection_context.ConnectionInfo, Metadata for the
+      run API client.
+    service_ref: protorpc.messages.Message, A resource reference object
+      for the service See googlecloudsdk.core.resources.Registry.ParseResourceId
+      for details.
+  """
+  msg = ('Deploying container to {operator} service '
+         '[{{bold}}{service}{{reset}}] in {ns_label} [{{bold}}{ns}{{reset}}]')
+  msg += conn_context.location_label
+
+  return msg.format(
+      operator=conn_context.operator,
+      ns_label=conn_context.ns_label,
+      service=service_ref.servicesId,
+      ns=service_ref.namespacesId)
+
+
+def GetSuccessMessageForSynchronousDeploy(operations, service_ref):
+  """Returns a user message for a successful synchronous deploy.
+
+  Args:
+    operations: serverless_operations.ServerlessOperations, A
+      ServerlessOperations instance for fetching the service.
+    service_ref: protorpc.messages.Message, A resource reference object
+      for the service See googlecloudsdk.core.resources.Registry.ParseResourceId
+      for details.
+  """
+  service = operations.GetService(service_ref)
+  latest_ready = service.status.latestReadyRevisionName
+  latest_percent_traffic = sum(
+      target.percent for target in service.status.traffic
+      if target.latestRevision or (
+          latest_ready and target.revisionName == latest_ready))
+  msg = (
+      'Service [{{bold}}{serv}{{reset}}] '
+      'revision [{{bold}}{rev}{{reset}}] '
+      'has been deployed')
+  if latest_percent_traffic:
+    msg += (
+        ' and is serving {{bold}}{latest_percent_traffic}{{reset}} '
+        'percent of traffic at {{bold}}{url}{{reset}}')
+  return msg.format(
+      serv=service_ref.servicesId,
+      rev=latest_ready,
+      url=service.domain,
+      latest_percent_traffic=latest_percent_traffic)
 
 
 @base.ReleaseTracks(base.ReleaseTrack.BETA)
@@ -58,28 +136,46 @@ class Deploy(base.Command):
   }
 
   @staticmethod
-  def Args(parser):
+  def CommonArgs(parser):
+    # Flags specific to managed CR
+    managed_group = flags.GetManagedArgGroup(parser)
+    flags.AddRegionArg(managed_group)
+    flags.AddAllowUnauthenticatedFlag(managed_group)
+    flags.AddServiceAccountFlag(managed_group)
+    flags.AddCloudSQLFlags(managed_group)
+    # Flags specific to CRoGKE
+    gke_group = flags.GetGkeArgGroup(parser)
+    concept_parsers.ConceptParser([resource_args.CLUSTER_PRESENTATION
+                                  ]).AddToParser(gke_group)
+    # Flags specific to connecting to a Kubernetes cluster (kubeconfig)
+    kubernetes_group = flags.GetKubernetesArgGroup(parser)
+    flags.AddKubeconfigFlags(kubernetes_group)
+    # Flags specific to connecting to a cluster
+    cluster_group = flags.GetClusterArgGroup(parser)
+    flags.AddEndpointVisibilityEnum(cluster_group)
+    flags.AddCpuFlag(cluster_group)
+    # Flags not specific to any platform
     service_presentation = presentation_specs.ResourcePresentationSpec(
         'SERVICE',
         resource_args.GetServiceResourceSpec(prompt=True),
         'Service to deploy to.',
         required=True,
         prefixes=False)
-    flags.AddSourceRefFlags(parser)
-    flags.AddRegionArg(parser)
+    flags.AddImageArg(parser)
+    flags.AddPlatformArg(parser)
     flags.AddFunctionArg(parser)
     flags.AddMutexEnvVarsFlags(parser)
-    flags.AddCpuFlag(parser)
     flags.AddMemoryFlag(parser)
     flags.AddConcurrencyFlag(parser)
     flags.AddTimeoutFlag(parser)
     flags.AddAsyncFlag(parser)
-    flags.AddEndpointVisibilityEnum(parser)
-    flags.AddCloudSQLFlags(parser)
-    flags.AddAllowUnauthenticatedFlag(parser)
-    concept_parsers.ConceptParser([
-        resource_args.CLUSTER_PRESENTATION,
-        service_presentation]).AddToParser(parser)
+    flags.AddLabelsFlags(parser)
+    flags.AddMaxInstancesFlag(parser)
+    concept_parsers.ConceptParser([service_presentation]).AddToParser(parser)
+
+  @staticmethod
+  def Args(parser):
+    Deploy.CommonArgs(parser)
 
   def Run(self, args):
     """Deploy a container to Cloud Run."""
@@ -88,11 +184,6 @@ class Deploy(base.Command):
     conn_context = connection_context.GetConnectionContext(args)
     config_changes = flags.GetConfigurationChanges(args)
 
-    if conn_context.supports_one_platform:
-      flags.VerifyOnePlatformFlags(args)
-    else:
-      flags.VerifyGKEFlags(args)
-
     service_ref = flags.GetService(args)
 
     with serverless_operations.Connect(conn_context) as operations:
@@ -100,29 +191,10 @@ class Deploy(base.Command):
       changes = [image_change]
       if config_changes:
         changes.extend(config_changes)
-      endpoint_visibility = flags.GetEndpointVisibility(args)
       exists = operations.GetService(service_ref)
-      allow_unauth = None
-      if conn_context.supports_one_platform:
-        allow_unauth = flags.GetAllowUnauthenticated(args,
-                                                     operations,
-                                                     service_ref,
-                                                     not exists)
-        # Don't try to remove a policy binding from a service that doesn't exist
-        if not exists and not allow_unauth:
-          allow_unauth = None
+      allow_unauth = GetAllowUnauth(args, operations, service_ref, exists)
 
-      msg = ('Deploying {dep_type} to {operator} '
-             'service [{{bold}}{service}{{reset}}]'
-             ' in {ns_label} [{{bold}}{ns}{{reset}}]')
-      msg += conn_context.location_label
-
-      pretty_print.Info(msg.format(
-          operator=conn_context.operator,
-          ns_label=conn_context.ns_label,
-          dep_type='container',
-          service=service_ref.servicesId,
-          ns=service_ref.namespacesId))
+      pretty_print.Info(GetStartDeployMessage(conn_context, service_ref))
 
       deployment_stages = stages.ServiceStages(allow_unauth is not None)
       header = 'Deploying...' if exists else 'Deploying new service...'
@@ -130,40 +202,40 @@ class Deploy(base.Command):
           header,
           deployment_stages,
           failure_message='Deployment failed',
-          suppress_output=args.async) as tracker:
+          suppress_output=args.async_) as tracker:
         operations.ReleaseService(
             service_ref,
             changes,
             tracker,
-            asyn=args.async,
-            private_endpoint=endpoint_visibility,
+            asyn=args.async_,
             allow_unauthenticated=allow_unauth)
-      if args.async:
+      if args.async_:
         pretty_print.Success(
             'Service [{{bold}}{serv}{{reset}}] is deploying '
             'asynchronously.'.format(serv=service_ref.servicesId))
       else:
-        url = operations.GetServiceUrl(service_ref)
-        conf = operations.GetConfiguration(service_ref)
-        msg = (
-            'Service [{{bold}}{serv}{{reset}}] '
-            'revision [{{bold}}{rev}{{reset}}] '
-            'has been deployed and is serving traffic at '
-            '{{bold}}{url}{{reset}}')
-        msg = msg.format(
-            serv=service_ref.servicesId,
-            rev=conf.status.latestReadyRevisionName,
-            url=url)
-        pretty_print.Success(msg)
+        pretty_print.Success(GetSuccessMessageForSynchronousDeploy(
+            operations, service_ref))
 
 
 @base.ReleaseTracks(base.ReleaseTrack.ALPHA)
 class AlphaDeploy(Deploy):
+  """Deploy a container to Cloud Run."""
 
   @staticmethod
   def Args(parser):
-    Deploy.Args(parser)
-    labels_util.AddUpdateLabelsFlags(parser)
-    flags.AddServiceAccountFlag(parser)
+    Deploy.CommonArgs(parser)
+    # Flags specific to managed CR
+    managed_group = flags.GetManagedArgGroup(parser)
+    flags.AddRevisionSuffixArg(managed_group)
+    # Flags specific to connecting to a cluster
+    cluster_group = flags.GetClusterArgGroup(parser)
+    flags.AddSecretsFlags(cluster_group)
+    flags.AddConfigMapsFlags(cluster_group)
+    # Flags not specific to any platform
+    flags.AddMinInstancesFlag(parser)
+    flags.AddCommandFlag(parser)
+    flags.AddArgsFlag(parser)
+    flags.AddNoTrafficFlag(parser)
 
 AlphaDeploy.__doc__ = Deploy.__doc__

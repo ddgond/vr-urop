@@ -52,6 +52,7 @@ class SslPoliciesCompleter(compute_completers.ListCommandCompleter):
 def GetSslPolicyArgument(required=True, plural=False):
   """Returns the resource argument object for the SSL policy flag."""
   return compute_flags.ResourceArgument(
+      name='SSL_POLICY',
       resource_name='SSL policy',
       completer=SslPoliciesCompleter,
       plural=plural,

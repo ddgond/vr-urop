@@ -701,7 +701,7 @@ class IosDeviceList(_messages.Message):
 
 
 class IosModel(_messages.Message):
-  r"""A description of an iOS device tests may be run on.
+  r"""A description of an iOS device tests may be run on. Next tag: 10
 
   Enums:
     FormFactorValueValuesEnum: Whether this device is a phone, tablet,
@@ -716,6 +716,9 @@ class IosModel(_messages.Message):
       TestExecutionService.
     name: The human-readable name for this device model. Examples: "iPhone
       4s", "iPad Mini 2".
+    screenDensity: Screen density in DPI.
+    screenX: Screen size in the horizontal (X) dimension measured in pixels.
+    screenY: Screen size in the vertical (Y) dimension measured in pixels.
     supportedVersionIds: The set of iOS major software versions this device
       supports.
     tags: Tags for this dimension. Examples: "default", "preview",
@@ -740,8 +743,11 @@ class IosModel(_messages.Message):
   formFactor = _messages.EnumField('FormFactorValueValuesEnum', 2)
   id = _messages.StringField(3)
   name = _messages.StringField(4)
-  supportedVersionIds = _messages.StringField(5, repeated=True)
-  tags = _messages.StringField(6, repeated=True)
+  screenDensity = _messages.IntegerField(5, variant=_messages.Variant.INT32)
+  screenX = _messages.IntegerField(6, variant=_messages.Variant.INT32)
+  screenY = _messages.IntegerField(7, variant=_messages.Variant.INT32)
+  supportedVersionIds = _messages.StringField(8, repeated=True)
+  tags = _messages.StringField(9, repeated=True)
 
 
 class IosRuntimeConfiguration(_messages.Message):
@@ -754,6 +760,23 @@ class IosRuntimeConfiguration(_messages.Message):
 
   locales = _messages.MessageField('Locale', 1, repeated=True)
   orientations = _messages.MessageField('Orientation', 2, repeated=True)
+
+
+class IosTestLoop(_messages.Message):
+  r"""A test of an iOS application that implements one or more game loop
+  scenarios. This test type accepts an archived application (.ipa file) and a
+  list of integer scenarios that will be executed on the app sequentially.
+
+  Fields:
+    appBundleId: Output only. The bundle id for the application under test.
+    appIpa: Required. The .ipa of the application to test.
+    scenarios: The list of scenarios that should be run during the test.
+      Defaults to the single scenario 0 if unspecified.
+  """
+
+  appBundleId = _messages.StringField(1)
+  appIpa = _messages.MessageField('FileReference', 2)
+  scenarios = _messages.IntegerField(3, repeated=True, variant=_messages.Variant.INT32)
 
 
 class IosTestSetup(_messages.Message):
@@ -1294,8 +1317,11 @@ class TestMatrix(_messages.Message):
         be parsed.
       TEST_ONLY_APK: The APK is marked as "testOnly". Deprecated and not
         currently used.
-      MALFORMED_IPA: The input IPA could not be parsed. Deprecated and not
-        currently used.
+      MALFORMED_IPA: The input IPA could not be parsed.
+      MISSING_URL_SCHEME: The application doesn't register the game loop URL
+        scheme.
+      MALFORMED_APP_BUNDLE: The iOS application bundle (.app) couldn't be
+        processed.
       NO_CODE_APK: APK contains no code. See also
         https://developer.android.com/guide/topics/manifest/application-
         element.html#code
@@ -1335,9 +1361,11 @@ class TestMatrix(_messages.Message):
     PLIST_CANNOT_BE_PARSED = 27
     TEST_ONLY_APK = 28
     MALFORMED_IPA = 29
-    NO_CODE_APK = 30
-    INVALID_INPUT_APK = 31
-    INVALID_APK_PREVIEW_SDK = 32
+    MISSING_URL_SCHEME = 30
+    MALFORMED_APP_BUNDLE = 31
+    NO_CODE_APK = 32
+    INVALID_INPUT_APK = 33
+    INVALID_APK_PREVIEW_SDK = 34
 
   class OutcomeSummaryValueValuesEnum(_messages.Enum):
     r"""Output Only. The overall outcome of the test. Only set when the test
@@ -1463,6 +1491,7 @@ class TestSpecification(_messages.Message):
     disablePerformanceMetrics: Disables performance metrics recording. May
       reduce test latency.
     disableVideoRecording: Disables video recording. May reduce test latency.
+    iosTestLoop: An iOS application with a test loop.
     iosTestSetup: Test setup requirements for iOS.
     iosXcTest: An iOS XCTest, via an .xctestrun file.
     testSetup: Test setup requirements for Android e.g. files to install,
@@ -1476,10 +1505,11 @@ class TestSpecification(_messages.Message):
   androidTestLoop = _messages.MessageField('AndroidTestLoop', 3)
   disablePerformanceMetrics = _messages.BooleanField(4)
   disableVideoRecording = _messages.BooleanField(5)
-  iosTestSetup = _messages.MessageField('IosTestSetup', 6)
-  iosXcTest = _messages.MessageField('IosXcTest', 7)
-  testSetup = _messages.MessageField('TestSetup', 8)
-  testTimeout = _messages.StringField(9)
+  iosTestLoop = _messages.MessageField('IosTestLoop', 6)
+  iosTestSetup = _messages.MessageField('IosTestSetup', 7)
+  iosXcTest = _messages.MessageField('IosXcTest', 8)
+  testSetup = _messages.MessageField('TestSetup', 9)
+  testTimeout = _messages.StringField(10)
 
 
 class TestingProjectsTestMatricesCancelRequest(_messages.Message):

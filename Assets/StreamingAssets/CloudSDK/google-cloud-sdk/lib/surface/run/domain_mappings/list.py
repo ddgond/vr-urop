@@ -18,6 +18,7 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import unicode_literals
 
+from googlecloudsdk.calliope import base
 from googlecloudsdk.command_lib.run import commands
 from googlecloudsdk.command_lib.run import connection_context
 from googlecloudsdk.command_lib.run import flags
@@ -28,6 +29,7 @@ from googlecloudsdk.command_lib.util.concepts import concept_parsers
 from googlecloudsdk.command_lib.util.concepts import presentation_specs
 
 
+@base.ReleaseTracks(base.ReleaseTrack.BETA)
 class List(commands.List):
   """Lists domain mappings."""
 
@@ -43,17 +45,29 @@ class List(commands.List):
   }
 
   @classmethod
-  def Args(cls, parser):
-    flags.AddRegionArgWithDefault(parser)
+  def CommonArgs(cls, parser):
+    # Flags specific to managed CR
+    managed_group = flags.GetManagedArgGroup(parser)
+    flags.AddRegionArgWithDefault(managed_group)
+    # Flags specific to CRoGKE
+    gke_group = flags.GetGkeArgGroup(parser)
+    concept_parsers.ConceptParser([resource_args.CLUSTER_PRESENTATION
+                                  ]).AddToParser(gke_group)
+    # Flags specific to connecting to a Kubernetes cluster (kubeconfig)
+    kubernetes_group = flags.GetKubernetesArgGroup(parser)
+    flags.AddKubeconfigFlags(kubernetes_group)
+    # Flags specific to connecting to a cluster
+    cluster_group = flags.GetClusterArgGroup(parser)
     namespace_presentation = presentation_specs.ResourcePresentationSpec(
         '--namespace',
         resource_args.GetNamespaceResourceSpec(),
         'Namespace to list domain mappings in.',
         required=True,
         prefixes=False)
-    concept_parsers.ConceptParser([
-        resource_args.CLUSTER_PRESENTATION,
-        namespace_presentation]).AddToParser(parser)
+    concept_parsers.ConceptParser(
+        [namespace_presentation]).AddToParser(cluster_group)
+    # Flags not specific to any platform
+    flags.AddPlatformArg(parser)
     parser.display_info.AddFormat(
         """table(
         {ready_column},
@@ -62,10 +76,25 @@ class List(commands.List):
         region:label=REGION)""".format(ready_column=pretty_print.READY_COLUMN))
     parser.display_info.AddUriFunc(cls._GetResourceUri)
 
+  @classmethod
+  def Args(cls, parser):
+    cls.CommonArgs(parser)
+
   def Run(self, args):
     """List available domain mappings."""
     conn_context = connection_context.GetConnectionContext(args)
     namespace_ref = args.CONCEPTS.namespace.Parse()
     with serverless_operations.Connect(conn_context) as client:
       self.SetCompleteApiEndpoint(conn_context.endpoint)
-      return client.ListDomainMappings(namespace_ref)
+      return commands.SortByName(client.ListDomainMappings(namespace_ref))
+
+
+@base.ReleaseTracks(base.ReleaseTrack.ALPHA)
+class AlphaList(List):
+  """Lists domain mappings."""
+
+  @classmethod
+  def Args(cls, parser):
+    cls.CommonArgs(parser)
+
+AlphaList.__doc__ = List.__doc__

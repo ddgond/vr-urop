@@ -17,10 +17,12 @@ class Addressable(_messages.Message):
   r"""Information for connecting over HTTP(s).
 
   Fields:
-    hostname: A string attribute.
+    hostname: Deprecated - use url instead.
+    url: A string attribute.
   """
 
   hostname = _messages.StringField(1)
+  url = _messages.StringField(2)
 
 
 class AuditConfig(_messages.Message):
@@ -34,16 +36,16 @@ class AuditConfig(_messages.Message):
   multiple AuditConfigs:      {       "audit_configs": [         {
   "service": "allServices"           "audit_log_configs": [             {
   "log_type": "DATA_READ",               "exempted_members": [
-  "user:foo@gmail.com"               ]             },             {
+  "user:jose@example.com"               ]             },             {
   "log_type": "DATA_WRITE",             },             {
   "log_type": "ADMIN_READ",             }           ]         },         {
-  "service": "fooservice.googleapis.com"           "audit_log_configs": [
+  "service": "sampleservice.googleapis.com"           "audit_log_configs": [
   {               "log_type": "DATA_READ",             },             {
   "log_type": "DATA_WRITE",               "exempted_members": [
-  "user:bar@gmail.com"               ]             }           ]         }
-  ]     }  For fooservice, this policy enables DATA_READ, DATA_WRITE and
-  ADMIN_READ logging. It also exempts foo@gmail.com from DATA_READ logging,
-  and bar@gmail.com from DATA_WRITE logging.
+  "user:aliya@example.com"               ]             }           ]         }
+  ]     }  For sampleservice, this policy enables DATA_READ, DATA_WRITE and
+  ADMIN_READ logging. It also exempts jose@example.com from DATA_READ logging,
+  and aliya@example.com from DATA_WRITE logging.
 
   Fields:
     auditLogConfigs: The configuration for logging of each type of permission.
@@ -59,10 +61,10 @@ class AuditConfig(_messages.Message):
 class AuditLogConfig(_messages.Message):
   r"""Provides the configuration for logging a type of permissions. Example:
   {       "audit_log_configs": [         {           "log_type": "DATA_READ",
-  "exempted_members": [             "user:foo@gmail.com"           ]
+  "exempted_members": [             "user:jose@example.com"           ]
   },         {           "log_type": "DATA_WRITE",         }       ]     }
   This enables 'DATA_READ' and 'DATA_WRITE' logging, while exempting
-  foo@gmail.com from DATA_READ logging.
+  jose@example.com from DATA_READ logging.
 
   Enums:
     LogTypeValueValuesEnum: The log type that this config enables.
@@ -121,9 +123,9 @@ class Binding(_messages.Message):
       with or without a Google account.  * `allAuthenticatedUsers`: A special
       identifier that represents anyone    who is authenticated with a Google
       account or a service account.  * `user:{emailid}`: An email address that
-      represents a specific Google    account. For example, `alice@gmail.com`
-      .   * `serviceAccount:{emailid}`: An email address that represents a
-      service    account. For example, `my-other-
+      represents a specific Google    account. For example,
+      `alice@example.com` .   * `serviceAccount:{emailid}`: An email address
+      that represents a service    account. For example, `my-other-
       app@appspot.gserviceaccount.com`.  * `group:{emailid}`: An email address
       that represents a Google group.    For example, `admins@example.com`.
       * `domain:{domain}`: The G Suite domain (primary) that represents all
@@ -155,12 +157,41 @@ class ConfigMapEnvSource(_messages.Message):
   represent the key-value pairs as environment variables.
 
   Fields:
-    localObjectReference: The ConfigMap to select from.
-    optional: Specify whether the ConfigMap must be defined +optional
+    localObjectReference: Output only. This field should not be used directly
+      as it is meant to be inlined directly into the message. Use the "name"
+      field instead.
+    name: Cloud Run fully managed: not supported  Cloud Run for Anthos:
+      supported  The ConfigMap to select from.
+    optional: Cloud Run fully managed: not supported  Cloud Run for Anthos:
+      supported  Specify whether the ConfigMap must be defined +optional
   """
 
   localObjectReference = _messages.MessageField('LocalObjectReference', 1)
-  optional = _messages.BooleanField(2)
+  name = _messages.StringField(2)
+  optional = _messages.BooleanField(3)
+
+
+class ConfigMapKeySelector(_messages.Message):
+  r"""Cloud Run fully managed: not supported  Cloud Run on GKE: supported
+  Selects a key from a ConfigMap.
+
+  Fields:
+    key: Cloud Run fully managed: not supported  Cloud Run on GKE: supported
+      The key to select.
+    localObjectReference: Output only. This field should not be used directly
+      as it is meant to be inlined directly into the message. Use the "name"
+      field instead.
+    name: Cloud Run fully managed: not supported  Cloud Run on GKE: supported
+      The ConfigMap to select from.
+    optional: Cloud Run fully managed: not supported  Cloud Run on GKE:
+      supported  Specify whether the ConfigMap or its key must be defined
+      +optional
+  """
+
+  key = _messages.StringField(1)
+  localObjectReference = _messages.MessageField('LocalObjectReference', 2)
+  name = _messages.StringField(3)
+  optional = _messages.BooleanField(4)
 
 
 class ConfigMapVolumeSource(_messages.Message):
@@ -200,7 +231,8 @@ class Configuration(_messages.Message):
   /blob/master/docs/spec/overview.md#configuration
 
   Fields:
-    apiVersion: The API version for this call such as "v1alpha1".
+    apiVersion: The API version for this call such as
+      "serving.knative.dev/v1alpha1".
     kind: The kind of resource, in this case always "Configuration".
     metadata: Metadata associated with this Configuration, including name,
       namespace, labels, and annotations.
@@ -263,7 +295,7 @@ class ConfigurationSpec(_messages.Message):
       not currently support referencing a build that is responsible for
       materializing the container image from source.
     template: Template holds the latest specification for the Revision to be
-      stamped out. Not currently supported by Cloud Run.
+      stamped out.
   """
 
   generation = _messages.IntegerField(1, variant=_messages.Variant.INT32)
@@ -453,7 +485,8 @@ class DomainMapping(_messages.Message):
   r"""Resource to hold the state and status of a user's domain mapping.
 
   Fields:
-    apiVersion: The API version for this call such as "v1alpha1".
+    apiVersion: The API version for this call such as
+      "domains.cloudrun.com/v1alpha1".
     kind: The kind of resource, in this case "DomainMapping".
     metadata: Metadata associated with this BuildTemplate.
     spec: The spec for this DomainMapping.
@@ -586,17 +619,37 @@ class EnvVar(_messages.Message):
       double $$, ie: $$(VAR_NAME). Escaped references will never be expanded,
       regardless of whether the variable exists or not. Defaults to "".
       +optional
+    valueFrom: Cloud Run fully managed: not supported  Cloud Run on GKE:
+      supported  Source for the environment variable's value. Cannot be used
+      if value is not empty. +optional
   """
 
   name = _messages.StringField(1)
   value = _messages.StringField(2)
+  valueFrom = _messages.MessageField('EnvVarSource', 3)
+
+
+class EnvVarSource(_messages.Message):
+  r"""Cloud Run fully managed: not supported  Cloud Run on GKE: supported
+  EnvVarSource represents a source for the value of an EnvVar.
+
+  Fields:
+    configMapKeyRef: Cloud Run fully managed: not supported  Cloud Run on GKE:
+      supported  Selects a key of a ConfigMap. +optional
+    secretKeyRef: Cloud Run fully managed: not supported  Cloud Run on GKE:
+      supported  Selects a key of a secret in the pod's namespace +optional
+  """
+
+  configMapKeyRef = _messages.MessageField('ConfigMapKeySelector', 1)
+  secretKeyRef = _messages.MessageField('SecretKeySelector', 2)
 
 
 class EventType(_messages.Message):
   r"""A EventType object.
 
   Fields:
-    apiVersion: The API version for this call such as "v1alpha1".
+    apiVersion: The API version for this call such as
+      "eventing.knative.dev/v1alpha1".
     kind: The kind of resource, in this case "EventType".
     metadata: Metadata associated with this EventType.
     spec: Spec defines the desired state of the EventType.
@@ -608,6 +661,32 @@ class EventType(_messages.Message):
   spec = _messages.MessageField('EventTypeSpec', 4)
 
 
+class EventTypeImporter(_messages.Message):
+  r"""A EventTypeImporter object.
+
+  Fields:
+    apiVersion: The API version of the importer CRD.
+    kind: The kind of the importer CRD.
+    parameters: Parameters required to create an importer for the EventType.
+  """
+
+  apiVersion = _messages.StringField(1)
+  kind = _messages.StringField(2)
+  parameters = _messages.MessageField('EventTypeParameter', 3, repeated=True)
+
+
+class EventTypeParameter(_messages.Message):
+  r"""A EventTypeParameter object.
+
+  Fields:
+    description: Description of the parameter. E.g. "Google Cloud Project Id."
+    name: Name of the parameter. E.g. googleCloudProject.
+  """
+
+  description = _messages.StringField(1)
+  name = _messages.StringField(2)
+
+
 class EventTypeSpec(_messages.Message):
   r"""A EventTypeSpec object.
 
@@ -615,6 +694,7 @@ class EventTypeSpec(_messages.Message):
     broker: Refers to the Broker that can provide the EventType.
     description: Description is a string describing what the EventType is
       about. +optional
+    importer: The importer that provides this EventType to the eventing mesh.
     schema: Schema is a URI with the EventType schema. It may be a JSON
       schema, a protobuf schema, etc. +optional
     source: Source is a valid URI. Refers to the CloudEvent source as it
@@ -625,9 +705,10 @@ class EventTypeSpec(_messages.Message):
 
   broker = _messages.StringField(1)
   description = _messages.StringField(2)
-  schema = _messages.StringField(3)
-  source = _messages.StringField(4)
-  type = _messages.StringField(5)
+  importer = _messages.MessageField('EventTypeImporter', 3)
+  schema = _messages.StringField(4)
+  source = _messages.StringField(5)
+  type = _messages.StringField(6)
 
 
 class ExecAction(_messages.Message):
@@ -667,6 +748,57 @@ class Expr(_messages.Message):
   expression = _messages.StringField(2)
   location = _messages.StringField(3)
   title = _messages.StringField(4)
+
+
+class GoogleRpcStatus(_messages.Message):
+  r"""The `Status` type defines a logical error model that is suitable for
+  different programming environments, including REST APIs and RPC APIs. It is
+  used by [gRPC](https://github.com/grpc). Each `Status` message contains
+  three pieces of data: error code, error message, and error details.  You can
+  find out more about this error model and how to work with it in the [API
+  Design Guide](https://cloud.google.com/apis/design/errors).
+
+  Messages:
+    DetailsValueListEntry: A DetailsValueListEntry object.
+
+  Fields:
+    code: The status code, which should be an enum value of google.rpc.Code.
+    details: A list of messages that carry the error details.  There is a
+      common set of message types for APIs to use.
+    message: A developer-facing error message, which should be in English. Any
+      user-facing error message should be localized and sent in the
+      google.rpc.Status.details field, or localized by the client.
+  """
+
+  @encoding.MapUnrecognizedFields('additionalProperties')
+  class DetailsValueListEntry(_messages.Message):
+    r"""A DetailsValueListEntry object.
+
+    Messages:
+      AdditionalProperty: An additional property for a DetailsValueListEntry
+        object.
+
+    Fields:
+      additionalProperties: Properties of the object. Contains field @type
+        with type URL.
+    """
+
+    class AdditionalProperty(_messages.Message):
+      r"""An additional property for a DetailsValueListEntry object.
+
+      Fields:
+        key: Name of the additional property.
+        value: A extra_types.JsonValue attribute.
+      """
+
+      key = _messages.StringField(1)
+      value = _messages.MessageField('extra_types.JsonValue', 2)
+
+    additionalProperties = _messages.MessageField('AdditionalProperty', 1, repeated=True)
+
+  code = _messages.IntegerField(1, variant=_messages.Variant.INT32)
+  details = _messages.MessageField('DetailsValueListEntry', 2, repeated=True)
+  message = _messages.StringField(3)
 
 
 class HTTPGetAction(_messages.Message):
@@ -759,7 +891,7 @@ class IntOrString(_messages.Message):
 
   intVal = _messages.IntegerField(1, variant=_messages.Variant.INT32)
   strVal = _messages.StringField(2)
-  type = _messages.IntegerField(3)
+  type = _messages.IntegerField(3, variant=_messages.Variant.INT32)
 
 
 class KeyToPath(_messages.Message):
@@ -823,53 +955,160 @@ class ListAuthorizedDomainsResponse(_messages.Message):
 class ListConfigurationsResponse(_messages.Message):
   r"""ListConfigurationsResponse is a list of Configuration resources.
 
+  Messages:
+    RegionDetailsValue: Details for the regions used during a global call
+      including any failures. This is not populated when targeting a specific
+      region.
+
   Fields:
-    apiVersion: The API version for this call such as "v1alpha1".
+    apiVersion: The API version for this call such as
+      "serving.knative.dev/v1alpha1".
     items: List of Configurations.
     kind: The kind of this resource, in this case "ConfigurationList".
     metadata: Metadata associated with this Configuration list.
+    regionDetails: Details for the regions used during a global call including
+      any failures. This is not populated when targeting a specific region.
     unreachable: Locations that could not be reached.
   """
+
+  @encoding.MapUnrecognizedFields('additionalProperties')
+  class RegionDetailsValue(_messages.Message):
+    r"""Details for the regions used during a global call including any
+    failures. This is not populated when targeting a specific region.
+
+    Messages:
+      AdditionalProperty: An additional property for a RegionDetailsValue
+        object.
+
+    Fields:
+      additionalProperties: Additional properties of type RegionDetailsValue
+    """
+
+    class AdditionalProperty(_messages.Message):
+      r"""An additional property for a RegionDetailsValue object.
+
+      Fields:
+        key: Name of the additional property.
+        value: A RegionDetails attribute.
+      """
+
+      key = _messages.StringField(1)
+      value = _messages.MessageField('RegionDetails', 2)
+
+    additionalProperties = _messages.MessageField('AdditionalProperty', 1, repeated=True)
 
   apiVersion = _messages.StringField(1)
   items = _messages.MessageField('Configuration', 2, repeated=True)
   kind = _messages.StringField(3)
   metadata = _messages.MessageField('ListMeta', 4)
-  unreachable = _messages.StringField(5, repeated=True)
+  regionDetails = _messages.MessageField('RegionDetailsValue', 5)
+  unreachable = _messages.StringField(6, repeated=True)
 
 
 class ListDomainMappingsResponse(_messages.Message):
   r"""ListDomainMappingsResponse is a list of DomainMapping resources.
 
+  Messages:
+    RegionDetailsValue: Details for the regions used during a global call
+      including any failures. This is not populated when targeting a specific
+      region.
+
   Fields:
-    apiVersion: The API version for this call such as "v1alpha1".
+    apiVersion: The API version for this call such as
+      "domains.cloudrun.com/v1alpha1".
     items: List of DomainMappings.
     kind: The kind of this resource, in this case "DomainMappingList".
     metadata: Metadata associated with this DomainMapping list.
+    regionDetails: Details for the regions used during a global call including
+      any failures. This is not populated when targeting a specific region.
+    unreachable: Locations that could not be reached.
   """
+
+  @encoding.MapUnrecognizedFields('additionalProperties')
+  class RegionDetailsValue(_messages.Message):
+    r"""Details for the regions used during a global call including any
+    failures. This is not populated when targeting a specific region.
+
+    Messages:
+      AdditionalProperty: An additional property for a RegionDetailsValue
+        object.
+
+    Fields:
+      additionalProperties: Additional properties of type RegionDetailsValue
+    """
+
+    class AdditionalProperty(_messages.Message):
+      r"""An additional property for a RegionDetailsValue object.
+
+      Fields:
+        key: Name of the additional property.
+        value: A RegionDetails attribute.
+      """
+
+      key = _messages.StringField(1)
+      value = _messages.MessageField('RegionDetails', 2)
+
+    additionalProperties = _messages.MessageField('AdditionalProperty', 1, repeated=True)
 
   apiVersion = _messages.StringField(1)
   items = _messages.MessageField('DomainMapping', 2, repeated=True)
   kind = _messages.StringField(3)
   metadata = _messages.MessageField('ListMeta', 4)
+  regionDetails = _messages.MessageField('RegionDetailsValue', 5)
+  unreachable = _messages.StringField(6, repeated=True)
 
 
 class ListEventTypesResponse(_messages.Message):
   r"""ListEventTypesResponse is a list of EventType resources.
 
+  Messages:
+    RegionDetailsValue: Details for the regions used during a global call
+      including any failures. This is not populated when targeting a specific
+      region.
+
   Fields:
-    apiVersion: The API version for this call such as "v1alpha1".
+    apiVersion: The API version for this call such as
+      "eventing.knative.dev/v1alpha1".
     items: List of EventTypes.
     kind: The kind of this resource, in this case "EventTypeList".
     metadata: Metadata associated with this EventType list.
+    regionDetails: Details for the regions used during a global call including
+      any failures. This is not populated when targeting a specific region.
     unreachable: Locations that could not be reached.
   """
+
+  @encoding.MapUnrecognizedFields('additionalProperties')
+  class RegionDetailsValue(_messages.Message):
+    r"""Details for the regions used during a global call including any
+    failures. This is not populated when targeting a specific region.
+
+    Messages:
+      AdditionalProperty: An additional property for a RegionDetailsValue
+        object.
+
+    Fields:
+      additionalProperties: Additional properties of type RegionDetailsValue
+    """
+
+    class AdditionalProperty(_messages.Message):
+      r"""An additional property for a RegionDetailsValue object.
+
+      Fields:
+        key: Name of the additional property.
+        value: A RegionDetails attribute.
+      """
+
+      key = _messages.StringField(1)
+      value = _messages.MessageField('RegionDetails', 2)
+
+    additionalProperties = _messages.MessageField('AdditionalProperty', 1, repeated=True)
 
   apiVersion = _messages.StringField(1)
   items = _messages.MessageField('EventType', 2, repeated=True)
   kind = _messages.StringField(3)
   metadata = _messages.MessageField('ListMeta', 4)
-  unreachable = _messages.StringField(5, repeated=True)
+  regionDetails = _messages.MessageField('RegionDetailsValue', 5)
+  unreachable = _messages.StringField(6, repeated=True)
 
 
 class ListLocationsResponse(_messages.Message):
@@ -917,73 +1156,213 @@ class ListMeta(_messages.Message):
 class ListRevisionsResponse(_messages.Message):
   r"""ListRevisionsResponse is a list of Revision resources.
 
+  Messages:
+    RegionDetailsValue: Details for the regions used during a global call
+      including any failures. This is not populated when targeting a specific
+      region.
+
   Fields:
-    apiVersion: The API version for this call such as "v1alpha1".
+    apiVersion: The API version for this call such as
+      "serving.knative.dev/v1alpha1".
     items: List of Revisions.
     kind: The kind of this resource, in this case "RevisionList".
     metadata: Metadata associated with this revision list.
+    regionDetails: Details for the regions used during a global call including
+      any failures. This is not populated when targeting a specific region.
     unreachable: Locations that could not be reached.
   """
+
+  @encoding.MapUnrecognizedFields('additionalProperties')
+  class RegionDetailsValue(_messages.Message):
+    r"""Details for the regions used during a global call including any
+    failures. This is not populated when targeting a specific region.
+
+    Messages:
+      AdditionalProperty: An additional property for a RegionDetailsValue
+        object.
+
+    Fields:
+      additionalProperties: Additional properties of type RegionDetailsValue
+    """
+
+    class AdditionalProperty(_messages.Message):
+      r"""An additional property for a RegionDetailsValue object.
+
+      Fields:
+        key: Name of the additional property.
+        value: A RegionDetails attribute.
+      """
+
+      key = _messages.StringField(1)
+      value = _messages.MessageField('RegionDetails', 2)
+
+    additionalProperties = _messages.MessageField('AdditionalProperty', 1, repeated=True)
 
   apiVersion = _messages.StringField(1)
   items = _messages.MessageField('Revision', 2, repeated=True)
   kind = _messages.StringField(3)
   metadata = _messages.MessageField('ListMeta', 4)
-  unreachable = _messages.StringField(5, repeated=True)
+  regionDetails = _messages.MessageField('RegionDetailsValue', 5)
+  unreachable = _messages.StringField(6, repeated=True)
 
 
 class ListRoutesResponse(_messages.Message):
   r"""ListRoutesResponse is a list of Route resources.
 
+  Messages:
+    RegionDetailsValue: Details for the regions used during a global call
+      including any failures. This is not populated when targeting a specific
+      region.
+
   Fields:
-    apiVersion: The API version for this call such as "v1alpha1".
+    apiVersion: The API version for this call such as
+      "serving.knative.dev/v1alpha1".
     items: List of Routes.
     kind: The kind of this resource, in this case always "RouteList".
     metadata: Metadata associated with this Route list.
+    regionDetails: Details for the regions used during a global call including
+      any failures. This is not populated when targeting a specific region.
     unreachable: Locations that could not be reached.
   """
+
+  @encoding.MapUnrecognizedFields('additionalProperties')
+  class RegionDetailsValue(_messages.Message):
+    r"""Details for the regions used during a global call including any
+    failures. This is not populated when targeting a specific region.
+
+    Messages:
+      AdditionalProperty: An additional property for a RegionDetailsValue
+        object.
+
+    Fields:
+      additionalProperties: Additional properties of type RegionDetailsValue
+    """
+
+    class AdditionalProperty(_messages.Message):
+      r"""An additional property for a RegionDetailsValue object.
+
+      Fields:
+        key: Name of the additional property.
+        value: A RegionDetails attribute.
+      """
+
+      key = _messages.StringField(1)
+      value = _messages.MessageField('RegionDetails', 2)
+
+    additionalProperties = _messages.MessageField('AdditionalProperty', 1, repeated=True)
 
   apiVersion = _messages.StringField(1)
   items = _messages.MessageField('Route', 2, repeated=True)
   kind = _messages.StringField(3)
   metadata = _messages.MessageField('ListMeta', 4)
-  unreachable = _messages.StringField(5, repeated=True)
+  regionDetails = _messages.MessageField('RegionDetailsValue', 5)
+  unreachable = _messages.StringField(6, repeated=True)
 
 
 class ListServicesResponse(_messages.Message):
   r"""A list of Service resources.
 
+  Messages:
+    RegionDetailsValue: Details for the regions used during a global call
+      including any failures. This is not populated when targeting a specific
+      region.
+
   Fields:
-    apiVersion: The API version for this call such as "v1alpha1".
+    apiVersion: The API version for this call such as
+      "serving.knative.dev/v1alpha1".
     items: List of Services.
     kind: The kind of this resource, in this case "ServiceList".
     metadata: Metadata associated with this Service list.
+    regionDetails: Details for the regions used during a global call including
+      any failures. This is not populated when targeting a specific region.
     unreachable: Locations that could not be reached.
   """
+
+  @encoding.MapUnrecognizedFields('additionalProperties')
+  class RegionDetailsValue(_messages.Message):
+    r"""Details for the regions used during a global call including any
+    failures. This is not populated when targeting a specific region.
+
+    Messages:
+      AdditionalProperty: An additional property for a RegionDetailsValue
+        object.
+
+    Fields:
+      additionalProperties: Additional properties of type RegionDetailsValue
+    """
+
+    class AdditionalProperty(_messages.Message):
+      r"""An additional property for a RegionDetailsValue object.
+
+      Fields:
+        key: Name of the additional property.
+        value: A RegionDetails attribute.
+      """
+
+      key = _messages.StringField(1)
+      value = _messages.MessageField('RegionDetails', 2)
+
+    additionalProperties = _messages.MessageField('AdditionalProperty', 1, repeated=True)
 
   apiVersion = _messages.StringField(1)
   items = _messages.MessageField('Service', 2, repeated=True)
   kind = _messages.StringField(3)
   metadata = _messages.MessageField('ListMeta', 4)
-  unreachable = _messages.StringField(5, repeated=True)
+  regionDetails = _messages.MessageField('RegionDetailsValue', 5)
+  unreachable = _messages.StringField(6, repeated=True)
 
 
 class ListTriggersResponse(_messages.Message):
   r"""ListTriggersResponse is a list of Trigger resources.
 
+  Messages:
+    RegionDetailsValue: Details for the regions used during a global call
+      including any failures. This is not populated when targeting a specific
+      region.
+
   Fields:
-    apiVersion: The API version for this call such as "v1alpha1".
+    apiVersion: The API version for this call such as
+      "eventing.knative.dev/v1alpha1".
     items: List of Triggers.
     kind: The kind of this resource, in this case "TriggerList".
     metadata: Metadata associated with this Trigger list.
+    regionDetails: Details for the regions used during a global call including
+      any failures. This is not populated when targeting a specific region.
     unreachable: Locations that could not be reached.
   """
+
+  @encoding.MapUnrecognizedFields('additionalProperties')
+  class RegionDetailsValue(_messages.Message):
+    r"""Details for the regions used during a global call including any
+    failures. This is not populated when targeting a specific region.
+
+    Messages:
+      AdditionalProperty: An additional property for a RegionDetailsValue
+        object.
+
+    Fields:
+      additionalProperties: Additional properties of type RegionDetailsValue
+    """
+
+    class AdditionalProperty(_messages.Message):
+      r"""An additional property for a RegionDetailsValue object.
+
+      Fields:
+        key: Name of the additional property.
+        value: A RegionDetails attribute.
+      """
+
+      key = _messages.StringField(1)
+      value = _messages.MessageField('RegionDetails', 2)
+
+    additionalProperties = _messages.MessageField('AdditionalProperty', 1, repeated=True)
 
   apiVersion = _messages.StringField(1)
   items = _messages.MessageField('Trigger', 2, repeated=True)
   kind = _messages.StringField(3)
   metadata = _messages.MessageField('ListMeta', 4)
-  unreachable = _messages.StringField(5, repeated=True)
+  regionDetails = _messages.MessageField('RegionDetailsValue', 5)
+  unreachable = _messages.StringField(6, repeated=True)
 
 
 class LocalObjectReference(_messages.Message):
@@ -1380,8 +1759,12 @@ class Policy(_messages.Message):
       systems are expected to put that etag in the request to `setIamPolicy`
       to ensure that their change will be applied to the same version of the
       policy.  If no `etag` is provided in the call to `setIamPolicy`, then
-      the existing policy is overwritten blindly.
-    version: Deprecated.
+      the existing policy is overwritten.
+    version: Specifies the format of the policy.  Valid values are 0, 1, and
+      3. Requests specifying an invalid value will be rejected.  Policies with
+      any conditional bindings must specify version 3. Policies without any
+      conditional bindings may specify any valid value or leave the field
+      unset.
   """
 
   auditConfigs = _messages.MessageField('AuditConfig', 1, repeated=True)
@@ -1432,6 +1815,16 @@ class Quantity(_messages.Message):
   """
 
   string = _messages.StringField(1)
+
+
+class RegionDetails(_messages.Message):
+  r"""Information for a regional call used for a global API.
+
+  Fields:
+    error: The status indicating why the regional call failed
+  """
+
+  error = _messages.MessageField('GoogleRpcStatus', 1)
 
 
 class ResourceRecord(_messages.Message):
@@ -1645,7 +2038,8 @@ class Revision(_messages.Message):
   evision
 
   Fields:
-    apiVersion: The API version for this call such as "v1alpha1".
+    apiVersion: The API version for this call such as
+      "serving.knative.dev/v1alpha1".
     kind: The kind of this resource, in this case "Revision".
     metadata: Metadata associated with this Revision, including name,
       namespace, labels, and annotations.
@@ -1711,18 +2105,24 @@ class RevisionSpec(_messages.Message):
       Container, including: name, ports, and volumeMounts. The runtime
       contract is documented here:
       https://github.com/knative/serving/blob/master/docs/runtime-contract.md
-    containerConcurrency: ContainerConcurrency specifies the maximum allowed
-      in-flight (concurrent) requests per container of the Revision. Values
-      are: - `0` thread-safe, the system should manage the max concurrency.
-      This is    the default value. - `1` not-thread-safe. Single concurrency
-      - `2-N` thread-safe, max concurrency of N
+    containerConcurrency: (Optional)  ContainerConcurrency specifies the
+      maximum allowed in-flight (concurrent) requests per container instance
+      of the Revision.  Cloud Run fully managed: supported, defaults to 80
+      Cloud Run on GKE: supported, defaults to 0, which means concurrency to
+      the application is not limited, and the system decides the target
+      concurrency for the autoscaler.
     containers: Containers holds the single container that defines the unit of
       execution for this Revision. In the context of a Revision, we disallow a
-      number of fields on this Container, including: name and lifecycle.
+      number of fields on this Container, including: name and lifecycle. In
+      Cloud Run, only a single container may be provided.
     generation: Deprecated and not currently populated by Cloud Run. See
       metadata.generation instead, which is the sequence number containing the
       latest generation of the desired state.  Read-only.
-    serviceAccountName: Not currently used by Cloud Run.
+    serviceAccountName: Email address of the IAM service account associated
+      with the revision of the service. The service account represents the
+      identity of the running revision, and determines what permissions the
+      revision has. If not provided, the revision will use the project's
+      default service account.
     servingState: ServingState holds a value describing the state the
       resources are in for this Revision. Users must not specify this when
       creating a revision. It is expected that the system will manipulate this
@@ -1803,7 +2203,13 @@ class RevisionTemplate(_messages.Message):
 
   Fields:
     metadata: Optional metadata for this Revision, including labels and
-      annotations. Name will be generated by the Configuration.
+      annotations. Name will be generated by the Configuration. To set minimum
+      instances for this revision, use the "autoscaling.knative.dev/minScale"
+      annotation key. (Cloud Run on GKE only). To set maximum instances for
+      this revision, use the "autoscaling.knative.dev/maxScale" annotation
+      key. To set Cloud SQL connections for the revision, use the
+      "run.googleapis.com/cloudsql-instances" annotation key. Values should be
+      comma separated.
     spec: RevisionSpec holds the desired state of the Revision (from the
       client).
   """
@@ -1824,7 +2230,8 @@ class Route(_messages.Message):
   automatically deploy the "latest ready" Revision from that Configuration.
 
   Fields:
-    apiVersion: The API version for this call such as "v1alpha1".
+    apiVersion: The API version for this call such as
+      "serving.knative.dev/v1alpha1".
     kind: The kind of this resource, in this case always "Route".
     metadata: Metadata associated with this Route, including name, namespace,
       labels, and annotations.
@@ -1888,15 +2295,15 @@ class RouteStatus(_messages.Message):
   controller).
 
   Fields:
-    address: Similar to domain, information on where the service is available
-      on HTTP.
+    address: Similar to url, information on where the service is available on
+      HTTP.
     conditions: Conditions communicates information about ongoing/complete
       reconciliation processes that bring the "spec" inline with the observed
       state of the world.
-    domain: Domain holds the top-level domain that will distribute traffic
-      over the provided targets. It generally has the form https://{route-hash
-      }-{project-hash}-{cluster-level-suffix}.a.run.app
-    domainInternal: For Cloud Run, identifical to domain.
+    domain: Deprecated - use url instead. Domain holds the top-level domain
+      that will distribute traffic over the provided targets.
+    domainInternal: Deprecated - use address instead. For Cloud Run,
+      identifical to domain.
     observedGeneration: ObservedGeneration is the 'Generation' of the Route
       that was last processed by the controller.  Clients polling for
       completed reconciliation should poll until observedGeneration =
@@ -1910,6 +2317,9 @@ class RouteStatus(_messages.Message):
       will always contain RevisionName references. When ConfigurationName
       appears in the spec, this will hold the LatestReadyRevisionName that we
       last observed.
+    url: URL holds the url that will distribute traffic over the provided
+      traffic targets. It generally has the form https://{route-hash
+      }-{project-hash}-{cluster-level-suffix}.a.run.app
   """
 
   address = _messages.MessageField('Addressable', 1)
@@ -1918,6 +2328,7 @@ class RouteStatus(_messages.Message):
   domainInternal = _messages.StringField(4)
   observedGeneration = _messages.IntegerField(5, variant=_messages.Variant.INT32)
   traffic = _messages.MessageField('TrafficTarget', 6, repeated=True)
+  url = _messages.StringField(7)
 
 
 class RunNamespacesAuthorizeddomainsListRequest(_messages.Message):
@@ -2721,12 +3132,18 @@ class RunProjectsLocationsServicesGetIamPolicyRequest(_messages.Message):
   r"""A RunProjectsLocationsServicesGetIamPolicyRequest object.
 
   Fields:
+    options_requestedPolicyVersion: Optional. The policy format version to be
+      returned.  Valid values are 0, 1, and 3. Requests specifying an invalid
+      value will be rejected.  Requests for policies with any conditional
+      bindings must specify version 3. Policies without any conditional
+      bindings may specify any valid value or leave the field unset.
     resource: REQUIRED: The resource for which the policy is being requested.
       See the operation documentation for the appropriate value for this
       field.
   """
 
-  resource = _messages.StringField(1, required=True)
+  options_requestedPolicyVersion = _messages.IntegerField(1, variant=_messages.Variant.INT32)
+  resource = _messages.StringField(2, required=True)
 
 
 class RunProjectsLocationsServicesGetRequest(_messages.Message):
@@ -2926,12 +3343,41 @@ class SecretEnvSource(_messages.Message):
   key-value pairs as environment variables.
 
   Fields:
-    localObjectReference: The Secret to select from.
-    optional: Specify whether the Secret must be defined +optional
+    localObjectReference: Output only. This field should not be used directly
+      as it is meant to be inlined directly into the message. Use the "name"
+      field instead.
+    name: Cloud Run fully managed: not supported  Cloud Run for Anthos:
+      supported  The Secret to select from.
+    optional: Cloud Run fully managed: not supported  Cloud Run for Anthos:
+      supported  Specify whether the Secret must be defined +optional
   """
 
   localObjectReference = _messages.MessageField('LocalObjectReference', 1)
-  optional = _messages.BooleanField(2)
+  name = _messages.StringField(2)
+  optional = _messages.BooleanField(3)
+
+
+class SecretKeySelector(_messages.Message):
+  r"""Cloud Run fully managed: not supported  Cloud Run on GKE: supported
+  SecretKeySelector selects a key of a Secret.
+
+  Fields:
+    key: Cloud Run fully managed: not supported  Cloud Run on GKE: supported
+      The key of the secret to select from.  Must be a valid secret key.
+    localObjectReference: Output only. This field should not be used directly
+      as it is meant to be inlined directly into the message. Use the "name"
+      field instead.
+    name: Cloud Run fully managed: not supported  Cloud Run on GKE: supported
+      The name of the secret in the pod's namespace to select from.
+    optional: Cloud Run fully managed: not supported  Cloud Run on GKE:
+      supported  Specify whether the Secret or its key must be defined
+      +optional
+  """
+
+  key = _messages.StringField(1)
+  localObjectReference = _messages.MessageField('LocalObjectReference', 2)
+  name = _messages.StringField(3)
+  optional = _messages.BooleanField(4)
 
 
 class SecretVolumeSource(_messages.Message):
@@ -3007,9 +3453,9 @@ class SecurityContext(_messages.Message):
   capabilities = _messages.MessageField('Capabilities', 2)
   privileged = _messages.BooleanField(3)
   readOnlyRootFilesystem = _messages.BooleanField(4)
-  runAsGroup = _messages.IntegerField(5)
+  runAsGroup = _messages.IntegerField(5, variant=_messages.Variant.INT32)
   runAsNonRoot = _messages.BooleanField(6)
-  runAsUser = _messages.IntegerField(7)
+  runAsUser = _messages.IntegerField(7, variant=_messages.Variant.INT32)
   seLinuxOptions = _messages.MessageField('SELinuxOptions', 8)
 
 
@@ -3026,7 +3472,8 @@ class Service(_messages.Message):
   https://github.com/knative/serving/blob/master/docs/spec/overview.md#service
 
   Fields:
-    apiVersion: The API version for this call such as "v1alpha1".
+    apiVersion: The API version for this call such as
+      "serving.knative.dev/v1alpha1".
     kind: The kind of resource, in this case "Service".
     metadata: Metadata associated with this Service, including name,
       namespace, labels, and annotations.
@@ -3091,12 +3538,9 @@ class ServiceSpec(_messages.Message):
       configure a route that keeps the latest ready revision from the supplied
       configuration running. +optional
     template: Template holds the latest specification for the Revision to be
-      stamped out.  Not currently supported by Cloud Run.
+      stamped out.
     traffic: Traffic specifies how to distribute traffic over a collection of
-      Knative Revisions and Configurations. This will replace existing service
-      specs (ServiceSpecRunLatest, ServiceSpecPinnedType,
-      ServiceSpecReleaseType, and ServiceSpecManualType).  Not currently
-      supported by Cloud Run.
+      Knative Revisions and Configurations.
   """
 
   generation = _messages.IntegerField(1, variant=_messages.Variant.INT32)
@@ -3169,7 +3613,7 @@ class ServiceStatus(_messages.Message):
   r"""The current state of the Service. Output only.
 
   Fields:
-    address: From RouteStatus. Similar to domain, information on where the
+    address: From RouteStatus. Similar to url, information on where the
       service is available on HTTP.
     conditions: Conditions communicates information about ongoing/complete
       reconciliation processes that bring the "spec" inline with the observed
@@ -3192,6 +3636,9 @@ class ServiceStatus(_messages.Message):
       distribution. These entries will always contain RevisionName references.
       When ConfigurationName appears in the spec, this will hold the
       LatestReadyRevisionName that we last observed.
+    url: From RouteStatus. URL holds the url that will distribute traffic over
+      the provided traffic targets. It generally has the form https://{route-
+      hash}-{project-hash}-{cluster-level-suffix}.a.run.app
   """
 
   address = _messages.MessageField('Addressable', 1)
@@ -3201,6 +3648,7 @@ class ServiceStatus(_messages.Message):
   latestReadyRevisionName = _messages.StringField(5)
   observedGeneration = _messages.IntegerField(6, variant=_messages.Variant.INT32)
   traffic = _messages.MessageField('TrafficTarget', 7, repeated=True)
+  url = _messages.StringField(8)
 
 
 class SetIamPolicyRequest(_messages.Message):
@@ -3351,7 +3799,7 @@ class TrafficTarget(_messages.Message):
       the latest ready Revision of the Configuration should be used for this
       traffic target. When provided LatestRevision must be true if
       RevisionName is empty; it must be false when RevisionName is non-empty.
-      Not currently supported in Cloud Run. +optional
+      +optional
     name: Name is optionally used to expose a dedicated hostname for
       referencing this target exclusively.  Not currently supported by Cloud
       Run. +optional
@@ -3384,7 +3832,8 @@ class Trigger(_messages.Message):
   r"""A Trigger object.
 
   Fields:
-    apiVersion: The API version for this call such as "v1alpha1".
+    apiVersion: The API version for this call such as
+      "eventing.knative.dev/v1alpha1".
     kind: The kind of resource, in this case "Trigger".
     metadata: Metadata associated with this Trigger.
     spec: Spec defines the desired state of the Trigger.
@@ -3426,11 +3875,57 @@ class TriggerCondition(_messages.Message):
 class TriggerFilter(_messages.Message):
   r"""A TriggerFilter object.
 
+  Messages:
+    AttributesValue: Cloud Run fully managed: not supported  Cloud Run on GKE:
+      supported  Attributes filters events by exact match on event context
+      attributes. Each key in the map is compared with the equivalent key in
+      the event context. An event passes the filter if all values are equal to
+      the specified values.  Nested context attributes are not supported as
+      keys. Only string values are supported.  +optional
+
   Fields:
-    sourceAndType: A TriggerFilterSourceAndType attribute.
+    attributes: Cloud Run fully managed: not supported  Cloud Run on GKE:
+      supported  Attributes filters events by exact match on event context
+      attributes. Each key in the map is compared with the equivalent key in
+      the event context. An event passes the filter if all values are equal to
+      the specified values.  Nested context attributes are not supported as
+      keys. Only string values are supported.  +optional
+    sourceAndType: SourceAndType filters events based on exact matches on the
+      CloudEvents type and source attributes. This field has been replaced by
+      the Attributes field.  +optional
   """
 
-  sourceAndType = _messages.MessageField('TriggerFilterSourceAndType', 1)
+  @encoding.MapUnrecognizedFields('additionalProperties')
+  class AttributesValue(_messages.Message):
+    r"""Cloud Run fully managed: not supported  Cloud Run on GKE: supported
+    Attributes filters events by exact match on event context attributes. Each
+    key in the map is compared with the equivalent key in the event context.
+    An event passes the filter if all values are equal to the specified
+    values.  Nested context attributes are not supported as keys. Only string
+    values are supported.  +optional
+
+    Messages:
+      AdditionalProperty: An additional property for a AttributesValue object.
+
+    Fields:
+      additionalProperties: Additional properties of type AttributesValue
+    """
+
+    class AdditionalProperty(_messages.Message):
+      r"""An additional property for a AttributesValue object.
+
+      Fields:
+        key: Name of the additional property.
+        value: A string attribute.
+      """
+
+      key = _messages.StringField(1)
+      value = _messages.StringField(2)
+
+    additionalProperties = _messages.MessageField('AdditionalProperty', 1, repeated=True)
+
+  attributes = _messages.MessageField('AttributesValue', 1)
+  sourceAndType = _messages.MessageField('TriggerFilterSourceAndType', 2)
 
 
 class TriggerFilterSourceAndType(_messages.Message):
@@ -3447,6 +3942,48 @@ class TriggerFilterSourceAndType(_messages.Message):
   type = _messages.StringField(2)
 
 
+class TriggerImporterSpec(_messages.Message):
+  r"""A TriggerImporterSpec object.
+
+  Messages:
+    ArgumentsValue: Arguments to use for the importer. These must match the
+      parameters in the EventType's importer.
+
+  Fields:
+    arguments: Arguments to use for the importer. These must match the
+      parameters in the EventType's importer.
+    eventTypeName: Name of the EventType that this importer provides.
+  """
+
+  @encoding.MapUnrecognizedFields('additionalProperties')
+  class ArgumentsValue(_messages.Message):
+    r"""Arguments to use for the importer. These must match the parameters in
+    the EventType's importer.
+
+    Messages:
+      AdditionalProperty: An additional property for a ArgumentsValue object.
+
+    Fields:
+      additionalProperties: Additional properties of type ArgumentsValue
+    """
+
+    class AdditionalProperty(_messages.Message):
+      r"""An additional property for a ArgumentsValue object.
+
+      Fields:
+        key: Name of the additional property.
+        value: A string attribute.
+      """
+
+      key = _messages.StringField(1)
+      value = _messages.StringField(2)
+
+    additionalProperties = _messages.MessageField('AdditionalProperty', 1, repeated=True)
+
+  arguments = _messages.MessageField('ArgumentsValue', 1)
+  eventTypeName = _messages.StringField(2)
+
+
 class TriggerSpec(_messages.Message):
   r"""The desired state of the Trigger.
 
@@ -3455,9 +3992,10 @@ class TriggerSpec(_messages.Message):
       not specified, will default to 'default'.  Not currently supported by
       Cloud Run.
     filter: Filter is the filter to apply against all events from the Broker.
-      Only events that pass this filter will be sent to the Subscriber. If not
-      specified, will default to allowing all events.  This must be specified
-      in Cloud Run.
+      Only events that pass this filter will be sent to the Subscriber.
+    importers: Specification of the importers that will provide events to the
+      trigger. Note, for Cloud Run, the importers will only be used if a
+      filter is not specified.
     subscriber: Subscriber is the addressable that receives events from the
       Broker that pass the Filter. It is required.  E.g. https://us-
       central1-myproject.cloudfunctions.net/myfunction or /namespaces/my-
@@ -3466,7 +4004,8 @@ class TriggerSpec(_messages.Message):
 
   broker = _messages.StringField(1)
   filter = _messages.MessageField('TriggerFilter', 2)
-  subscriber = _messages.MessageField('SubscriberSpec', 3)
+  importers = _messages.MessageField('TriggerImporterSpec', 3, repeated=True)
+  subscriber = _messages.MessageField('SubscriberSpec', 4)
 
 
 class TriggerStatus(_messages.Message):

@@ -23,6 +23,7 @@ import re
 from googlecloudsdk.api_lib.compute import base_classes
 from googlecloudsdk.api_lib.compute import daisy_utils
 from googlecloudsdk.api_lib.compute import instance_utils
+from googlecloudsdk.api_lib.storage import storage_util
 from googlecloudsdk.calliope import base
 from googlecloudsdk.calliope import exceptions
 from googlecloudsdk.command_lib.compute import completers
@@ -36,7 +37,8 @@ from googlecloudsdk.core import properties
 _OUTPUT_FILTER = ['[Daisy', '[import-', 'starting build', '  import', 'ERROR']
 
 
-@base.ReleaseTracks(base.ReleaseTrack.ALPHA)
+@base.ReleaseTracks(
+    base.ReleaseTrack.ALPHA, base.ReleaseTrack.BETA, base.ReleaseTrack.GA)
 class Import(base.CreateCommand):
   """Import an instance into Google Compute Engine from OVF."""
 
@@ -53,6 +55,7 @@ class Import(base.CreateCommand):
     instances_flags.AddNetworkTierArgs(parser, instance=True)
     labels_util.AddCreateLabelsFlags(parser)
     daisy_utils.AddCommonDaisyArgs(parser, add_log_location=False)
+    daisy_utils.AddExtraCommonDaisyArgs(parser)
 
     instances_flags.INSTANCES_ARG_FOR_IMPORT.AddArgument(
         parser, operation_type='import')
@@ -65,8 +68,8 @@ class Import(base.CreateCommand):
 
     parser.add_argument(
         '--os',
-        required=True,
-        choices=sorted(os_choices.OS_CHOICES_INSTANCE_IMPORT_ALPHA),
+        required=False,
+        choices=sorted(os_choices.OS_CHOICES_INSTANCE_IMPORT_BETA),
         help='Specifies the OS of the image being imported.')
 
     parser.add_argument(
@@ -126,13 +129,20 @@ class Import(base.CreateCommand):
           custom_cpu=args.custom_cpu,
           custom_memory=args.custom_memory,
           ext=getattr(args, 'custom_extensions', None),
-          vm_gen=getattr(args, 'custom_vm_gen', None))
+          vm_type=getattr(args, 'custom_vm_type', None))
+
+    try:
+      source_uri = daisy_utils.MakeGcsObjectOrPathUri(args.source_uri)
+    except storage_util.InvalidObjectNameError:
+      raise exceptions.InvalidArgumentException(
+          'source-uri',
+          'must be a path to an object or a directory in Google Cloud Storage')
 
     return daisy_utils.RunOVFImportBuild(
         args=args,
         compute_client=compute_holder.client,
         instance_name=args.instance_name,
-        source_uri=daisy_utils.MakeGcsUri(args.source_uri),
+        source_uri=source_uri,
         no_guest_environment=not args.guest_environment,
         can_ip_forward=args.can_ip_forward,
         deletion_protection=args.deletion_protection,
@@ -149,12 +159,14 @@ class Import(base.CreateCommand):
         zone=properties.VALUES.compute.zone.Get(),
         project=args.project,
         output_filter=_OUTPUT_FILTER,
+        compute_release_track=
+        self.ReleaseTrack().id.lower() if self.ReleaseTrack() else None
     )
 
 
 Import.detailed_help = {
     'brief': (
-        'create Google Compute Engine virtual machine instances from virtual '
+        'Create Google Compute Engine virtual machine instances from virtual '
         'appliance in OVA/OVF format.'),
     'DESCRIPTION':
         """\
@@ -169,5 +181,11 @@ Import.detailed_help = {
 
         Virtual machine instances, images and disks in Compute engine and files
         stored on Cloud Storage incur charges. See [](https://cloud.google.com/compute/docs/images/importing-virtual-disks#resource_cleanup).
+        """,
+    'EXAMPLES':
+        """\
+        To import an OVF package from Google Could Storage into a VM named `my-instance`, run:
+
+          $ {command} my-instance --source-uri=gs://my-bucket/my-dir
         """,
 }

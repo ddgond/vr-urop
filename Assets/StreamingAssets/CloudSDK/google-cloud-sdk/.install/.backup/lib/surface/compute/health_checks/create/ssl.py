@@ -39,7 +39,7 @@ def _DetailedHelp():
   }
 
 
-def _Args(parser, include_l7_internal_load_balancing=False):
+def _Args(parser, include_l7_internal_load_balancing):
   """Set up arguments to create an SSL HealthCheck."""
   parser.display_info.AddFormat(flags.DEFAULT_LIST_FORMAT)
   flags.HealthCheckArgument(
@@ -51,7 +51,7 @@ def _Args(parser, include_l7_internal_load_balancing=False):
   health_checks_utils.AddProtocolAgnosticCreationArgs(parser, 'SSL')
 
 
-def _Run(args, holder, include_l7_internal_load_balancing=False):
+def _Run(args, holder, include_l7_internal_load_balancing):
   """Issues the request necessary for adding the health check."""
   client = holder.client
   messages = client.messages
@@ -103,41 +103,28 @@ def _Run(args, holder, include_l7_internal_load_balancing=False):
   return client.MakeRequests([(collection, 'Insert', request)])
 
 
-@base.ReleaseTracks(base.ReleaseTrack.GA, base.ReleaseTrack.BETA)
-class CreateGaAndBeta(base.CreateCommand):
-  """Create a SSL health check to monitor load balanced instances.
-
-  Business logic should be put in helper functions. Classes annotated with
-  @base.ReleaseTracks should only be concerned with calling helper functions
-  with the correct feature parameters.
-  """
+@base.ReleaseTracks(base.ReleaseTrack.GA)
+class Create(base.CreateCommand):
+  """Create a SSL health check."""
 
   _include_l7_internal_load_balancing = False
   detailed_help = _DetailedHelp()
 
   @classmethod
   def Args(cls, parser):
-    _Args(
-        parser,
-        include_l7_internal_load_balancing=cls
-        ._include_l7_internal_load_balancing)
+    _Args(parser, cls._include_l7_internal_load_balancing)
 
   def Run(self, args):
     holder = base_classes.ComputeApiHolder(self.ReleaseTrack())
-    return _Run(
-        args,
-        holder,
-        include_l7_internal_load_balancing=self
-        ._include_l7_internal_load_balancing)
+    return _Run(args, holder, self._include_l7_internal_load_balancing)
+
+
+@base.ReleaseTracks(base.ReleaseTrack.BETA)
+class CreateBeta(Create):
+
+  _include_l7_internal_load_balancing = True
 
 
 @base.ReleaseTracks(base.ReleaseTrack.ALPHA)
-class CreateAlpha(CreateGaAndBeta):
-  """Create a SSL health check to monitor load balanced instances.
-
-  Business logic should be put in helper functions. Classes annotated with
-  @base.ReleaseTracks should only be concerned with calling helper functions
-  with the correct feature parameters.
-  """
-
-  _include_l7_internal_load_balancing = True
+class CreateAlpha(CreateBeta):
+  pass

@@ -17,7 +17,7 @@
 import enum
 
 
-BASE_URL = 'https://www.googleapis.com/compute/beta/'
+BASE_URL = 'https://compute.googleapis.com/compute/beta/'
 DOCS_URL = 'https://developers.google.com/compute/docs/reference/latest/'
 
 
@@ -256,6 +256,13 @@ class Collections(enum.Enum):
       'projects/{project}/zones/{zone}/nodeTypes/{nodeType}',
       {},
       [u'project', u'zone', u'nodeType'],
+      True
+  )
+  PACKETMIRRORINGS = (
+      'packetMirrorings',
+      'projects/{project}/regions/{region}/packetMirrorings/{packetMirroring}',
+      {},
+      [u'project', u'region', u'packetMirroring'],
       True
   )
   PROJECTS = (

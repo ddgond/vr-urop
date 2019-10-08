@@ -93,16 +93,19 @@ class Update(base.SilentCommand):
     """
     project = properties.VALUES.core.project.Get(required=True)
     project_number = _GetProjectNumber(project)
-    ranges = args.ranges.split(',')
+
+    if args.ranges:
+      ranges = args.ranges.split(',')
+
     op = peering.UpdateConnection(project_number, args.service, args.network,
                                   ranges, args.force)
-    if args.async:
+    if args.async_:
       cmd = OP_WAIT_CMD.format(op.name)
       log.status.Print('Asynchronous operation is in progress... '
                        'Use the following command to wait for its '
                        'completion:\n {0}'.format(cmd))
       return
-    op = peering.WaitOperation(op.name)
+    op = services_util.WaitOperation(op.name, peering.GetOperation)
     services_util.PrintOperation(op)
 
 

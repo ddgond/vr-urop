@@ -309,35 +309,6 @@ server template.
         supports_download=False,
     )
 
-    def GetDeploymentTarget(self, request, global_params=None):
-      r"""Retrieves information on the rollout target of the deployment, e.g. the.
-target percentage of game servers running stable_game_server_template and
-new_game_server_template in clusters.
-
-      Args:
-        request: (GameservicesProjectsLocationsGameServerDeploymentsGetDeploymentTargetRequest) input message
-        global_params: (StandardQueryParameters, default: None) global arguments
-      Returns:
-        (DeploymentTarget) The response message.
-      """
-      config = self.GetMethodConfig('GetDeploymentTarget')
-      return self._RunMethod(
-          config, request, global_params=global_params)
-
-    GetDeploymentTarget.method_config = lambda: base_api.ApiMethodInfo(
-        flat_path=u'v1alpha/projects/{projectsId}/locations/{locationsId}/gameServerDeployments/{gameServerDeploymentsId}:getDeploymentTarget',
-        http_method=u'GET',
-        method_id=u'gameservices.projects.locations.gameServerDeployments.getDeploymentTarget',
-        ordered_params=[u'name'],
-        path_params=[u'name'],
-        query_params=[],
-        relative_path=u'v1alpha/{+name}:getDeploymentTarget',
-        request_field='',
-        request_type_name=u'GameservicesProjectsLocationsGameServerDeploymentsGetDeploymentTargetRequest',
-        response_type_name=u'DeploymentTarget',
-        supports_download=False,
-    )
-
     def GetIamPolicy(self, request, global_params=None):
       r"""Gets the access control policy for a resource.
 Returns an empty policy if the resource exists and does not have a policy
@@ -359,7 +330,7 @@ set.
         method_id=u'gameservices.projects.locations.gameServerDeployments.getIamPolicy',
         ordered_params=[u'resource'],
         path_params=[u'resource'],
-        query_params=[],
+        query_params=[u'options_requestedPolicyVersion'],
         relative_path=u'v1alpha/{+resource}:getIamPolicy',
         request_field='',
         request_type_name=u'GameservicesProjectsLocationsGameServerDeploymentsGetIamPolicyRequest',
@@ -422,9 +393,9 @@ set.
     )
 
     def RevertRollout(self, request, global_params=None):
-      r"""Starts rollback of the current rollout in the specified clusters and based.
-on the given rollout percentage. The specified percentage cannot be higher
-than its current value. Default is 0.
+      r"""Rolls back the ongoing game server deployment rollout by setting the.
+rollout percentage to 0 in all clusters whose labels match labels in the
+game server template.
 
       Args:
         request: (GameservicesProjectsLocationsGameServerDeploymentsRevertRolloutRequest) input message
@@ -454,6 +425,8 @@ than its current value. Default is 0.
       r"""Sets the access control policy on the specified resource. Replaces any.
 existing policy.
 
+Can return Public Errors: NOT_FOUND, INVALID_ARGUMENT and PERMISSION_DENIED
+
       Args:
         request: (GameservicesProjectsLocationsGameServerDeploymentsSetIamPolicyRequest) input message
         global_params: (StandardQueryParameters, default: None) global arguments
@@ -480,8 +453,7 @@ existing policy.
 
     def SetRolloutTarget(self, request, global_params=None):
       r"""Sets rollout target for the ongoing game server deployment rollout in the.
-specified clusters and based on the given rollout percentage. The specified
-percentage cannot be lower than its current value. Default is 100.
+specified clusters and based on the given rollout percentage. Default is 0.
 
       Args:
         request: (GameservicesProjectsLocationsGameServerDeploymentsSetRolloutTargetRequest) input message

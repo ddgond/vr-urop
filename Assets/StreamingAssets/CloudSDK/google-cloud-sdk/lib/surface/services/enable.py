@@ -94,13 +94,13 @@ class Enable(base.SilentCommand):
       op = serviceusage.BatchEnableApiCall(project, args.service)
     if op.done:
       return
-    if args.async:
+    if args.async_:
       cmd = _OP_WAIT_CMD.format(op.name)
       log.status.Print('Asynchronous operation is in progress... '
                        'Use the following command to wait for its '
                        'completion:\n {0}'.format(cmd))
       return
-    op = serviceusage.WaitOperation(op.name)
+    op = services_util.WaitOperation(op.name, serviceusage.GetOperation)
     services_util.PrintOperation(op)
 
 

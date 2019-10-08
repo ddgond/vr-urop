@@ -42,6 +42,7 @@ from googlecloudsdk.core import properties
 from googlecloudsdk.core import resources
 from googlecloudsdk.core.resource import resource_transform
 from googlecloudsdk.core.util import times
+import six
 
 _ALLOWED_SOURCE_EXT = ['.zip', '.tgz', '.gz']
 
@@ -83,7 +84,7 @@ class Submit(base.CreateCommand):
   _machine_type_flag_map = arg_utils.ChoiceEnumMapper(
       '--machine-type', (cloudbuild_util.GetMessagesModule()
                         ).BuildOptions.MachineTypeValueValuesEnum,
-      include_filter=lambda s: str(s) != 'UNSPECIFIED',
+      include_filter=lambda s: six.text_type(s) != 'UNSPECIFIED',
       help_str='Machine type used to run the build.')
 
   @staticmethod
@@ -259,7 +260,7 @@ https://cloud.google.com/cloud-build/docs/api/build-requests#substitutions
       except ValueError:
         build_timeout_duration = times.ParseDuration(build_timeout)
         build_timeout_secs = int(build_timeout_duration.total_seconds)
-      timeout_str = str(build_timeout_secs) + 's'
+      timeout_str = six.text_type(build_timeout_secs) + 's'
     else:
       timeout_str = None
 
@@ -478,7 +479,7 @@ https://cloud.google.com/cloud-build/docs/api/build-requests#substitutions
       log.status.Print('Logs are available in the Cloud Console.')
 
     # If the command is run --async, we just print out a reference to the build.
-    if args.async:
+    if args.async_:
       return build
 
     mash_handler = execution.MashHandler(

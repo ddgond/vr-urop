@@ -20,11 +20,12 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import contextlib
-import copy
+import datetime
 import functools
 import random
 import string
 from apitools.base.py import exceptions as api_exceptions
+from googlecloudsdk.api_lib.run import condition as run_condition
 from googlecloudsdk.api_lib.run import configuration
 from googlecloudsdk.api_lib.run import domain_mapping
 from googlecloudsdk.api_lib.run import global_methods
@@ -37,31 +38,34 @@ from googlecloudsdk.api_lib.util import apis
 from googlecloudsdk.api_lib.util import apis_internal
 from googlecloudsdk.api_lib.util import exceptions as exceptions_util
 from googlecloudsdk.api_lib.util import waiter
+from googlecloudsdk.command_lib.iam import iam_util
 from googlecloudsdk.command_lib.run import config_changes as config_changes_mod
 from googlecloudsdk.command_lib.run import exceptions as serverless_exceptions
 from googlecloudsdk.command_lib.run import resource_name_conversion
 from googlecloudsdk.command_lib.run import stages
+from googlecloudsdk.core import config
 from googlecloudsdk.core import exceptions
 from googlecloudsdk.core import log
 from googlecloudsdk.core import metrics
+from googlecloudsdk.core import properties
 from googlecloudsdk.core import resources
 from googlecloudsdk.core.console import progress_tracker
 from googlecloudsdk.core.util import retry
+import six
 
 DEFAULT_ENDPOINT_VERSION = 'v1'
 
 
 _NONCE_LENGTH = 10
-# Used to force a new revision, and also to tie a particular request for changes
-# to a particular created revision.
-NONCE_LABEL = 'client.knative.dev/nonce'
 
 # Wait 11 mins for each deployment. This is longer than the server timeout,
 # making it more likely to get a useful error message from the server.
 MAX_WAIT_MS = 660000
 
-ALLOW_UNAUTH_POLICY_BINDING_MEMBERS = ['allUsers']
+ALLOW_UNAUTH_POLICY_BINDING_MEMBER = 'allUsers'
 ALLOW_UNAUTH_POLICY_BINDING_ROLE = 'roles/run.invoker'
+
+NEEDED_IAM_PERMISSIONS = ['run.services.setIamPolicy']
 
 
 class UnknownAPIError(exceptions.Error):
@@ -89,10 +93,9 @@ def Connect(conn_context):
   # connection context so that it does not pick up the api_endpoint_overrides
   # values from the connection context.
   # pylint: disable=protected-access
-  op_client = apis_internal._GetClientInstance(
+  op_client = apis.GetClientInstance(
       conn_context.api_name,
-      conn_context.api_version,
-      ca_certs=conn_context.ca_certs)
+      conn_context.api_version)
   # pylint: enable=protected-access
 
   with conn_context as conn_info:
@@ -101,9 +104,9 @@ def Connect(conn_context):
         conn_info.api_name,
         conn_info.api_version,
         # Only check response if not connecting to GKE
-        check_response_func=apis.CheckResponseForApiEnablement
+        check_response_func=apis.CheckResponseForApiEnablement()
         if conn_context.supports_one_platform else None,
-        ca_certs=conn_info.ca_certs)
+        http_client=conn_context.HttpClient())
     # pylint: enable=protected-access
     yield ServerlessOperations(
         client,
@@ -143,7 +146,11 @@ class ConditionPoller(waiter.OperationPoller):
   Takes in a reference to a StagedProgressTracker, and updates it with progress.
   """
 
-  def __init__(self, resource_getter, tracker, dependencies=None):
+  def __init__(self,
+               resource_getter,
+               tracker,
+               dependencies=None,
+               ready_message='Done.'):
     """Initialize the ConditionPoller.
 
     Start any unblocked stages in the tracker immediately.
@@ -167,19 +174,29 @@ class ConditionPoller(waiter.OperationPoller):
 
         If the entire dependencies dict is None, the poller will assume that
         all keys in the tracker are relevant and none have dependencies.
+
+      ready_message: str, message to display in header of tracker when
+        conditions are ready.
     """
     # _dependencies is a map of condition -> {preceding conditions}
     # It is meant to be checked off as we finish things.
-    self._dependencies = (
-        copy.deepcopy(dependencies) if dependencies is not None
-        else {k: set() for k in tracker})
-    for k in self._dependencies:
-      if k not in tracker:
-        raise ValueError(
-            'Condition {} is not in the dependency tracker.'.format(k))
+    self._dependencies = {k: set() for k in tracker}
+    if dependencies is not None:
+      for k in dependencies:
+        error_msg = 'Condition {} is not in the dependency tracker.'
+        if k not in tracker:
+          raise ValueError(error_msg.format(k))
+        for c in dependencies[k]:
+          if c not in tracker:
+            raise ValueError(error_msg.format(c))
+        # Add dependencies, only if they're still not complete
+        self._dependencies[k] = {
+            c for c in dependencies[k] if not tracker.IsComplete(c)
+        }
     self._resource_getter = resource_getter
     self._tracker = tracker
     self._resource_fail_type = exceptions.Error
+    self._ready_message = ready_message
     self._StartUnblocked()
 
   def _IsBlocked(self, condition):
@@ -198,6 +215,26 @@ class ConditionPoller(waiter.OperationPoller):
       return False
     return conditions.IsTerminal()
 
+  def _PollTerminalSubconditions(self, conditions, conditions_message):
+    for condition in conditions.TerminalSubconditions():
+      if condition not in self._dependencies:
+        continue
+      message = conditions[condition]['message']
+      status = conditions[condition]['status']
+      self._PossiblyUpdateMessage(condition, message, conditions_message)
+      if status is None:
+        continue
+      elif status:
+        if self._PossiblyCompleteStage(
+            condition, message, conditions.IsReady()):
+          # Check all terminal subconditions again to ensure any stages that
+          # were unblocked by this stage completing are re-checked before we
+          # check the ready condition
+          self._PollTerminalSubconditions(conditions, conditions_message)
+          break
+      else:
+        self._PossiblyFailStage(condition, message)
+
   def Poll(self, unused_ref):
     """Overrides.
 
@@ -213,39 +250,29 @@ class ConditionPoller(waiter.OperationPoller):
     if conditions is None or not conditions.IsFresh():
       return None
 
-    ready_message = conditions.DescriptiveMessage()
-    if ready_message:
-      self._tracker.UpdateHeaderMessage(ready_message)
+    conditions_message = conditions.DescriptiveMessage()
+    if conditions_message:
+      self._tracker.UpdateHeaderMessage(conditions_message)
 
-    for condition in conditions.TerminalSubconditions():
-      if condition not in self._dependencies:
-        continue
-      message = conditions[condition]['message']
-      status = conditions[condition]['status']
-      self._PossiblyUpdateMessage(condition, message, ready_message)
-      if status is None:
-        continue
-      elif status:
-        self._PossiblyCompleteStage(condition, message, conditions.IsReady())
-      else:
-        self._PossiblyFailStage(condition, message)
+    self._PollTerminalSubconditions(conditions, conditions_message)
 
     if conditions.IsReady():
-      self._tracker.UpdateHeaderMessage('Done.')
+      self._tracker.UpdateHeaderMessage(self._ready_message)
       # TODO(b/120679874): Should not have to manually call Tick()
       self._tracker.Tick()
     elif conditions.IsFailed():
-      raise self._resource_fail_type(ready_message)
+      raise self._resource_fail_type(conditions_message)
 
     return conditions
 
-  def _PossiblyUpdateMessage(self, condition, message, ready_message):
+  def _PossiblyUpdateMessage(self, condition, message, conditions_message):
     """Update the stage message.
 
     Args:
       condition: str, The name of the status condition.
       message: str, The new message to display
-      ready_message: str, The ready message we're displaying.
+      conditions_message: str, The message from the conditions object we're
+        displaying..
     """
 
     if self._tracker.IsComplete(condition):
@@ -254,7 +281,7 @@ class ConditionPoller(waiter.OperationPoller):
     if self._IsBlocked(condition):
       return
 
-    if message != ready_message:
+    if message != conditions_message:
       self._tracker.UpdateStage(condition, message)
 
   def _RecordConditionComplete(self, condition):
@@ -275,19 +302,23 @@ class ConditionPoller(waiter.OperationPoller):
       condition: str, The name of the condition whose stage should be completed.
       message: str, The detailed message for the condition.
       ready: boolean, True if the Ready condition is true.
+
+    Returns:
+      bool: True if stage was completed, False if no action taken
     """
     if self._tracker.IsComplete(condition):
-      return
+      return False
     # A blocked condition is likely to remain True (indicating the previous
     # operation concerning it was successful) until the blocking condition(s)
     # finish and it's time to switch to Unknown (the current operation
     # concerning it is in progress). Don't mark those done before they switch to
     # Unknown.
     if not self._tracker.IsRunning(condition):
-      return
+      return False
     self._RecordConditionComplete(condition)
     self._StartUnblocked()
     self._tracker.CompleteStage(condition, message)
+    return True
 
   def _StartUnblocked(self):
 
@@ -342,17 +373,45 @@ class ConditionPoller(waiter.OperationPoller):
       A condition.Conditions object.
     """
     resource = self._resource_getter()
+
     if resource is None:
       return None
     return resource.conditions
 
 
 class ServiceConditionPoller(ConditionPoller):
+  """A ConditionPoller for services."""
 
-  def __init__(self, getter, tracker):
+  def __init__(self, getter, tracker, dependencies=None, serv=None):
+    def GetIfProbablyNewer():
+      """Workaround for https://github.com/knative/serving/issues/4149).
+
+      The workaround is to wait for the condition lastTransitionTime to
+      change. Note that the granularity of lastTransitionTime is seconds
+      so to avoid hanging in the unlikely case that two updates happen
+      in the same second we limit waiting for the change to 5 seconds.
+
+      Returns:
+        The requested resource or None if it seems stale.
+      """
+      resource = getter()
+      if (resource
+          and self._old_last_transition_time
+          and self._old_last_transition_time == resource.last_transition_time
+          and not self.HaveFiveSecondsPassed()):
+        return None
+      else:
+        return resource
+
     super(ServiceConditionPoller, self).__init__(
-        getter, tracker, stages.ServiceDependencies())
+        GetIfProbablyNewer, tracker, dependencies)
     self._resource_fail_type = serverless_exceptions.DeploymentFailedError
+    self._old_last_transition_time = serv.last_transition_time if serv else None
+    self._start_time = datetime.datetime.now()
+    self._five_seconds = datetime.timedelta(seconds=5)
+
+  def HaveFiveSecondsPassed(self):
+    return datetime.datetime.now() - self._start_time > self._five_seconds
 
 
 def _Nonce():
@@ -367,9 +426,9 @@ class _NewRevisionForcingChange(config_changes_mod.ConfigChanger):
   def __init__(self, nonce):
     self._nonce = nonce
 
-  def AdjustConfiguration(self, config, metadata):
-    del metadata
-    config.revision_labels[NONCE_LABEL] = self._nonce
+  def Adjust(self, resource):
+    resource.template.labels[revision.NONCE_LABEL] = self._nonce
+    return resource
 
 
 def _IsDigest(url):
@@ -402,17 +461,31 @@ class _SwitchToDigestChange(config_changes_mod.ConfigChanger):
   def __init__(self, base_revision):
     self._base_revision = base_revision
 
-  def AdjustConfiguration(self, config, metadata):
+  def Adjust(self, resource):
     if _IsDigest(self._base_revision.image):
-      return
+      return resource
     if not self._base_revision.image_digest:
-      return
+      return resource
 
-    annotations = k8s_object.AnnotationsFromMetadata(
-        config.MessagesModule(), metadata)
     # Mutates through to metadata: Save the by-tag user intent.
-    annotations[configuration.USER_IMAGE_ANNOTATION] = self._base_revision.image
-    config.image = self._base_revision.image_digest
+    resource.annotations[configuration.USER_IMAGE_ANNOTATION] = (
+        self._base_revision.image)
+    resource.template.image = self._base_revision.image_digest
+    return resource
+
+_CLIENT_NAME_ANNOTATION = 'run.googleapis.com/client-name'
+_CLIENT_VERSION_ANNOTATION = 'run.googleapis.com/client-version'
+
+
+class _SetClientNameAndVersion(config_changes_mod.ConfigChanger):
+  """Sets the client name and version annotations."""
+
+  def Adjust(self, resource):
+    annotations = k8s_object.AnnotationsFromMetadata(resource.MessagesModule(),
+                                                     resource.metadata)
+    annotations[_CLIENT_NAME_ANNOTATION] = 'gcloud'
+    annotations[_CLIENT_VERSION_ANNOTATION] = config.CLOUD_SDK_VERSION
+    return resource
 
 
 class ServerlessOperations(object):
@@ -438,7 +511,7 @@ class ServerlessOperations(object):
     self._region = region
 
   @property
-  def _messages_module(self):
+  def messages_module(self):
     return self._client.MESSAGES_MODULE
 
   def GetRevision(self, revision_ref):
@@ -450,7 +523,7 @@ class ServerlessOperations(object):
     Returns:
       A revision.Revision object.
     """
-    messages = self._messages_module
+    messages = self.messages_module
     revision_name = revision_ref.RelativeName()
     request = messages.RunNamespacesRevisionsGetRequest(
         name=revision_name)
@@ -467,7 +540,7 @@ class ServerlessOperations(object):
 
   def _GetRoute(self, service_ref):
     """Return the relevant Route from the server, or None if 404."""
-    messages = self._messages_module
+    messages = self.messages_module
     # GET the Route
     route_name = self._registry.Parse(
         service_ref.servicesId,
@@ -515,15 +588,6 @@ class ServerlessOperations(object):
       raise serverless_exceptions.ConfigurationError(
           conditions.DescriptiveMessage())
 
-  def GetServiceUrl(self, service_ref):
-    """Return the main URL for the service."""
-    serv = self.GetService(service_ref)
-    if serv.domain:
-      return serv.domain
-    # Older versions of knative don't populate domain on Service, only Route.
-    serv_route = self._GetRoute(service_ref)
-    return serv_route.domain
-
   def GetActiveRevisions(self, service_ref):
     """Return the actively serving revisions.
 
@@ -546,7 +610,7 @@ class ServerlessOperations(object):
     return serv_route.active_revisions
 
   def ListServices(self, namespace_ref):
-    messages = self._messages_module
+    messages = self.messages_module
     request = messages.RunNamespacesServicesListRequest(
         parent=namespace_ref.RelativeName())
     with metrics.RecordDuration(metric_names.LIST_SERVICES):
@@ -554,7 +618,7 @@ class ServerlessOperations(object):
     return [service.Service(item, messages) for item in response.items]
 
   def ListConfigurations(self, namespace_ref):
-    messages = self._messages_module
+    messages = self.messages_module
     request = messages.RunNamespacesConfigurationsListRequest(
         parent=namespace_ref.RelativeName())
     with metrics.RecordDuration(metric_names.LIST_CONFIGURATIONS):
@@ -563,7 +627,7 @@ class ServerlessOperations(object):
             for item in response.items]
 
   def ListRoutes(self, namespace_ref):
-    messages = self._messages_module
+    messages = self.messages_module
     request = messages.RunNamespacesRoutesListRequest(
         parent=namespace_ref.RelativeName())
     with metrics.RecordDuration(metric_names.LIST_ROUTES):
@@ -572,7 +636,7 @@ class ServerlessOperations(object):
 
   def GetService(self, service_ref):
     """Return the relevant Service from the server, or None if 404."""
-    messages = self._messages_module
+    messages = self.messages_module
     service_get_request = messages.RunNamespacesServicesGetRequest(
         name=service_ref.RelativeName())
 
@@ -586,7 +650,7 @@ class ServerlessOperations(object):
 
   def GetConfiguration(self, service_or_configuration_ref):
     """Return the relevant Configuration from the server, or None if 404."""
-    messages = self._messages_module
+    messages = self.messages_module
     if hasattr(service_or_configuration_ref, 'servicesId'):
       name = self._registry.Parse(
           service_or_configuration_ref.servicesId,
@@ -610,7 +674,7 @@ class ServerlessOperations(object):
 
   def GetRoute(self, service_or_route_ref):
     """Return the relevant Route from the server, or None if 404."""
-    messages = self._messages_module
+    messages = self.messages_module
     if hasattr(service_or_route_ref, 'servicesId'):
       name = self._registry.Parse(
           service_or_route_ref.servicesId,
@@ -641,7 +705,7 @@ class ServerlessOperations(object):
     Raises:
       ServiceNotFoundError: if provided service is not found.
     """
-    messages = self._messages_module
+    messages = self.messages_module
     service_name = service_ref.RelativeName()
     service_delete_request = messages.RunNamespacesServicesDeleteRequest(
         name=service_name,
@@ -663,7 +727,7 @@ class ServerlessOperations(object):
     Raises:
       RevisionNotFoundError: if provided revision is not found.
     """
-    messages = self._messages_module
+    messages = self.messages_module
     revision_name = revision_ref.RelativeName()
     request = messages.RunNamespacesRevisionsDeleteRequest(
         name=revision_name)
@@ -676,14 +740,14 @@ class ServerlessOperations(object):
 
   def GetRevisionsByNonce(self, namespace_ref, nonce):
     """Return all revisions with the given nonce."""
-    messages = self._messages_module
+    messages = self.messages_module
     request = messages.RunNamespacesRevisionsListRequest(
         parent=namespace_ref.RelativeName(),
-        labelSelector='{} = {}'.format(NONCE_LABEL, nonce))
+        labelSelector='{} = {}'.format(revision.NONCE_LABEL, nonce))
     response = self._client.namespaces_revisions.List(request)
     return [revision.Revision(item, messages) for item in response.items]
 
-  def _GetBaseRevision(self, config, metadata, status):
+  def _GetBaseRevision(self, template, metadata, status):
     """Return a Revision for use as the "base revision" for a change.
 
     When making a change that should not affect the code running, the
@@ -696,7 +760,7 @@ class ServerlessOperations(object):
         the latestCreatedRevision in status.
 
     Arguments:
-      config: Configuration, the configuration to get the base revision of.
+      template: Revision, the revision template to get the base revision of.
         May have been derived from a Service.
       metadata: ObjectMeta, the metadata from the top-level object
       status: Union[ConfigurationStatus, ServiceStatus], the status of the top-
@@ -707,7 +771,7 @@ class ServerlessOperations(object):
     """
     # Or returns None if not available by nonce & the control plane has not
     # implemented latestCreatedRevisionName on the Service object yet.
-    base_revision_nonce = config.revision_labels.get(NONCE_LABEL, None)
+    base_revision_nonce = template.labels.get(revision.NONCE_LABEL, None)
     base_revision = None
     if base_revision_nonce:
       try:
@@ -735,14 +799,14 @@ class ServerlessOperations(object):
 
   def _EnsureImageDigest(self, serv, config_changes):
     """Make config_changes include switch by-digest image if not so already."""
-    if not _IsDigest(serv.configuration.image):
+    if not _IsDigest(serv.template.image):
       base_revision = self._GetBaseRevision(
-          serv.configuration, serv.metadata, serv.status)
+          serv.template, serv.metadata, serv.status)
       if base_revision:
         config_changes.append(_SwitchToDigestChange(base_revision))
 
-  def _UpdateOrCreateService(self, service_ref, config_changes, with_code,
-                             private_endpoint=None):
+  def _UpdateOrCreateService(
+      self, service_ref, config_changes, with_code, serv):
     """Apply config_changes to the service. Create it if necessary.
 
     Arguments:
@@ -750,36 +814,28 @@ class ServerlessOperations(object):
       config_changes: list of ConfigChanger to modify the service with
       with_code: bool, True if the config_changes contains code to deploy.
         We can't create the service if we're not deploying code.
-      private_endpoint: bool, True if creating a new Service for
-        Cloud Run on GKE that should only be addressable from within the
-        cluster. False if it should be publicly addressable. None if
-        its existing visibility should remain unchanged.
+      serv: service.Service, For update the Service to update and for
+        create None.
 
     Returns:
       The Service object we created or modified.
     """
-    nonce = _Nonce()
-    config_changes = [_NewRevisionForcingChange(nonce)] + config_changes
-    messages = self._messages_module
-    # GET the Service
-    serv = self.GetService(service_ref)
+    messages = self.messages_module
+    config_changes = [_SetClientNameAndVersion()] + config_changes
     try:
       if serv:
         if not with_code:
           # Avoid changing the running code by making the new revision by digest
           self._EnsureImageDigest(serv, config_changes)
 
-        if private_endpoint is None:
-          # Don't change the existing service visibility
-          pass
-        elif private_endpoint:
-          serv.labels[service.ENDPOINT_VISIBILITY] = service.CLUSTER_LOCAL
-        else:
-          del serv.labels[service.ENDPOINT_VISIBILITY]
+        # Revision names must be unique across the namespace.
+        # To prevent the revision name being unchanged from the last revision,
+        # we reset the value so the default naming scheme will be used instead.
+        serv.template.name = None
 
         # PUT the changed Service
         for config_change in config_changes:
-          config_change.AdjustConfiguration(serv.configuration, serv.metadata)
+          serv = config_change.Adjust(serv)
         serv_name = service_ref.RelativeName()
         serv_update_req = (
             messages.RunNamespacesServicesReplaceServiceRequest(
@@ -795,13 +851,11 @@ class ServerlessOperations(object):
           raise serverless_exceptions.ServiceNotFoundError(
               'Service [{}] could not be found.'.format(service_ref.servicesId))
         # POST a new Service
-        new_serv = service.Service.New(self._client, service_ref.namespacesId,
-                                       private_endpoint)
+        new_serv = service.Service.New(self._client, service_ref.namespacesId)
         new_serv.name = service_ref.servicesId
         parent = service_ref.Parent().RelativeName()
         for config_change in config_changes:
-          config_change.AdjustConfiguration(new_serv.configuration,
-                                            new_serv.metadata)
+          new_serv = config_change.Adjust(new_serv)
         serv_create_req = (
             messages.RunNamespacesServicesCreateRequest(
                 service=new_serv.Message(),
@@ -816,10 +870,14 @@ class ServerlessOperations(object):
         if (serverless_exceptions.BadImageError.IMAGE_ERROR_FIELD
             in error_payload.field_violations):
           exceptions.reraise(serverless_exceptions.BadImageError(e))
+        elif (serverless_exceptions.MalformedLabelError.LABEL_ERROR_FIELD
+              in error_payload.field_violations):
+          exceptions.reraise(serverless_exceptions.MalformedLabelError(e))
       exceptions.reraise(e)
     except api_exceptions.HttpNotFoundError as e:
+      platform = properties.VALUES.run.platform.Get()
       error_msg = 'Deployment endpoint was not found.'
-      if not self._region:
+      if platform == 'gke':
         all_clusters = global_methods.ListClusters()
         clusters = ['* {} in {}'.format(c.name, c.zone) for c in all_clusters]
         error_msg += (' Perhaps the provided cluster was invalid or '
@@ -828,7 +886,7 @@ class ServerlessOperations(object):
                       '`run/cluster` and `run/cluster_location` properties to '
                       'a valid cluster and zone and retry.'
                       '\nAvailable clusters:\n{}'.format('\n'.join(clusters)))
-      else:
+      elif platform == 'managed':
         all_regions = global_methods.ListRegions(self._op_client)
         if self._region not in all_regions:
           regions = ['* {}'.format(r) for r in all_regions]
@@ -836,11 +894,50 @@ class ServerlessOperations(object):
                         'Pass the `--region` flag or set the '
                         '`run/region` property to a valid region and retry.'
                         '\nAvailable regions:\n{}'.format('\n'.join(regions)))
+      elif platform == 'kubernetes':
+        error_msg += (' Perhaps the provided cluster was invalid or '
+                      'does not have Cloud Run enabled. Ensure in your '
+                      'kubeconfig file that the cluster referenced in '
+                      'the current context or the specified context '
+                      'is a valid cluster and retry.')
       raise serverless_exceptions.DeploymentFailedError(error_msg)
+    except api_exceptions.HttpError as e:
+      platform = properties.VALUES.run.platform.Get()
+      if platform == 'managed':
+        exceptions.reraise(e)
+      k8s_error = serverless_exceptions.KubernetesExceptionParser(e)
+      causes = '\n\n'.join([c['message'] for c in k8s_error.causes])
+      if not causes:
+        causes = k8s_error.error
+      raise serverless_exceptions.KubernetesError('Error{}:\n{}\n'.format(
+          's' if len(k8s_error.causes) > 1 else '', causes))
+
+  def UpdateTraffic(self, service_ref, config_changes, tracker, asyn):
+    """Update traffic splits for service."""
+    if tracker is None:
+      tracker = progress_tracker.NoOpStagedProgressTracker(
+          stages.UpdateTrafficStages(),
+          interruptable=True,
+          aborted_message='aborted')
+    serv = self.GetService(service_ref)
+    if not serv:
+      raise serverless_exceptions.ServiceNotFoundError(
+          'Service [{}] could not be found.'.format(service_ref.servicesId))
+
+    if serv.configuration:
+      raise serverless_exceptions.UnsupportedOperationError(
+          'This service is using an old version of Cloud Run for Anthos '
+          'that does not support traffic features. Please upgrade to 0.8 '
+          'or later.')
+
+    self._UpdateOrCreateService(service_ref, config_changes, False, serv)
+
+    if not asyn:
+      getter = functools.partial(self.GetService, service_ref)
+      self.WaitForCondition(ServiceConditionPoller(getter, tracker, serv=serv))
 
   def ReleaseService(self, service_ref, config_changes, tracker=None,
-                     asyn=False, private_endpoint=None,
-                     allow_unauthenticated=None):
+                     asyn=False, allow_unauthenticated=None, for_replace=False):
     """Change the given service in prod using the given config_changes.
 
     Ensures a new revision is always created, even if the spec of the revision
@@ -848,33 +945,36 @@ class ServerlessOperations(object):
 
     Arguments:
       service_ref: Resource, the service to release
-      config_changes: list, objects that implement AdjustConfiguration().
+      config_changes: list, objects that implement Adjust().
       tracker: StagedProgressTracker, to report on the progress of releasing.
-      asyn: bool, if True, release asyncronously
-      private_endpoint: bool, True if creating a new Service for
-        Cloud Run on GKE that should only be addressable from within the
-        cluster. False if it should be publicly addressable. None if
-        its existing visibility should remain unchanged.
+      asyn: bool, if True, return without waiting for the service to be updated.
       allow_unauthenticated: bool, True if creating a hosted Cloud Run
         service which should also have its IAM policy set to allow
         unauthenticated access. False if removing the IAM policy to allow
         unauthenticated access from a service.
+      for_replace: bool, If the change is for a replacing the service from a
+        YAML specification.
     """
     if tracker is None:
       tracker = progress_tracker.NoOpStagedProgressTracker(
           stages.ServiceStages(allow_unauthenticated is not None),
           interruptable=True, aborted_message='aborted')
-    with_image = any(
-        isinstance(c, config_changes_mod.ImageChange) for c in config_changes)
+    if for_replace:
+      with_image = True
+    else:
+      with_image = any(
+          isinstance(c, config_changes_mod.ImageChange) for c in config_changes)
+      config_changes = [_NewRevisionForcingChange(_Nonce())] + config_changes
+    serv = self.GetService(service_ref)
     self._UpdateOrCreateService(
-        service_ref, config_changes, with_image, private_endpoint)
+        service_ref, config_changes, with_image, serv)
 
     if allow_unauthenticated is not None:
       try:
         tracker.StartStage(stages.SERVICE_IAM_POLICY_SET)
         tracker.UpdateStage(stages.SERVICE_IAM_POLICY_SET, '')
         self.AddOrRemoveIamPolicyBinding(service_ref, allow_unauthenticated,
-                                         ALLOW_UNAUTH_POLICY_BINDING_MEMBERS,
+                                         ALLOW_UNAUTH_POLICY_BINDING_MEMBER,
                                          ALLOW_UNAUTH_POLICY_BINDING_ROLE)
         tracker.CompleteStage(stages.SERVICE_IAM_POLICY_SET)
       except api_exceptions.HttpError:
@@ -890,7 +990,14 @@ class ServerlessOperations(object):
 
     if not asyn:
       getter = functools.partial(self.GetService, service_ref)
-      self.WaitForCondition(ServiceConditionPoller(getter, tracker))
+      poller = ServiceConditionPoller(
+          getter,
+          tracker,
+          dependencies=stages.ServiceDependencies(),
+          serv=serv)
+      self.WaitForCondition(poller)
+      for msg in run_condition.GetNonTerminalMessages(poller.GetConditions()):
+        tracker.AddWarning(msg)
 
   def ListRevisions(self, namespace_ref, service_name):
     """List all revisions for the given service.
@@ -904,7 +1011,7 @@ class ServerlessOperations(object):
     Returns:
       A list of revisions for the given service.
     """
-    messages = self._messages_module
+    messages = self.messages_module
     request = messages.RunNamespacesRevisionsListRequest(
         parent=namespace_ref.RelativeName(),
     )
@@ -932,7 +1039,7 @@ class ServerlessOperations(object):
     Returns:
       A list of domain mappings.
     """
-    messages = self._messages_module
+    messages = self.messages_module
     request = messages.RunNamespacesDomainmappingsListRequest(
         parent=namespace_ref.RelativeName())
     with metrics.RecordDuration(metric_names.LIST_DOMAIN_MAPPINGS):
@@ -951,7 +1058,7 @@ class ServerlessOperations(object):
       A domain_mapping.DomainMapping object.
     """
 
-    messages = self._messages_module
+    messages = self.messages_module
     new_mapping = domain_mapping.DomainMapping.New(
         self._client, domain_mapping_ref.namespacesId)
     new_mapping.name = domain_mapping_ref.domainmappingsId
@@ -961,22 +1068,26 @@ class ServerlessOperations(object):
         domainMapping=new_mapping.Message(),
         parent=domain_mapping_ref.Parent().RelativeName())
     with metrics.RecordDuration(metric_names.CREATE_DOMAIN_MAPPING):
-      response = self._client.namespaces_domainmappings.Create(request)
-      # 'run domain-mappings create' is synchronous. Poll for its completion.
+      try:
+        response = self._client.namespaces_domainmappings.Create(request)
+      except api_exceptions.HttpConflictError:
+        raise serverless_exceptions.DomainMappingCreationError(
+            'Domain mapping to [{}] for service [{}] already exists.'.format(
+                domain_mapping_ref.Name(), service_name))
+      # 'run domain-mappings create' is synchronous. Poll for its completion.x
       with progress_tracker.ProgressTracker('Creating...'):
         mapping = waiter.PollUntilDone(
             DomainMappingResourceRecordPoller(self), domain_mapping_ref)
       ready = mapping.conditions.get('Ready')
-      records = getattr(mapping.status, 'resourceRecords', None)
       message = None
       if ready and ready.get('message'):
         message = ready['message']
-      if not records:
+      if not mapping.records:
         raise serverless_exceptions.DomainMappingCreationError(
             message or 'Could not create domain mapping.')
       if message:
         log.status.Print(message)
-      return records
+      return mapping
 
     return domain_mapping.DomainMapping(response, messages)
 
@@ -986,7 +1097,7 @@ class ServerlessOperations(object):
     Args:
       domain_mapping_ref: Resource, domainmapping resource.
     """
-    messages = self._messages_module
+    messages = self.messages_module
 
     request = messages.RunNamespacesDomainmappingsDeleteRequest(
         name=domain_mapping_ref.RelativeName())
@@ -1002,7 +1113,7 @@ class ServerlessOperations(object):
     Returns:
       A domain_mapping.DomainMapping object.
     """
-    messages = self._messages_module
+    messages = self.messages_module
     request = messages.RunNamespacesDomainmappingsGetRequest(
         name=domain_mapping_ref.RelativeName())
     with metrics.RecordDuration(metric_names.GET_DOMAIN_MAPPING):
@@ -1011,14 +1122,14 @@ class ServerlessOperations(object):
 
   def _GetIamPolicy(self, service_name):
     """Gets the IAM policy for the service."""
-    messages = self._messages_module
+    messages = self.messages_module
     request = messages.RunProjectsLocationsServicesGetIamPolicyRequest(
-        resource=str(service_name))
+        resource=six.text_type(service_name))
     response = self._op_client.projects_locations_services.GetIamPolicy(request)
     return response
 
   def AddOrRemoveIamPolicyBinding(self, service_ref, add_binding=True,
-                                  members=None, role=None):
+                                  member=None, role=None):
     """Add or remove the given IAM policy binding to the provided service.
 
     If no members or role are provided, set the IAM policy to the current IAM
@@ -1028,33 +1139,37 @@ class ServerlessOperations(object):
     Args:
       service_ref: str, The service to which to add the IAM policy.
       add_binding: bool, Whether to add to or remove from the IAM policy.
-      members: [str], The users for which the binding applies.
+      member: str, One of the users for which the binding applies.
       role: str, The role to grant the provided members.
 
     Returns:
       A google.iam.v1.TestIamPermissionsResponse.
     """
-    messages = self._messages_module
+    messages = self.messages_module
     oneplatform_service = resource_name_conversion.K8sToOnePlatform(
         service_ref, self._region)
     policy = self._GetIamPolicy(oneplatform_service)
-    # Don't modify bindings if not members or roles provided
-    if members and role:
-      binding = messages.Binding(members=members, role=role)
+    # Don't modify bindings if not member or roles provided
+    if member and role:
       if add_binding:
-        policy.bindings.append(binding)
-      else:
-        # Remove bindings that exactly match the provided members and role
-        policy.bindings = [b for b in policy.bindings if b != binding]
+        iam_util.AddBindingToIamPolicy(messages.Binding, policy, member, role)
+      elif iam_util.BindingInPolicy(policy, member, role):
+        iam_util.RemoveBindingFromIamPolicy(policy, member, role)
     request = messages.RunProjectsLocationsServicesSetIamPolicyRequest(
-        resource=str(oneplatform_service),
+        resource=six.text_type(oneplatform_service),
         setIamPolicyRequest=messages.SetIamPolicyRequest(policy=policy))
     result = self._op_client.projects_locations_services.SetIamPolicy(request)
     return result
 
   def CanSetIamPolicyBinding(self, service_ref):
-    try:
-      self.AddOrRemoveIamPolicyBinding(service_ref)
-      return True
-    except api_exceptions.HttpError:
-      return False
+    """Check if user has permission to set the iam policy on the service."""
+    messages = self.messages_module
+    oneplatform_service = resource_name_conversion.K8sToOnePlatform(
+        service_ref, self._region)
+    request = messages.RunProjectsLocationsServicesTestIamPermissionsRequest(
+        resource=six.text_type(oneplatform_service),
+        testIamPermissionsRequest=messages.TestIamPermissionsRequest(
+            permissions=NEEDED_IAM_PERMISSIONS))
+    response = self._op_client.projects_locations_services.TestIamPermissions(
+        request)
+    return set(NEEDED_IAM_PERMISSIONS).issubset(set(response.permissions))

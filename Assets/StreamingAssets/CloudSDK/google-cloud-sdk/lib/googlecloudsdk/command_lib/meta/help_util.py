@@ -32,7 +32,7 @@ import six
 
 
 # Help documents must not contain any of these invalid brand abbreviations.
-INVALID_BRAND_ABBREVIATIONS = ['GAE', 'GCE', 'GCP', 'GCS', 'GKE']
+INVALID_BRAND_ABBREVIATIONS = ['GAE', 'GCE', 'GCP', 'GCS']
 # Max number of test changes to display.
 TEST_CHANGES_DISPLAY_MAX = 32
 
@@ -67,7 +67,7 @@ def GetDirFilesRecursive(directory):
     A set of all files in directory and its children recursively.
   """
   dirfiles = set()
-  for dirpath, _, files in os.walk(directory):
+  for dirpath, _, files in os.walk(six.text_type(directory)):
     for name in files:
       dirfiles.add(os.path.normpath(os.path.join(dirpath, name)))
   return dirfiles

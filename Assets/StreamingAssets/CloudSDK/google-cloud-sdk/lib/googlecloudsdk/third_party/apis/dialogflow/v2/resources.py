@@ -18,7 +18,7 @@ import enum
 
 
 BASE_URL = 'https://dialogflow.googleapis.com/v2/'
-DOCS_URL = 'https://cloud.google.com/dialogflow-enterprise/'
+DOCS_URL = 'https://cloud.google.com/dialogflow/'
 
 
 class Collections(enum.Enum):
@@ -83,6 +83,24 @@ class Collections(enum.Enum):
           '':
               'projects/{projectsId}/agent/sessions/{sessionsId}/entityTypes/'
               '{entityTypesId}',
+      },
+      [u'name'],
+      True
+  )
+  PROJECTS_LOCATIONS = (
+      'projects.locations',
+      'projects/{projectsId}/locations/{locationsId}',
+      {},
+      [u'projectsId', u'locationsId'],
+      True
+  )
+  PROJECTS_LOCATIONS_OPERATIONS = (
+      'projects.locations.operations',
+      '{+name}',
+      {
+          '':
+              'projects/{projectsId}/locations/{locationsId}/operations/'
+              '{operationsId}',
       },
       [u'name'],
       True

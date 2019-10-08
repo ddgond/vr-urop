@@ -34,11 +34,31 @@ class ListServicesPermissionDeniedException(Error):
   pass
 
 
+class GetServicePermissionDeniedException(Error):
+  pass
+
+
+class CreateQuotaOverridePermissionDeniedException(Error):
+  pass
+
+
+class UpdateQuotaOverridePermissionDeniedException(Error):
+  pass
+
+
+class DeleteQuotaOverridePermissionDeniedException(Error):
+  pass
+
+
 class CreateConnectionsPermissionDeniedException(Error):
   pass
 
 
 class ListConnectionsPermissionDeniedException(Error):
+  pass
+
+
+class GenerateServiceIdentityPermissionDeniedException(Error):
   pass
 
 

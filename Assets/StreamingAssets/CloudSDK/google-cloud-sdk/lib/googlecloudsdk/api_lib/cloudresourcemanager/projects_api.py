@@ -61,9 +61,14 @@ def _AddActiveProjectFilter(filter_expr):
   return 'lifecycleState:ACTIVE AND ({})'.format(filter_expr)
 
 
-def Get(project_ref, api_version=DEFAULT_API_VERSION):
+def Get(project_ref, api_version=DEFAULT_API_VERSION,
+        disable_api_enablement_check=False):
   """Get project information."""
   client = projects_util.GetClient(api_version)
+  # disable_api_enablement_check added to handle special case of
+  # setting config value core/project, see b/133841504/
+  if disable_api_enablement_check:
+    client.check_response_func = None
   return client.projects.Get(
       client.MESSAGES_MODULE.CloudresourcemanagerProjectsGetRequest(
           projectId=project_ref.projectId))
@@ -153,6 +158,10 @@ def GetIamPolicy(project_ref, api_version=DEFAULT_API_VERSION):
   messages = projects_util.GetMessages(api_version)
 
   policy_request = messages.CloudresourcemanagerProjectsGetIamPolicyRequest(
+      getIamPolicyRequest=messages.GetIamPolicyRequest(
+          options=messages.GetPolicyOptions(
+              requestedPolicyVersion=
+              iam_util.MAX_LIBRARY_IAM_SUPPORTED_VERSION)),
       resource=project_ref.Name(),
   )
   return client.projects.GetIamPolicy(policy_request)
@@ -166,6 +175,7 @@ def SetIamPolicy(project_ref,
   client = projects_util.GetClient(api_version)
   messages = projects_util.GetMessages(api_version)
 
+  policy.version = iam_util.MAX_LIBRARY_IAM_SUPPORTED_VERSION
   set_iam_policy_request = messages.SetIamPolicyRequest(policy=policy)
   # Only include update_mask if provided, otherwise, leave the field unset.
   if update_mask is not None:

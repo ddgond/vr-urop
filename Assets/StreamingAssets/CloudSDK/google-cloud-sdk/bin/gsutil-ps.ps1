@@ -14,9 +14,9 @@ $run_args_array += (Join-Path $cloudsdk_root_dir 'bin\bootstrapping\gsutil.py')
 $run_args_array += $args
 
 if ($MyInvocation.ExpectingInput) {
-  $input | & "$cloudsdk_python" $run_args_array
+  $input | & "$cloudsdk_gsutil_python" $run_args_array
 } else {
-  & "$cloudsdk_python" $run_args_array
+  & "$cloudsdk_gsutil_python" $run_args_array
 }
 
 Restore-Environment $origEnv

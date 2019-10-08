@@ -64,8 +64,6 @@ def _GetProject(args):
 def _Run(args,
          track=None,
          enable_runtime=True,
-         enable_max_instances=False,
-         enable_vpc_connector=False,
          enable_traffic_control=False,
          enable_allow_unauthenticated=False):
   """Run a function deployment with the given args."""
@@ -117,11 +115,16 @@ def _Run(args,
   if args.service_account:
     function.serviceAccountEmail = args.service_account
     updated_fields.append('serviceAccountEmail')
+  if (args.IsSpecified('max_instances') or
+      args.IsSpecified('clear_max_instances')):
+    max_instances = 0 if args.clear_max_instances else args.max_instances
+    function.maxInstances = max_instances
+    updated_fields.append('maxInstances')
   if enable_runtime:
     if args.IsSpecified('runtime'):
       function.runtime = args.runtime
       updated_fields.append('runtime')
-      if args.runtime in ['nodejs', 'nodejs6']:  # nodejs is nodejs6 alias
+      if args.runtime in ['nodejs6']:
         log.warning(
             'The Node.js 6 runtime is deprecated on Cloud Functions. '
             'Please migrate to Node.js 8 (--runtime=nodejs8) or Node.js 10 '
@@ -131,19 +134,16 @@ def _Run(args,
     elif is_new_function:
       raise exceptions.RequiredArgumentException(
           'runtime', 'Flag `--runtime` is required for new functions.')
-  if enable_max_instances:
-    if (args.IsSpecified('max_instances') or
-        args.IsSpecified('clear_max_instances')):
-      max_instances = 0 if args.clear_max_instances else args.max_instances
-      function.maxInstances = max_instances
-      updated_fields.append('maxInstances')
-  if enable_vpc_connector:
-    if args.IsSpecified('vpc_connector'):
-      function.vpcConnector = args.vpc_connector
-      updated_fields.append('vpcConnector')
+  if args.vpc_connector or args.clear_vpc_connector:
+    function.vpcConnector = ('' if args.clear_vpc_connector else
+                             args.vpc_connector)
+    updated_fields.append('vpcConnector')
   if enable_traffic_control:
     if args.IsSpecified('egress_settings'):
-      if not (had_vpc_connector or args.IsSpecified('vpc_connector')):
+      will_have_vpc_connector = ((had_vpc_connector and
+                                  not args.clear_vpc_connector) or
+                                 args.vpc_connector)
+      if not will_have_vpc_connector:
         raise exceptions.RequiredArgumentException(
             'vpc-connector', 'Flag `--vpc-connector` is '
             'required for setting `egress-settings`.')
@@ -220,9 +220,10 @@ def _Run(args,
         and not ensure_all_users_invoke
         and not deny_all_users_invoke):
       template = (
-          'Function created with default IAM policy. '
+          'Function created with limited-access IAM policy. '
           'To enable unauthorized access consider "%s"')
       log.warning(template % _CreateBindPolicyCommand(args.NAME, args.region))
+      deny_all_users_invoke = True
 
   elif updated_fields:
     op = api_util.PatchFunction(function, updated_fields)
@@ -233,18 +234,38 @@ def _Run(args,
       log.status.Print('Nothing to update.')
       return
 
-  try:
-    if ensure_all_users_invoke:
-      api_util.AddFunctionIamPolicyBinding(function.name)
-    elif deny_all_users_invoke:
-      api_util.RemoveFunctionIamPolicyBindingIfFound(function.name)
-  except exceptions.HttpException:
-    log.warning(
-        'Setting IAM policy failed, try "%s"' % _CreateBindPolicyCommand(
-            args.NAME, args.region))
+  stop_trying_perm_set = [False]
+
+  # The server asyncrhonously sets allUsers invoker permissions some time after
+  # we create the function. That means, to remove it, we need do so after the
+  # server adds it. We can remove this mess after the default changes.
+  # TODO(b/139026575): Remove the "remove" path, only bother adding. Remove the
+  # logic from the polling loop. Remove the ability to add logic like this to
+  # the polling loop.
+  def TryToSetInvokerPermission():
+    """Try to make the invoker permission be what we said it should.
+
+    This is for executing in the polling loop, and will stop trying as soon as
+    it succeeds at making a change.
+    """
+    if stop_trying_perm_set[0]:
+      return
+    try:
+      if ensure_all_users_invoke:
+        api_util.AddFunctionIamPolicyBinding(function.name)
+        stop_trying_perm_set[0] = True
+      elif deny_all_users_invoke:
+        stop_trying_perm_set[0] = (
+            api_util.RemoveFunctionIamPolicyBindingIfFound(function.name))
+    except exceptions.HttpException:
+      stop_trying_perm_set[0] = True
+      log.warning(
+          'Setting IAM policy failed, try "%s"' % _CreateBindPolicyCommand(
+              args.NAME, args.region))
 
   if op:
-    api_util.WaitForFunctionUpdateOperation(op)
+    api_util.WaitForFunctionUpdateOperation(
+        op, do_every_poll=TryToSetInvokerPermission)
   return api_util.GetFunction(function.name)
 
 
@@ -255,6 +276,7 @@ class Deploy(base.Command):
   @staticmethod
   def Args(parser):
     """Register flags for this command."""
+    flags.AddMaxInstancesFlag(parser)
     flags.AddFunctionResourceArg(parser, 'to deploy')
     # Add args for function properties
     flags.AddFunctionMemoryFlag(parser)
@@ -283,6 +305,8 @@ class Deploy(base.Command):
     # Add args for specifying ignore files to upload source
     flags.AddIgnoreFileFlag(parser)
 
+    flags.AddVPCConnectorMutexGroup(parser)
+
   def Run(self, args):
     return _Run(args, track=self.ReleaseTrack())
 
@@ -295,16 +319,12 @@ class DeployBeta(base.Command):
   def Args(parser):
     """Register flags for this command."""
     Deploy.Args(parser)
-    flags.AddMaxInstancesFlag(parser)
-    flags.AddVPCConnectorFlag(parser)
     flags.AddAllowUnauthenticatedFlag(parser)
 
   def Run(self, args):
     return _Run(
         args,
         track=self.ReleaseTrack(),
-        enable_max_instances=True,
-        enable_vpc_connector=True,
         enable_allow_unauthenticated=True)
 
 
@@ -316,8 +336,6 @@ class DeployAlpha(base.Command):
   def Args(parser):
     """Register flags for this command."""
     Deploy.Args(parser)
-    flags.AddMaxInstancesFlag(parser)
-    flags.AddVPCConnectorFlag(parser)
     flags.AddEgressSettingsFlag(parser)
     flags.AddIngressSettingsFlag(parser)
     flags.AddAllowUnauthenticatedFlag(parser)
@@ -326,7 +344,5 @@ class DeployAlpha(base.Command):
     return _Run(
         args,
         track=self.ReleaseTrack(),
-        enable_max_instances=True,
-        enable_vpc_connector=True,
         enable_traffic_control=True,
         enable_allow_unauthenticated=True)

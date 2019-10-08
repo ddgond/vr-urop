@@ -17,7 +17,7 @@
 import enum
 
 
-BASE_URL = 'https://www.googleapis.com/dns/v1/'
+BASE_URL = 'https://dns.googleapis.com/dns/v1/'
 DOCS_URL = 'https://developers.google.com/cloud-dns'
 
 
@@ -50,6 +50,13 @@ class Collections(enum.Enum):
       'projects/{project}/managedZones/{managedZone}',
       {},
       [u'project', u'managedZone'],
+      True
+  )
+  POLICIES = (
+      'policies',
+      'projects/{project}/policies/{policy}',
+      {},
+      [u'project', u'policy'],
       True
   )
   PROJECTS = (

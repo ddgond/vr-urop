@@ -46,7 +46,7 @@ class Update(base.UpdateCommand):
     resource_args.AddRegistrationResourceArg(parser, 'to update')
     flags.AddRegistrationSettingsFlagsToParser(parser)
     flags.AddValidateOnlyFlagToParser(parser, 'update')
-    flags.AddAsyncFlagToParser(parser, 'update')
+    flags.AddAsyncFlagToParser(parser)
     labels_util.AddUpdateLabelsFlags(parser)
 
   def Run(self, args):
@@ -82,7 +82,7 @@ class Update(base.UpdateCommand):
       # TODO(b/110077203): Log something sensible.
       return
 
-    if args.async:
+    if args.async_:
       # TODO(b/110077203): Log something sensible.
       return response
 

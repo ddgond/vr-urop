@@ -21,11 +21,13 @@ from __future__ import unicode_literals
 
 from googlecloudsdk.api_lib.cloudresourcemanager import projects_api
 from googlecloudsdk.api_lib.cloudresourcemanager import projects_util
+from googlecloudsdk.api_lib.resource_manager import operations
 from googlecloudsdk.calliope import usage_text
 from googlecloudsdk.command_lib.projects import util as  projects_command_util
 from googlecloudsdk.core import log
 from googlecloudsdk.core import resources
 from googlecloudsdk.core.console import console_io
+import six
 
 
 _ENTER_PROJECT_ID_MESSAGE = """\
@@ -52,7 +54,7 @@ def _GetProjectIds(limit=None):
     projects = projects_api.List(limit=limit)
     return sorted([project.projectId for project in projects])
   except Exception as err:  # pylint: disable=broad-except
-    log.warning('Listing available projects failed: %s', str(err))
+    log.warning('Listing available projects failed: %s', six.text_type(err))
     return None
 
 
@@ -132,14 +134,22 @@ def _CreateProject(project_id, project_ids):
   project_ref = resources.REGISTRY.Create(
       'cloudresourcemanager.projects', projectId=project_id)
   try:
-    projects_api.Create(project_ref)
+    create_op = projects_api.Create(project_ref)
   except Exception as err:  # pylint: disable=broad-except
     log.warning('Project creation failed: {err}\n'
                 'Please make sure to create the project [{project}] using\n'
                 '    $ gcloud projects create {project}\n'
                 'or change to another project using\n'
                 '    $ gcloud config set project <PROJECT ID>'.format(
-                    err=str(err), project=project_id))
+                    err=six.text_type(err), project=project_id))
+    return None
+  # wait for async Create operation to complete and check the status.
+  try:
+    create_op = operations.WaitForOperation(create_op)
+  except operations.OperationFailedException as err:
+    log.warning(
+        'Project creation for project [{project}] failed:\n  {err}'.format(
+            err=six.text_type(err), project=project_id))
     return None
   return project_id
 

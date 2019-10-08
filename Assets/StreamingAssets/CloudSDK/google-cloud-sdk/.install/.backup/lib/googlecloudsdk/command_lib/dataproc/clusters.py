@@ -28,7 +28,6 @@ from googlecloudsdk.api_lib.dataproc import exceptions
 from googlecloudsdk.api_lib.dataproc import util
 from googlecloudsdk.calliope import actions
 from googlecloudsdk.calliope import arg_parsers
-from googlecloudsdk.calliope import base
 from googlecloudsdk.command_lib.compute.instances import flags as instances_flags
 from googlecloudsdk.command_lib.dataproc import flags
 from googlecloudsdk.command_lib.kms import resource_args as kms_resource_args
@@ -38,6 +37,7 @@ from googlecloudsdk.core import properties
 from googlecloudsdk.core import yaml
 from googlecloudsdk.core.console import console_io
 from googlecloudsdk.core.util import times
+import six
 
 GENERATED_LABEL_PREFIX = 'goog-dataproc-'
 
@@ -283,11 +283,14 @@ If you want to enable all scopes use the 'cloud-platform' scope.
   parser.add_argument(
       '--preemptible-worker-boot-disk-type', help=boot_disk_type_detailed_help)
 
+  autoscaling_group = parser.add_argument_group()
+  flags.AddAutoscalingPolicyResourceArgForCluster(
+      autoscaling_group, api_version=('v1beta2' if beta else 'v1'))
+
   if include_ttl_config:
     parser.add_argument(
         '--max-idle',
         type=arg_parsers.Duration(),
-        hidden=not(beta),
         help="""\
           The duration before cluster is auto-deleted after last job completes,
           such as "2h" or "1d".
@@ -298,7 +301,6 @@ If you want to enable all scopes use the 'cloud-platform' scope.
     auto_delete_group.add_argument(
         '--max-age',
         type=arg_parsers.Duration(),
-        hidden=not(beta),
         help="""\
           The lifespan of the cluster before it is auto-deleted, such as
           "2h" or "1d".
@@ -308,12 +310,39 @@ If you want to enable all scopes use the 'cloud-platform' scope.
     auto_delete_group.add_argument(
         '--expiration-time',
         type=arg_parsers.Datetime.Parse,
-        hidden=not(beta),
         help="""\
           The time when cluster will be auto-deleted, such as
           "2017-08-29T18:52:51.142Z." See $ gcloud topic datetimes for
           information on time formats.
           """)
+
+  AddKerberosGroup(parser)
+
+  flags.AddMinCpuPlatformArgs(parser)
+
+  for instance_type in ('master', 'worker', 'preemptible-worker'):
+    help_msg = """\
+      Attaches accelerators (e.g. GPUs) to the {instance_type}
+      instance(s).
+      """.format(instance_type=instance_type)
+
+    help_msg += """
+      *type*::: The specific type (e.g. nvidia-tesla-k80 for nVidia Tesla
+      K80) of accelerator to attach to the instances. Use 'gcloud compute
+      accelerator-types list' to learn about all available accelerator
+      types.
+
+      *count*::: The number of pieces of the accelerator to attach to each
+      of the instances. The default value is 1.
+      """
+    parser.add_argument(
+        '--{0}-accelerator'.format(instance_type),
+        type=arg_parsers.ArgDict(spec={
+            'type': str,
+            'count': int,
+        }),
+        metavar='type=TYPE,[count=COUNT]',
+        help=help_msg)
 
 
 def _AddDiskArgs(parser):
@@ -387,13 +416,6 @@ def _AddDiskArgsDeprecated(parser):
 
 def BetaArgsForClusterRef(parser):
   """Register beta-only flags for creating a Dataproc cluster."""
-  flags.AddMinCpuPlatformArgs(parser, base.ReleaseTrack.BETA)
-
-  autoscaling_group = parser.add_argument_group()
-  flags.AddAutoscalingPolicyResourceArgForCluster(
-      autoscaling_group, api_version='v1beta2')
-
-  AddKerberosGroup(parser)
 
   parser.add_argument(
       '--enable-component-gateway',
@@ -402,35 +424,6 @@ def BetaArgsForClusterRef(parser):
         Enable access to the web UIs of selected components on the cluster
         through the component gateway.
         """)
-
-  for instance_type in ('master', 'worker'):
-    help_msg = """\
-      Attaches accelerators (e.g. GPUs) to the {instance_type}
-      instance(s).
-      """.format(instance_type=instance_type)
-    if instance_type == 'worker':
-      help_msg += """
-      Note:
-      No accelerators will be attached to preemptible workers, because
-      preemptible VMs do not support accelerators.
-      """
-    help_msg += """
-      *type*::: The specific type (e.g. nvidia-tesla-k80 for nVidia Tesla
-      K80) of accelerator to attach to the instances. Use 'gcloud compute
-      accelerator-types list' to learn about all available accelerator
-      types.
-
-      *count*::: The number of pieces of the accelerator to attach to each
-      of the instances. The default value is 1.
-      """
-    parser.add_argument(
-        '--{0}-accelerator'.format(instance_type),
-        type=arg_parsers.ArgDict(spec={
-            'type': str,
-            'count': int,
-        }),
-        metavar='type=TYPE,[count=COUNT]',
-        help=help_msg)
 
   AddReservationAffinityGroup(parser)
 
@@ -458,15 +451,21 @@ def GetClusterConfig(args,
   """
   master_accelerator_type = None
   worker_accelerator_type = None
-  master_accelerator_count = None
-  worker_accelerator_count = None
-  if beta:
-    if args.master_accelerator:
-      master_accelerator_type = args.master_accelerator['type']
-      master_accelerator_count = args.master_accelerator.get('count', 1)
-    if args.worker_accelerator:
-      worker_accelerator_type = args.worker_accelerator['type']
-      worker_accelerator_count = args.worker_accelerator.get('count', 1)
+  preemptible_worker_accelerator_type = None
+
+  if args.master_accelerator:
+    master_accelerator_type = args.master_accelerator['type']
+    master_accelerator_count = args.master_accelerator.get('count', 1)
+
+  if args.worker_accelerator:
+    worker_accelerator_type = args.worker_accelerator['type']
+    worker_accelerator_count = args.worker_accelerator.get('count', 1)
+
+  if args.preemptible_worker_accelerator:
+    preemptible_worker_accelerator_type = (
+        args.preemptible_worker_accelerator['type'])
+    preemptible_worker_accelerator_count = (
+        args.preemptible_worker_accelerator.get('count', 1))
 
   # Resolve non-zonal GCE resources
   # We will let the server resolve short names of zonal resources because
@@ -485,7 +484,7 @@ def GetClusterConfig(args,
           'region': properties.VALUES.compute.region.GetOrFail,
       },
       collection='compute.subnetworks')
-  timeout_str = str(args.initialization_action_timeout) + 's'
+  timeout_str = six.text_type(args.initialization_action_timeout) + 's'
   init_actions = [
       dataproc.messages.NodeInitializationAction(
           executableFile=exe, executionTimeout=timeout_str)
@@ -568,6 +567,12 @@ def GetClusterConfig(args,
         dataproc.messages.AcceleratorConfig(
             acceleratorTypeUri=worker_accelerator_type,
             acceleratorCount=worker_accelerator_count))
+  preemptible_worker_accelerators = []
+  if preemptible_worker_accelerator_type:
+    preemptible_worker_accelerators.append(
+        dataproc.messages.AcceleratorConfig(
+            acceleratorTypeUri=preemptible_worker_accelerator_type,
+            acceleratorCount=preemptible_worker_accelerator_count))
 
   cluster_config = dataproc.messages.ClusterConfig(
       configBucket=args.bucket,
@@ -579,7 +584,8 @@ def GetClusterConfig(args,
           accelerators=master_accelerators,
           diskConfig=GetDiskConfig(dataproc, args.master_boot_disk_type,
                                    master_boot_disk_size_gb,
-                                   args.num_master_local_ssds)),
+                                   args.num_master_local_ssds),
+          minCpuPlatform=args.master_min_cpu_platform),
       workerConfig=dataproc.messages.InstanceGroupConfig(
           numInstances=args.num_workers,
           imageUri=image_ref and image_ref.SelfLink(),
@@ -590,50 +596,48 @@ def GetClusterConfig(args,
               args.worker_boot_disk_type,
               worker_boot_disk_size_gb,
               args.num_worker_local_ssds,
-          )),
+          ),
+          minCpuPlatform=args.worker_min_cpu_platform),
       initializationActions=init_actions,
       softwareConfig=software_config,
   )
 
-  if beta:
-    if args.kerberos_config_file or args.kerberos_root_principal_password_uri:
-      cluster_config.securityConfig = dataproc.messages.SecurityConfig()
-      if args.kerberos_config_file:
-        cluster_config.securityConfig.kerberosConfig = ParseKerberosConfigFile(
-            dataproc, args.kerberos_config_file)
-      else:
-        kerberos_config = dataproc.messages.KerberosConfig()
-        kerberos_config.enableKerberos = True
-        if args.kerberos_root_principal_password_uri:
-          kerberos_config.rootPrincipalPasswordUri = \
-            args.kerberos_root_principal_password_uri
-          kerberos_kms_ref = args.CONCEPTS.kerberos_kms_key.Parse()
-          kerberos_config.kmsKeyUri = kerberos_kms_ref.RelativeName()
-        cluster_config.securityConfig.kerberosConfig = kerberos_config
+  if args.kerberos_config_file or args.kerberos_root_principal_password_uri:
+    cluster_config.securityConfig = dataproc.messages.SecurityConfig()
+    if args.kerberos_config_file:
+      cluster_config.securityConfig.kerberosConfig = ParseKerberosConfigFile(
+          dataproc, args.kerberos_config_file)
+    else:
+      kerberos_config = dataproc.messages.KerberosConfig()
+      kerberos_config.enableKerberos = True
+      if args.kerberos_root_principal_password_uri:
+        kerberos_config.rootPrincipalPasswordUri = \
+          args.kerberos_root_principal_password_uri
+        kerberos_kms_ref = args.CONCEPTS.kerberos_kms_key.Parse()
+        kerberos_config.kmsKeyUri = kerberos_kms_ref.RelativeName()
+      cluster_config.securityConfig.kerberosConfig = kerberos_config
+
+  if args.autoscaling_policy:
+    cluster_config.autoscalingConfig = dataproc.messages.AutoscalingConfig(
+        policyUri=args.CONCEPTS.autoscaling_policy.Parse().RelativeName())
 
   if beta:
     if args.enable_component_gateway:
       cluster_config.endpointConfig = dataproc.messages.EndpointConfig(
           enableHttpPortAccess=args.enable_component_gateway)
-    if args.autoscaling_policy:
-      cluster_config.autoscalingConfig = dataproc.messages.AutoscalingConfig(
-          policyUri=args.CONCEPTS.autoscaling_policy.Parse().RelativeName())
-
-    cluster_config.masterConfig.minCpuPlatform = args.master_min_cpu_platform
-    cluster_config.workerConfig.minCpuPlatform = args.worker_min_cpu_platform
 
   if include_ttl_config:
     lifecycle_config = dataproc.messages.LifecycleConfig()
     changed_config = False
     if args.max_age is not None:
-      lifecycle_config.autoDeleteTtl = str(args.max_age) + 's'
+      lifecycle_config.autoDeleteTtl = six.text_type(args.max_age) + 's'
       changed_config = True
     if args.expiration_time is not None:
       lifecycle_config.autoDeleteTime = times.FormatDateTime(
           args.expiration_time)
       changed_config = True
     if args.max_idle is not None:
-      lifecycle_config.idleDeleteTtl = str(args.max_idle) + 's'
+      lifecycle_config.idleDeleteTtl = six.text_type(args.max_idle) + 's'
       changed_config = True
     if changed_config:
       cluster_config.lifecycleConfig = lifecycle_config
@@ -660,19 +664,18 @@ def GetClusterConfig(args,
       preemptible_worker_boot_disk_size_gb is not None or
       args.preemptible_worker_boot_disk_type is not None or
       args.num_preemptible_worker_local_ssds is not None or
-      (beta and args.worker_min_cpu_platform is not None)):
+      args.worker_min_cpu_platform is not None):
     cluster_config.secondaryWorkerConfig = (
         dataproc.messages.InstanceGroupConfig(
             numInstances=args.num_preemptible_workers,
+            accelerators=preemptible_worker_accelerators,
             diskConfig=GetDiskConfig(
                 dataproc,
                 args.preemptible_worker_boot_disk_type,
                 preemptible_worker_boot_disk_size_gb,
                 args.num_preemptible_worker_local_ssds,
-            )))
-    if beta and args.worker_min_cpu_platform:
-      cluster_config.secondaryWorkerConfig.minCpuPlatform = (
-          args.worker_min_cpu_platform)
+            ),
+            minCpuPlatform=args.worker_min_cpu_platform))
 
   return cluster_config
 
@@ -943,6 +946,10 @@ The YAML file is formatted as follows:
   # hours. If not specified, or user specifies 0, then default
   # value 10 will be used.
   tgt_lifetime_hours: 1
+
+  # Optional. The name of the Kerberos realm. If not specified,
+  # the uppercased domain name of the cluster will be used.
+  realm: REALM.NAME
 ```
         """)
 
@@ -978,6 +985,7 @@ def ParseKerberosConfigFile(dataproc, kerberos_config_file):
       kmsKeyUri=kerberos_config_data.get('kms_key_uri'),
       kdcDbKeyUri=kerberos_config_data.get('kdc_db_key_uri'),
       tgtLifetimeHours=kerberos_config_data.get('tgt_lifetime_hours'),
+      realm=kerberos_config_data.get('realm'),
       keystoreUri=keystore_uri,
       keystorePasswordUri=keystore_password_uri,
       keyPasswordUri=key_password_uri,

@@ -26,7 +26,7 @@ from googlecloudsdk.core import log
 from googlecloudsdk.core.console import console_io
 
 # googlecloudsdk/command_lib/survey/contents folder contains survey definitions
-_SURVEY_ID = 'TwoQuestionGeneralSurvey'
+_SURVEY_ID = 'GeneralSurvey'
 
 
 def _GetAnswerToQuestion(question):
@@ -56,19 +56,24 @@ def LogResponse(survey_instance):
 
 @base.ReleaseTracks(base.ReleaseTrack.ALPHA)
 class Survey(base.Command):
-  """Invoke a customer satisfaction survey for Cloud SDK."""
+  """Invoke a customer satisfaction survey for Cloud SDK.
+
+  To permanently disable the survey prompt, run:
+
+     $ gcloud config set survey/disable_prompts True
+  """
 
   @staticmethod
   def Args(parser):
     pass
 
   def Run(self, args):
-    survey_instance = survey.Survey(_SURVEY_ID)
+    survey_instance = survey.GeneralSurvey()
     survey_instance.PrintWelcomeMsg()
+    num_of_questions = len(list(survey_instance))
     # Index questions from 1 instead of 0 (default) to be user-friendly.
     for index, question in enumerate(survey_instance, 1):
-      progress_msg = '\nQuestion {} of {}:\n'.format(index,
-                                                     len(survey_instance))
+      progress_msg = '\nQuestion {} of {}:\n'.format(index, num_of_questions)
       log.err.Print(progress_msg)
       question.PrintQuestion()
       log.err.write('\n')
