@@ -28,6 +28,12 @@ namespace JsonData
 		public string DrinkSize;
 	}
 
+    [Serializable]
+	public class DirectionsParameters
+	{
+		public string Place;
+	}
+
 	/*
      * Required request body
      * queryInput

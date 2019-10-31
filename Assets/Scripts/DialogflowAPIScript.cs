@@ -95,7 +95,7 @@ public class DialogflowAPIScript : MonoBehaviour {
 				message));
 	}
 
-	public void ResolveText(String text) {
+	public virtual void ResolveText(String text) {
 			dialogTextbox.text = text;
 			SynthesizeSpeech(text);
 	}
@@ -104,7 +104,7 @@ public class DialogflowAPIScript : MonoBehaviour {
 
 	}
 
-	private void SynthesizeSpeech(String text) {
+	public virtual void SynthesizeSpeech(String text) {
 			ExampleTextToSpeech tts = GameObject.FindWithTag("TTS").GetComponent<ExampleTextToSpeech>();
 			StartCoroutine(tts.Convert(text));
 	}
