@@ -10,6 +10,8 @@ public class LockedDoor : MonoBehaviour
     private float keyTurnDuration = 0.5f;
     private float doorOpenDuration = 1.5f;
 
+    private bool interactable = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,9 +24,17 @@ public class LockedDoor : MonoBehaviour
 
     }
 
+    public void Deactivate() {
+        interactable = false;
+    }
+
+    public void Activate() {
+        interactable = true;
+    }
+
     void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<DoorKey>() != null) {
+        if (interactable && other.GetComponent<DoorKey>() != null) {
             Destroy(other.GetComponent<DoorKey>());
             Destroy(other.GetComponent<Valve.VR.InteractionSystem.Throwable>());
             Destroy(other.GetComponent<Valve.VR.InteractionSystem.Interactable>());

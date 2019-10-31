@@ -79,7 +79,7 @@ public class DialogflowAPIScript : MonoBehaviour {
 		}
 	}
 
-	public void SendMessage(String message) {
+	public virtual void SendMessage(String message) {
 			//https://stackoverflow.com/questions/51272889/unable-to-send-post-request-to-dialogflow-404
 			//first param is the dialogflow API call, second param is Json web token
 			int openParenIndex = message.IndexOf("(", 0);
@@ -95,7 +95,7 @@ public class DialogflowAPIScript : MonoBehaviour {
 				message));
 	}
 
-	public void ResolveText(String text) {
+	public virtual void ResolveText(String text) {
 			dialogTextbox.text = text;
 			SynthesizeSpeech(text);
 	}
@@ -104,7 +104,7 @@ public class DialogflowAPIScript : MonoBehaviour {
 
 	}
 
-	private void SynthesizeSpeech(String text) {
+	protected void SynthesizeSpeech(String text) {
 			ExampleTextToSpeech tts = GameObject.FindWithTag("TTS").GetComponent<ExampleTextToSpeech>();
 			StartCoroutine(tts.Convert(text));
 	}
