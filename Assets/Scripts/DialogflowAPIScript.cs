@@ -79,7 +79,7 @@ public class DialogflowAPIScript : MonoBehaviour {
 		}
 	}
 
-	public void SendMessage(String message) {
+	public virtual void SendMessage(String message) {
 			//https://stackoverflow.com/questions/51272889/unable-to-send-post-request-to-dialogflow-404
 			//first param is the dialogflow API call, second param is Json web token
 			int openParenIndex = message.IndexOf("(", 0);

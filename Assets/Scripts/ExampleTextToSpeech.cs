@@ -246,7 +246,6 @@ public class ExampleTextToSpeech : MonoBehaviour
     // }
 
     public IEnumerator Convert(string text) {
-        Debug.Log("Oops");
         _service.Voice = VoiceType.en_US_Allison;
         _service.ToSpeech(HandleToSpeechCallback, OnFail, text, true);
         while (!_synthesizeTested)
