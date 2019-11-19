@@ -15,7 +15,6 @@ public class CityDialogFlow : DialogflowAPIScriptCustomTTS
     public Transform hotel;
     public Transform restaurant;
 
-    private string lastMessage = "";
     private bool inProgress = false;
     private const int THRESH = 7;
 
@@ -26,6 +25,7 @@ public class CityDialogFlow : DialogflowAPIScriptCustomTTS
         Transform prev = player;
         Transform next = player;
         string output = "";
+        bool pointing = false;
 
         float xdestdist = Math.Abs(cur.position.x - dest.position.x);
         float zdestdist = Math.Abs(cur.position.z - dest.position.z);
@@ -35,8 +35,6 @@ public class CityDialogFlow : DialogflowAPIScriptCustomTTS
         {
             next = dest;
         }
-
-        print("START");
 
         while (next != dest)
         {
@@ -65,7 +63,13 @@ public class CityDialogFlow : DialogflowAPIScriptCustomTTS
             }
 
             print(cur.name);
-            output += translateDirections(prev, cur, next, dest) + "、";;
+            output += translateDirections(prev, cur, next, dest) + "、";
+            if (!pointing)
+            {
+                pointing = true;
+                NpcApproacher npc = mainNPC.GetComponent<NpcApproacher>();
+                npc.Point(next.position);
+            }
         }
 
         output += translateDirections(prev, dest, null, dest);
@@ -83,7 +87,13 @@ public class CityDialogFlow : DialogflowAPIScriptCustomTTS
 
         if (dest == cur)
         {
-            return "まっすぐ行ったらホテルがあります";
+            Vector3 diff = dest.position - prev.position;
+            double angle = Math.Atan2(diff.z, diff.x) * 180.0 / Math.PI;
+
+            // this is kind of fake, not tested thoroughly for places besides hotel
+            if (Math.Abs(angle) > 90)
+                return "まっすぐ行ったら、道の左側にホテルがあります";
+            return "まっすぐ行ったら、道の右側にホテルがあります";
         }
 
         float xdist = Math.Abs(cur.position.x - prev.position.x);
@@ -132,7 +142,9 @@ public class CityDialogFlow : DialogflowAPIScriptCustomTTS
                 SynthesizeSpeech(dir);
             } else if (intent == "direction-query - repeat")
             {
-                SynthesizeSpeech(lastMessage);
+                string dir = Directions();
+                print(dir);
+                SynthesizeSpeech(dir);
             } else if (intent == "Default Fallback Intent")
             {
                     SynthesizeSpeech(content.queryResult.fulfillmentText);
@@ -145,9 +157,17 @@ public class CityDialogFlow : DialogflowAPIScriptCustomTTS
     }
 
     public void AttractNPC(string greeting) {
-        SynthesizeSpeech(greeting);
+        if (inProgress)
+        {
+            // already active, don't get another NPC's attention
+            SynthesizeSpeech(greeting);
+            return;
+        }
+
         NpcApproacher npc = mainNPC.GetComponent<NpcApproacher>();
         inProgress = npc.Approach();
+        if (inProgress) // if we were able to succesfully get an NPC's attention
+            SynthesizeSpeech(greeting);
   	}
 
     public void ReleaseNPC() { 
@@ -156,6 +176,7 @@ public class CityDialogFlow : DialogflowAPIScriptCustomTTS
         inProgress = false;
     }
 
+    // no longer used 
   	public void GiveDirectionsLegacy(string json) {
         // this is the nastiest workaround
         int outputContextsIndex = json.IndexOf("outputContexts");
@@ -170,7 +191,7 @@ public class CityDialogFlow : DialogflowAPIScriptCustomTTS
 
         string place = orderParams.Place;
         Debug.Log("Giving directions to " + place);
-        lastMessage = place + "はあそこです";
+        string lastMessage = place + "はあそこです";
         SynthesizeSpeech(lastMessage);
   	}
 }

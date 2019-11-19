@@ -9504,6 +9504,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 2010108223}
   NpcList: {fileID: 198579120}
+  maxNpcDistance: 10
+  source: {fileID: 1379304731}
 --- !u!95 &699637058 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 3847866870566747328, guid: 753d2f82d4a4c524090cd41bc31e0c4d,
