@@ -12,6 +12,7 @@ public class DialogflowAPIScript : MonoBehaviour {
 
 	public TextMeshPro dialogTextbox;
 	public string dialogflowURL;
+	private string googleTokenUrl = "http://ec2-3-16-154-51.us-east-2.compute.amazonaws.com/access-token";
 	private string googleToken;
 
 	// Use this for initialization
@@ -25,19 +26,33 @@ public class DialogflowAPIScript : MonoBehaviour {
 		string gacCredsPath = Path.Combine(Application.dataPath, "StreamingAssets/CloudSDK/vrurop.json");
 		string keyPath = Path.Combine(Application.dataPath, "StreamingAssets/CloudSDK/key.txt");
 
-		// gcloud requires credentials to be set in file at the path set by env_var GOOGLE_APPLICATION_CREDENTIALS, so we do that first, run gcloud auth to get our access token, and write it to a local file to be read later.
-		// TODO: Find a way to get the output directly into unity rather than in a file.
-		Process.Start("cmd.exe", "/C " + "set GOOGLE_APPLICATION_CREDENTIALS=" + gacCredsPath + " && " + gcloudPath + " auth application-default print-access-token > " + keyPath).WaitForExit();
-		LoadAccessToken();
+		using (UnityWebRequest webRequest = UnityWebRequest.Get(googleTokenUrl))
+		{
+			yield return webRequest.SendWebRequest();
+			if (webRequest.isNetworkError)
+			{
+				UnityEngine.Debug.LogError("Web Request Error: " + webRequest.error);
+			}
+			else
+			{
+				googleToken = webRequest.downloadHandler.text.Trim();
+				UnityEngine.Debug.Log("Got Key! " + googleToken);
+			}
+		}
+
+		// // gcloud requires credentials to be set in file at the path set by env_var GOOGLE_APPLICATION_CREDENTIALS, so we do that first, run gcloud auth to get our access token, and write it to a local file to be read later.
+		// // TODO: Find a way to get the output directly into unity rather than in a file.
+		// Process.Start("cmd.exe", "/C " + "set GOOGLE_APPLICATION_CREDENTIALS=" + gacCredsPath + " && " + gcloudPath + " auth application-default print-access-token > " + keyPath).WaitForExit();
+		// LoadAccessToken();
 		yield return null;
 	}
 
-	void LoadAccessToken() {
-		// Gets the key we wrote into the file and loads it into Unity.
-		googleToken = File.ReadAllText(Path.Combine(Application.dataPath, "StreamingAssets/CloudSDK/key.txt"));
-		// Need to get rid of newline.
-		googleToken = googleToken.Substring(0, googleToken.Length - 2);
-	}
+	// void LoadAccessToken() {
+	// 	// Gets the key we wrote into the file and loads it into Unity.
+	// 	googleToken = File.ReadAllText(Path.Combine(Application.dataPath, "StreamingAssets/CloudSDK/key.txt"));
+	// 	// Need to get rid of newline.
+	// 	googleToken = googleToken.Substring(0, googleToken.Length - 2);
+	// }
 
 	IEnumerator PostRequest(String url, String AccessToken, String message){
 		UnityWebRequest postRequest = new UnityWebRequest(url, "POST");
