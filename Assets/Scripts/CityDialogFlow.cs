@@ -17,10 +17,15 @@ public class CityDialogFlow : DialogflowAPIScriptCustomTTS
 
     private bool inProgress = false;
     private const int THRESH = 7;
+    private int sideOfStreet = 1; // so janky 
+    private string destinationText;
 
-    public string Directions()
+    public string Directions(string json)
     {
-        Transform dest = hotel;
+        Transform dest = GetDestination(json);
+        if (dest == null)
+            return "もう一度言ってください";
+
         Transform cur = player;
         Transform prev = player;
         Transform next = player;
@@ -89,11 +94,15 @@ public class CityDialogFlow : DialogflowAPIScriptCustomTTS
         {
             Vector3 diff = dest.position - prev.position;
             double angle = Math.Atan2(diff.z, diff.x) * 180.0 / Math.PI;
+            print(angle);
 
-            // this is kind of fake, not tested thoroughly for places besides hotel
-            if (Math.Abs(angle) > 90)
-                return "まっすぐ行ったら、道の左側にホテルがあります";
-            return "まっすぐ行ったら、道の右側にホテルがあります";
+            // this is kind of fake, not tested thoroughly for places besides hotelk
+            bool left = (Math.Abs(angle) > 90);
+            if (sideOfStreet == -1) left = !left;
+
+            if (left)
+                return "まっすぐ行ったら、道の左側に" + destinationText + "があります";
+            return "まっすぐ行ったら、道の右側に" + destinationText + "があります";
         }
 
         float xdist = Math.Abs(cur.position.x - prev.position.x);
@@ -104,7 +113,7 @@ public class CityDialogFlow : DialogflowAPIScriptCustomTTS
             blocks = 2;
         }
 
-        Vector3 cross = Vector3.Cross(cur.position - prev.position, next.position - cur.position);
+        Vector3 cross = Vector3.Cross(next.position - prev.position, next.position - cur.position);
         string turnDir = cross.y > 0 ? "右" : "左";
 
         string nextText = next == dest ? "" : "、まっすぐ行って";
@@ -137,12 +146,12 @@ public class CityDialogFlow : DialogflowAPIScriptCustomTTS
             if (intent == "direction-query")
             {
                 // GiveDirections(result);
-                string dir = Directions();
+                string dir = Directions(result);
                 print(dir);
                 SynthesizeSpeech(dir);
             } else if (intent == "direction-query - repeat")
             {
-                string dir = Directions();
+                string dir = Directions(result);
                 print(dir);
                 SynthesizeSpeech(dir);
             } else if (intent == "Default Fallback Intent")
@@ -176,12 +185,10 @@ public class CityDialogFlow : DialogflowAPIScriptCustomTTS
         inProgress = false;
     }
 
-    // no longer used 
-  	public void GiveDirectionsLegacy(string json) {
-        // this is the nastiest workaround
+  	public Transform GetDestination(string json) {
         int outputContextsIndex = json.IndexOf("outputContexts");
         if (outputContextsIndex == -1) {
-                return;
+                return null;
         }
         int parametersIndex = json.IndexOf("parameters", outputContextsIndex);
         int openBracketIndex = json.IndexOf("{", parametersIndex);
@@ -190,8 +197,15 @@ public class CityDialogFlow : DialogflowAPIScriptCustomTTS
         DirectionsParameters orderParams = (DirectionsParameters)JsonUtility.FromJson<DirectionsParameters>(json);
 
         string place = orderParams.Place;
-        Debug.Log("Giving directions to " + place);
-        string lastMessage = place + "はあそこです";
-        SynthesizeSpeech(lastMessage);
+        destinationText = place;
+        switch (place)
+        {
+            case "ホテル":
+                sideOfStreet = 1;
+                return hotel;
+            default:
+                sideOfStreet = -1;
+                return restaurant;
+        }
   	}
 }
