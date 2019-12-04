@@ -5,7 +5,7 @@ using TMPro;
 
 public class TodoList : MonoBehaviour
 {
-    public TodoListItem[] todoListItems;
+    public List<TodoListItem> todoListItems = new List<TodoListItem>();
 
     private TextMeshPro tmp;
 
@@ -37,5 +37,27 @@ public class TodoList : MonoBehaviour
             }
         }
         tmp.text = todoListText;
+    }
+
+    public bool IsComplete()
+    {
+        foreach (TodoListItem item in todoListItems)
+        {
+            if (!item.isComplete)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void AddItem(TodoListItem item)
+    {
+        todoListItems.Add(item);
+    }
+
+    public void Clear()
+    {
+        todoListItems.Clear();
     }
 }
