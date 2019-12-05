@@ -24,7 +24,7 @@ public class CityDialogFlow : DialogflowAPIScriptCustomTTS
     {
         Transform dest = GetDestination(json);
         if (dest == null)
-            return "‚à‚¤ˆê“xŒ¾‚Á‚Ä‚­‚¾‚³‚¢";
+            return "ã‚‚ã†ä¸€åº¦è¨€ã£ã¦ãã ã•ã„";
 
         Transform cur = player;
         Transform prev = player;
@@ -68,7 +68,7 @@ public class CityDialogFlow : DialogflowAPIScriptCustomTTS
             }
 
             print(cur.name);
-            output += translateDirections(prev, cur, next, dest) + "A";
+            output += translateDirections(prev, cur, next, dest) + "ã€";
             if (!pointing)
             {
                 pointing = true;
@@ -86,7 +86,7 @@ public class CityDialogFlow : DialogflowAPIScriptCustomTTS
         if (prev == cur)
         {
             if (Vector3.Distance(cur.position, next.position) > 30)
-                return "‚±‚Ì“¹‚ğ‚Ü‚Á‚·‚®s‚Á‚Ä";
+                return "ã“ã®é“ã‚’ã¾ã£ã™ãè¡Œã£ã¦";
             return ""; // on first iteration, pass
         }
 
@@ -101,8 +101,8 @@ public class CityDialogFlow : DialogflowAPIScriptCustomTTS
             if (sideOfStreet == -1) left = !left;
 
             if (left)
-                return "‚Ü‚Á‚·‚®s‚Á‚½‚çA“¹‚Ì¶‘¤‚É" + destinationText + "‚ª‚ ‚è‚Ü‚·";
-            return "‚Ü‚Á‚·‚®s‚Á‚½‚çA“¹‚Ì‰E‘¤‚É" + destinationText + "‚ª‚ ‚è‚Ü‚·";
+                return "ã¾ã£ã™ãè¡Œã£ãŸã‚‰ã€é“ã®å·¦å´ã«" + destinationText + "ãŒã‚ã‚Šã¾ã™";
+            return "ã¾ã£ã™ãè¡Œã£ãŸã‚‰ã€é“ã®å³å´ã«" + destinationText + "ãŒã‚ã‚Šã¾ã™";
         }
 
         float xdist = Math.Abs(cur.position.x - prev.position.x);
@@ -114,20 +114,20 @@ public class CityDialogFlow : DialogflowAPIScriptCustomTTS
         }
 
         Vector3 cross = Vector3.Cross(next.position - prev.position, next.position - cur.position);
-        string turnDir = cross.y > 0 ? "‰E" : "¶";
+        string turnDir = cross.y > 0 ? "å³" : "å·¦";
 
-        string nextText = next == dest ? "" : "A‚Ü‚Á‚·‚®s‚Á‚Ä";
+        string nextText = next == dest ? "" : "ã€ã¾ã£ã™ãè¡Œã£ã¦";
         if (cur.name.Contains("corner"))
         {
-            return "Šp‚Å" + turnDir + "‚É‹È‚ª‚Á‚Ä" + nextText;
+            return "è§’ã§" + turnDir + "ã«æ›²ãŒã£ã¦" + nextText;
         } else
         {
             if (blocks == 1)
             {
-                return "‚Ğ‚Æ‚Â–Ú‚ÌŒğ·“_‚Å" + turnDir + "‚É‹È‚ª‚Á‚Ä" + nextText;
+                return "ã²ã¨ã¤ç›®ã®äº¤å·®ç‚¹ã§" + turnDir + "ã«æ›²ãŒã£ã¦" + nextText;
             } else
             {
-                return "‚Ó‚½‚Â–Ú‚ÌŒğ·“_‚Å" + turnDir + "‚É‹È‚ª‚Á‚Ä" + nextText;
+                return "ãµãŸã¤ç›®ã®äº¤å·®ç‚¹ã§" + turnDir + "ã«æ›²ãŒã£ã¦" + nextText;
             }
         }
     }
@@ -200,7 +200,7 @@ public class CityDialogFlow : DialogflowAPIScriptCustomTTS
         destinationText = place;
         switch (place)
         {
-            case "ƒzƒeƒ‹":
+            case "ãƒ›ãƒ†ãƒ«":
                 sideOfStreet = 1;
                 return hotel;
             default:
