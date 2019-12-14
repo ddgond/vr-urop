@@ -5,4 +5,9 @@ using UnityEngine;
 public class Cup : MonoBehaviour
 {
     public MeshRenderer liquidMesh;
+
+    public string GetName()
+    {
+        return liquidMesh.material.name;
+    }
 }

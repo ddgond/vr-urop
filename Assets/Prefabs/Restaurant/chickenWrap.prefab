@@ -11,9 +11,12 @@ GameObject:
   - component: {fileID: 3295247702212666867}
   - component: {fileID: 9118621338712757310}
   - component: {fileID: 8257885445586613714}
-  - component: {fileID: 5292321785282318031}
   - component: {fileID: 3969141342358280287}
-  - component: {fileID: 5276864344353049978}
+  - component: {fileID: 3966724228762636751}
+  - component: {fileID: 6491913455304501807}
+  - component: {fileID: 6416862348360655412}
+  - component: {fileID: 3109774899433366803}
+  - component: {fileID: 5128160643526255676}
   m_Layer: 0
   m_Name: chickenWrap
   m_TagString: Untagged
@@ -28,9 +31,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3335529082172161425}
-  m_LocalRotation: {x: -0.06080957, y: -0.7044871, z: 0.7044873, w: 0.060809623}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -81,7 +84,38 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &5292321785282318031
+--- !u!114 &3969141342358280287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3335529082172161425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2dbcf70cc8ba994783723fdc100aa7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textBoxPrefab: {fileID: 3074871128971262366, guid: 21db3a9d78a503a42b829bbb26c836eb,
+    type: 3}
+  textBoxOffset: {x: 0, y: 0.15, z: 0}
+  text: Chicken Wrap
+  cooldownBaseDuration: 30
+--- !u!64 &3966724228762636751
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3335529082172161425}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: 4bef854a964926841a0ea1f2817e6b67, type: 3}
+--- !u!114 &6491913455304501807
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -105,7 +139,23 @@ MonoBehaviour:
   handFollowTransformRotation: 1
   highlightOnHover: 0
   hideHighlight: []
---- !u!114 &3969141342358280287
+--- !u!54 &6416862348360655412
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3335529082172161425}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &3109774899433366803
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -114,24 +164,66 @@ MonoBehaviour:
   m_GameObject: {fileID: 3335529082172161425}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2dbcf70cc8ba994783723fdc100aa7a, type: 3}
+  m_Script: {fileID: 11500000, guid: 783750eec4c41da428b7651515146d14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textBoxPrefab: {fileID: 3074871128971262366, guid: 21db3a9d78a503a42b829bbb26c836eb,
-    type: 3}
-  textBoxOffset: {x: 0, y: 0.15, z: 0}
-  text: Chicken Wrap
-  cooldownBaseDuration: 30
---- !u!65 &5276864344353049978
-BoxCollider:
+  velocityAverageFrames: 5
+  angularVelocityAverageFrames: 11
+  estimateOnAwake: 0
+--- !u!114 &5128160643526255676
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3335529082172161425}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.035391636, y: 0.008918341, z: 0.012067052}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffefbea063cab884ca33e5a449e5c22c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attachmentFlags: 44
+  attachmentOffset: {fileID: 0}
+  catchingSpeedThreshold: -1
+  releaseVelocityStyle: 1
+  releaseVelocityTimeOffset: -0.011
+  scaleReleaseVelocity: 1.1
+  restoreOriginalParent: 0
+  attachEaseIn: 0
+  snapAttachEaseInCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  snapAttachEaseInTime: 0.15
+  onPickUp:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onDetachFromHand:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  snapAttachEaseInCompleted: 0
+  interactable: {fileID: 0}

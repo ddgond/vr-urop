@@ -1,13 +1,13 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GazeableText : MonoBehaviour
+public class GazeableTextDrink : MonoBehaviour
 {
     public GazeableTextBox textBoxPrefab;
     public Vector3 textBoxOffset;
-    public string text;
 
+    private Cup cup;
     private int cooldownBaseDuration = 30;
     private GazeableTextBox tb;
     private int cooldown = 0;
@@ -15,6 +15,7 @@ public class GazeableText : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        cup = GetComponent<Cup>();
         tb = Instantiate(textBoxPrefab, transform);
         tb.transform.position += textBoxOffset;
     }
@@ -39,7 +40,7 @@ public class GazeableText : MonoBehaviour
     public void ActivateText()
     {
         print("Text activated");
-        tb.SetText(text);
+        tb.SetText(cup.GetName());
         cooldown = cooldownBaseDuration;
     }
 
