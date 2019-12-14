@@ -1916,7 +1916,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c3c550a6781d324b9e9f4b501aa5709, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: restaurant
+  sceneName: city
 --- !u!4 &1392731089
 Transform:
   m_ObjectHideFlags: 0

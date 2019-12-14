@@ -13,14 +13,17 @@ public class HotelDialogflow : DialogflowAPIScript
     public HotelRoom[] rooms;
 
     private bool finished = false;
+    private bool gaveDirections = false;
     private int roomNumber = -1;
 
     public override void SendMessage(String message) {
-        if (finished) {
-            GiveDirections();
-            return;
+        if (!gaveDirections) {
+            if (finished) {
+                GiveDirections();
+                return;
+            }
+    		base.SendMessage(message);
         }
-		base.SendMessage(message);
 	}
 
     public override void ProcessResult(string result) {
@@ -49,5 +52,6 @@ public class HotelDialogflow : DialogflowAPIScript
             directions += " doors down.";
         }
         SynthesizeSpeech(directions);
+        gaveDirections = true;
     }
 }
