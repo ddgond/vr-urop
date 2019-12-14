@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1313237823712216304}
   - component: {fileID: 5177342283690664700}
   - component: {fileID: 1003336667160611563}
-  - component: {fileID: 5857284285811108878}
+  - component: {fileID: 4110511732589431928}
   m_Layer: 0
   m_Name: Pen
   m_TagString: Untagged
@@ -194,8 +194,8 @@ MonoBehaviour:
   velocityAverageFrames: 5
   angularVelocityAverageFrames: 11
   estimateOnAwake: 0
---- !u!136 &5857284285811108878
-CapsuleCollider:
+--- !u!64 &4110511732589431928
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -204,7 +204,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.01
-  m_Height: 0.23
-  m_Direction: 2
-  m_Center: {x: 0, y: 0.008, z: 0}
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: a2badbf0b93cf6f4ebaf96d2f39075ac, type: 3}

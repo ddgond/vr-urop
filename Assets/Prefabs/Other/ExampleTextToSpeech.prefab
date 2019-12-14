@@ -47,7 +47,7 @@ MonoBehaviour:
   source: {fileID: 1021026243398856008}
   NpcAnimator: {fileID: 0}
   _serviceUrl: https://stream.watsonplatform.net/text-to-speech/api
-  _iamApikey: TTvt6PZF1hdi-Coq3qcue7W1oZKkYuMvnaL9YEPgQ1J9
+  _iamApikey: PyNbhjGAwFmDZ1VYpyCg-F_QFfcYuaGa3G2bxGACNKiW
 --- !u!1 &1021026243398856011
 GameObject:
   m_ObjectHideFlags: 0

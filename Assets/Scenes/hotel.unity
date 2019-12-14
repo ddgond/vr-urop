@@ -1486,7 +1486,7 @@ MonoBehaviour:
   source: {fileID: 481326778}
   NpcAnimator: {fileID: 1172290410}
   _serviceUrl: https://stream.watsonplatform.net/text-to-speech/api
-  _iamApikey: TTvt6PZF1hdi-Coq3qcue7W1oZKkYuMvnaL9YEPgQ1J9
+  _iamApikey: PyNbhjGAwFmDZ1VYpyCg-F_QFfcYuaGa3G2bxGACNKiW
 --- !u!4 &1227403332
 Transform:
   m_ObjectHideFlags: 0
@@ -2339,7 +2339,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogflowScript: {fileID: 1932492319}
   _serviceUrl: https://stream.watsonplatform.net/speech-to-text/api
-  _iamApikey: CTF87142tzteESS-6eC5J1XCYX36C-SEsbViQigzXfdh
+  _iamApikey: vuyCjeLtggSiIDUE4f8vXmBWQ_mAU74GSdhMwN_tq7l4
   _recognizeModel: 
 --- !u!4 &1957011725
 Transform:

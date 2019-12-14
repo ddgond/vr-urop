@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 472380022878244015}
   - component: {fileID: 472380022876949647}
   - component: {fileID: 472380022875950671}
-  - component: {fileID: 6475412876163138178}
+  - component: {fileID: 3020768006178724076}
   m_Layer: 0
   m_Name: TV
   m_TagString: Untagged
@@ -78,8 +78,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &6475412876163138178
-BoxCollider:
+--- !u!64 &3020768006178724076
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -88,6 +88,7 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.8881459, y: 0.8552333, z: 0.6737684}
-  m_Center: {x: -0.000000005621608, y: 0.42761606, z: 0.09431493}
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: 5f045f3ca8943564e80bf96f9653f76c, type: 3}

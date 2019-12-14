@@ -45,5 +45,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogflowScript: {fileID: 0}
   _serviceUrl: https://stream.watsonplatform.net/speech-to-text/api
-  _iamApikey: CTF87142tzteESS-6eC5J1XCYX36C-SEsbViQigzXfdh
+  _iamApikey: vuyCjeLtggSiIDUE4f8vXmBWQ_mAU74GSdhMwN_tq7l4
   _recognizeModel: 
