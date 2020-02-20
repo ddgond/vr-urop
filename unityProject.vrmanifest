@@ -2,7 +2,7 @@
   "source": "Unity",
   "applications": [
     {
-      "app_key": "application.generated.unity.climbinggame.exe",
+      "app_key": "application.generated.unity.vrurop.exe",
       "launch_type": "url",
       "url": "steam://launch/",
       "strings": {
