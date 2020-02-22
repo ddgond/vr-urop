@@ -9,6 +9,7 @@ TagManager:
   - SideSpawn
   - DrinkSpawn
   - FoodPrefabs
+  - Weapon
   layers:
   - Default
   - TransparentFX
