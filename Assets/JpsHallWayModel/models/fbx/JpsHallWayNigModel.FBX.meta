@@ -1,0 +1,291 @@
+fileFormatVersion: 2
+guid: 0dd2e8d90b77c9d478848555bb1f4bae
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: HW_baseboardsL00
+    100002: HW_baseboardsR_nig00
+    100004: HW_beam_add_nig000
+    100006: HW_beam_add_nig001
+    100008: HW_beam_add_nig002
+    100010: HW_beam_add_nig003
+    100012: HW_beam_add_nig004
+    100014: HW_beam_add_nig005
+    100016: HW_beam_add_nig006
+    100018: HW_beam_add_nig007
+    100020: HW_ceiling board_nig00
+    100022: HW_ClassNumber_nig00
+    100024: HW_doorL_b_nig
+    100026: HW_doorL_exitA_nig00
+    100028: HW_doorL_exitB_nig00
+    100030: HW_doorL_f_nig
+    100032: HW_doorR_b_nig
+    100034: HW_doorR_exitA_nig00
+    100036: HW_doorR_exitB_nig00
+    100038: HW_doorR_f_nig
+    100040: HW_exitB_add_nig00
+    100042: HW_exitB_add_nig00 1
+    100044: HW_exitB_nig00
+    100046: HW_exitB_nig00 1
+    100048: HW_floor_nig00
+    100050: HW_floor_spot_add_nig00
+    100052: HW_Root_ceiling_nig00
+    100054: HW_Root_exitA_nig00
+    100056: HW_Root_exitB_nig00
+    100058: HW_Root_floor_nig00
+    100060: HW_Root_wallL_nig00
+    100062: HW_Root_wallR_nig00
+    100064: HW_shadow00_nig00
+    100066: HW_siren_add_nig00
+    100068: HW_siren_nig00
+    100070: HW_wall_exitA_nig00
+    100072: HW_wall_exitB_nig00
+    100074: HW_wallL_nig00
+    100076: HW_wallR__nig00
+    100078: //RootNode
+    100080: HW_infoA_nig00
+    100082: HW_infoB_nig00
+    100084: HW_infoC_nig00
+    100086: HW_infoD_nig00
+    400000: HW_baseboardsL00
+    400002: HW_baseboardsR_nig00
+    400004: HW_beam_add_nig000
+    400006: HW_beam_add_nig001
+    400008: HW_beam_add_nig002
+    400010: HW_beam_add_nig003
+    400012: HW_beam_add_nig004
+    400014: HW_beam_add_nig005
+    400016: HW_beam_add_nig006
+    400018: HW_beam_add_nig007
+    400020: HW_ceiling board_nig00
+    400022: HW_ClassNumber_nig00
+    400024: HW_doorL_b_nig
+    400026: HW_doorL_exitA_nig00
+    400028: HW_doorL_exitB_nig00
+    400030: HW_doorL_f_nig
+    400032: HW_doorR_b_nig
+    400034: HW_doorR_exitA_nig00
+    400036: HW_doorR_exitB_nig00
+    400038: HW_doorR_f_nig
+    400040: HW_exitB_add_nig00
+    400042: HW_exitB_add_nig00 1
+    400044: HW_exitB_nig00
+    400046: HW_exitB_nig00 1
+    400048: HW_floor_nig00
+    400050: HW_floor_spot_add_nig00
+    400052: HW_Root_ceiling_nig00
+    400054: HW_Root_exitA_nig00
+    400056: HW_Root_exitB_nig00
+    400058: HW_Root_floor_nig00
+    400060: HW_Root_wallL_nig00
+    400062: HW_Root_wallR_nig00
+    400064: HW_shadow00_nig00
+    400066: HW_siren_add_nig00
+    400068: HW_siren_nig00
+    400070: HW_wall_exitA_nig00
+    400072: HW_wall_exitB_nig00
+    400074: HW_wallL_nig00
+    400076: HW_wallR__nig00
+    400078: //RootNode
+    400080: HW_infoA_nig00
+    400082: HW_infoB_nig00
+    400084: HW_infoC_nig00
+    400086: HW_infoD_nig00
+    2300000: HW_baseboardsL00
+    2300002: HW_baseboardsR_nig00
+    2300004: HW_beam_add_nig000
+    2300006: HW_beam_add_nig001
+    2300008: HW_beam_add_nig002
+    2300010: HW_beam_add_nig003
+    2300012: HW_beam_add_nig004
+    2300014: HW_beam_add_nig005
+    2300016: HW_beam_add_nig006
+    2300018: HW_beam_add_nig007
+    2300020: HW_ceiling board_nig00
+    2300022: HW_ClassNumber_nig00
+    2300024: HW_doorL_b_nig
+    2300026: HW_doorL_exitA_nig00
+    2300028: HW_doorL_exitB_nig00
+    2300030: HW_doorL_f_nig
+    2300032: HW_doorR_b_nig
+    2300034: HW_doorR_exitA_nig00
+    2300036: HW_doorR_exitB_nig00
+    2300038: HW_doorR_f_nig
+    2300040: HW_exitB_add_nig00
+    2300042: HW_exitB_add_nig00 1
+    2300044: HW_exitB_nig00
+    2300046: HW_exitB_nig00 1
+    2300048: HW_floor_nig00
+    2300050: HW_floor_spot_add_nig00
+    2300052: HW_shadow00_nig00
+    2300054: HW_siren_add_nig00
+    2300056: HW_siren_nig00
+    2300058: HW_wall_exitA_nig00
+    2300060: HW_wall_exitB_nig00
+    2300062: HW_wallL_nig00
+    2300064: HW_wallR__nig00
+    2300066: HW_infoA_nig00
+    2300068: HW_infoB_nig00
+    2300070: HW_infoC_nig00
+    2300072: HW_infoD_nig00
+    3300000: HW_baseboardsL00
+    3300002: HW_baseboardsR_nig00
+    3300004: HW_beam_add_nig000
+    3300006: HW_beam_add_nig001
+    3300008: HW_beam_add_nig002
+    3300010: HW_beam_add_nig003
+    3300012: HW_beam_add_nig004
+    3300014: HW_beam_add_nig005
+    3300016: HW_beam_add_nig006
+    3300018: HW_beam_add_nig007
+    3300020: HW_ceiling board_nig00
+    3300022: HW_ClassNumber_nig00
+    3300024: HW_doorL_b_nig
+    3300026: HW_doorL_exitA_nig00
+    3300028: HW_doorL_exitB_nig00
+    3300030: HW_doorL_f_nig
+    3300032: HW_doorR_b_nig
+    3300034: HW_doorR_exitA_nig00
+    3300036: HW_doorR_exitB_nig00
+    3300038: HW_doorR_f_nig
+    3300040: HW_exitB_add_nig00
+    3300042: HW_exitB_add_nig00 1
+    3300044: HW_exitB_nig00
+    3300046: HW_exitB_nig00 1
+    3300048: HW_floor_nig00
+    3300050: HW_floor_spot_add_nig00
+    3300052: HW_shadow00_nig00
+    3300054: HW_siren_add_nig00
+    3300056: HW_siren_nig00
+    3300058: HW_wall_exitA_nig00
+    3300060: HW_wall_exitB_nig00
+    3300062: HW_wallL_nig00
+    3300064: HW_wallR__nig00
+    3300066: HW_infoA_nig00
+    3300068: HW_infoB_nig00
+    3300070: HW_infoC_nig00
+    3300072: HW_infoD_nig00
+    4300000: HW_floor_spot_add_nig00
+    4300002: HW_floor_nig00
+    4300004: HW_exitB_nig00
+    4300006: HW_exitB_add_nig00
+    4300008: HW_doorR_exitA_nig00
+    4300010: HW_doorL_exitA_nig00
+    4300012: HW_wall_exitA_nig00
+    4300014: HW_wallL_nig00
+    4300016: HW_baseboardsL00
+    4300018: HW_ClassNumber_nig00
+    4300020: HW_doorL_b_nig
+    4300022: HW_doorR_b_nig
+    4300024: HW_doorL_f_nig
+    4300026: HW_doorR_f_nig
+    4300028: HW_wallR__nig00
+    4300030: HW_beam_add_nig007
+    4300032: HW_beam_add_nig006
+    4300034: HW_beam_add_nig005
+    4300036: HW_beam_add_nig004
+    4300038: HW_beam_add_nig003
+    4300040: HW_beam_add_nig001
+    4300042: HW_beam_add_nig002
+    4300044: HW_beam_add_nig000
+    4300046: HW_baseboardsR_nig00
+    4300048: HW_siren_add_nig00
+    4300050: HW_siren_nig00
+    4300052: HW_ceiling board_nig00
+    4300054: HW_shadow00_nig00
+    4300056: HW_wall_exitB_nig00
+    4300058: HW_doorR_exitB_nig00
+    4300060: HW_exitB_add_nig00
+    4300062: HW_exitB_nig00
+    4300064: HW_doorL_exitB_nig00
+    4300066: HW_infoD_nig00
+    4300068: HW_infoB_nig00
+    4300070: HW_infoC_nig00
+    4300072: HW_infoA_nig00
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 1
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.01
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 4
+    normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -80,6 +80,9 @@ public class CustomTextToSpeech : MonoBehaviour
 
     void Update()
     {
+        if (NpcAnimator == null)
+            return;
+
         if (NpcAnimator.gameObject.activeSelf)
             NpcAnimator.SetBool("IsTalking", source.isPlaying);
     }
