@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 7686734554210160796}
   - component: {fileID: 3831064288167183563}
   - component: {fileID: 2008962096875932082}
+  - component: {fileID: 7712327532046872296}
   m_Layer: 0
   m_Name: Product_asparagus (1)
   m_TagString: Untagged
@@ -231,6 +232,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &7712327532046872296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010256454000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - asparagus
+  - "esp\xE1rragos"
+  - "\u30A2\u30B9\u30D1\u30E9\u30AC\u30B9"
 --- !u!1 &1000010306876092
 GameObject:
   m_ObjectHideFlags: 0
@@ -244,6 +261,7 @@ GameObject:
   - component: {fileID: 7152087211867981497}
   - component: {fileID: 9210567224125962773}
   - component: {fileID: 6683852011101580882}
+  - component: {fileID: 2909674597933759042}
   m_Layer: 0
   m_Name: Product_asparagus (13)
   m_TagString: Untagged
@@ -378,6 +396,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &2909674597933759042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010306876092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - asparagus
+  - "esp\xE1rragos"
+  - "\u30A2\u30B9\u30D1\u30E9\u30AC\u30B9"
 --- !u!1 &1000010469190940
 GameObject:
   m_ObjectHideFlags: 0
@@ -483,6 +517,7 @@ GameObject:
   - component: {fileID: 9217429533610580342}
   - component: {fileID: 3191088742780027318}
   - component: {fileID: 6376627143105949898}
+  - component: {fileID: 9101818332764532608}
   m_Layer: 0
   m_Name: Product_asparagus (11)
   m_TagString: Untagged
@@ -617,6 +652,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &9101818332764532608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010860779328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - asparagus
+  - "esp\xE1rragos"
+  - "\u30A2\u30B9\u30D1\u30E9\u30AC\u30B9"
 --- !u!1 &1000011021944598
 GameObject:
   m_ObjectHideFlags: 0
@@ -722,6 +773,7 @@ GameObject:
   - component: {fileID: 8012966393151884343}
   - component: {fileID: 8290253436019816493}
   - component: {fileID: 9123518499667182572}
+  - component: {fileID: 8827980092749194259}
   m_Layer: 0
   m_Name: Product_asparagus (2)
   m_TagString: Untagged
@@ -856,6 +908,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &8827980092749194259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011391312958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - asparagus
+  - "esp\xE1rragos"
+  - "\u30A2\u30B9\u30D1\u30E9\u30AC\u30B9"
 --- !u!1 &1000011639323736
 GameObject:
   m_ObjectHideFlags: 0
@@ -869,6 +937,7 @@ GameObject:
   - component: {fileID: 1870044785286856647}
   - component: {fileID: 416706852411864483}
   - component: {fileID: 3266216372886116886}
+  - component: {fileID: 3907453205326466196}
   m_Layer: 0
   m_Name: Product_asparagus (12)
   m_TagString: Untagged
@@ -1003,6 +1072,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &3907453205326466196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011639323736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - asparagus
+  - "esp\xE1rragos"
+  - "\u30A2\u30B9\u30D1\u30E9\u30AC\u30B9"
 --- !u!1 &1000011785271218
 GameObject:
   m_ObjectHideFlags: 0
@@ -1384,6 +1469,7 @@ GameObject:
   - component: {fileID: 5350440938727505369}
   - component: {fileID: 1287513998332025493}
   - component: {fileID: 4561940720919611247}
+  - component: {fileID: 4916998424576592486}
   m_Layer: 0
   m_Name: Product_asparagus
   m_TagString: Untagged
@@ -1518,6 +1604,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &4916998424576592486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000014098648296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - asparagus
+  - "esp\xE1rragos"
+  - "\u30A2\u30B9\u30D1\u30E9\u30AC\u30B9"
 --- !u!1 &1775609312192748369
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7728851361409407493}
   - component: {fileID: 8855616662247797284}
   - component: {fileID: 1468061869148987585}
+  - component: {fileID: 4034853420295083795}
   m_Layer: 0
   m_Name: Product_orange (17)
   m_TagString: Untagged
@@ -147,6 +148,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &4034853420295083795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010506686198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - orange
+  - naranja
+  - "\u30AA\u30EC\u30F3\u30B8"
 --- !u!1 &1000010703095172
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,6 +177,7 @@ GameObject:
   - component: {fileID: 4949925977777616588}
   - component: {fileID: 3240120309447335769}
   - component: {fileID: 7169945412581934647}
+  - component: {fileID: 2339141117315595489}
   m_Layer: 0
   m_Name: Product_orange (18)
   m_TagString: Untagged
@@ -294,6 +312,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &2339141117315595489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010703095172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - orange
+  - naranja
+  - "\u30AA\u30EC\u30F3\u30B8"
 --- !u!1 &1000011061510620
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,6 +341,7 @@ GameObject:
   - component: {fileID: 2600061822189099074}
   - component: {fileID: 1906993700798976519}
   - component: {fileID: 4877173042935010293}
+  - component: {fileID: 4608691023893601671}
   m_Layer: 0
   m_Name: Product_orange (7)
   m_TagString: Untagged
@@ -441,6 +476,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &4608691023893601671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011061510620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - orange
+  - naranja
+  - "\u30AA\u30EC\u30F3\u30B8"
 --- !u!1 &1000011267732774
 GameObject:
   m_ObjectHideFlags: 0
@@ -545,6 +596,7 @@ GameObject:
   - component: {fileID: 8046409994381012235}
   - component: {fileID: 4058667247545527917}
   - component: {fileID: 2656325839134361635}
+  - component: {fileID: 7243298933958335999}
   m_Layer: 0
   m_Name: Product_orange (6)
   m_TagString: Untagged
@@ -679,6 +731,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &7243298933958335999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011484273678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - orange
+  - naranja
+  - "\u30AA\u30EC\u30F3\u30B8"
 --- !u!1 &1000011711024500
 GameObject:
   m_ObjectHideFlags: 0
@@ -783,6 +851,7 @@ GameObject:
   - component: {fileID: 7720285543387680219}
   - component: {fileID: 534135152284812743}
   - component: {fileID: 4151561440515528671}
+  - component: {fileID: 3462908638157236308}
   m_Layer: 0
   m_Name: Product_orange (16)
   m_TagString: Untagged
@@ -917,6 +986,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &3462908638157236308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011877524624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - orange
+  - naranja
+  - "\u30AA\u30EC\u30F3\u30B8"
 --- !u!1 &1000012234596128
 GameObject:
   m_ObjectHideFlags: 0
@@ -1289,6 +1374,7 @@ GameObject:
   - component: {fileID: 6919767869004045621}
   - component: {fileID: 2083829132442138928}
   - component: {fileID: 8370817561388493309}
+  - component: {fileID: 5310256187142876991}
   m_Layer: 0
   m_Name: Product_orange (5)
   m_TagString: Untagged
@@ -1423,6 +1509,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &5310256187142876991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012903601266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - orange
+  - naranja
+  - "\u30AA\u30EC\u30F3\u30B8"
 --- !u!1 &1000013055847682
 GameObject:
   m_ObjectHideFlags: 0
@@ -1618,6 +1720,7 @@ GameObject:
   - component: {fileID: 633997752992233450}
   - component: {fileID: 2369167824526078997}
   - component: {fileID: 7584709803425834884}
+  - component: {fileID: 4105889557290888036}
   m_Layer: 0
   m_Name: Product_orange (4)
   m_TagString: Untagged
@@ -1752,6 +1855,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &4105889557290888036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013765660526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - oranges
+  - naranjas
+  - "\u30AA\u30EC\u30F3\u30B8"
 --- !u!1 &1000014056440120
 GameObject:
   m_ObjectHideFlags: 0
@@ -1856,6 +1975,7 @@ GameObject:
   - component: {fileID: 2150452464019627628}
   - component: {fileID: 618905501173790231}
   - component: {fileID: 1153737749433416076}
+  - component: {fileID: 3695607914766756708}
   m_Layer: 0
   m_Name: Product_orange (19)
   m_TagString: Untagged
@@ -1990,6 +2110,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &3695607914766756708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000014257187962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - orange
+  - naranja
+  - "\u30AA\u30EC\u30F3\u30B8"
 --- !u!1 &6225180536410771572
 GameObject:
   m_ObjectHideFlags: 0

@@ -105,6 +105,7 @@ GameObject:
   - component: {fileID: 5637794559489413352}
   - component: {fileID: 202582076488134512}
   - component: {fileID: 7472985109460112403}
+  - component: {fileID: 6094566470031005722}
   m_Layer: 0
   m_Name: Product_pepper_green (10)
   m_TagString: Untagged
@@ -239,6 +240,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &6094566470031005722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010367301462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - green peppers
+  - pimientos verdes
+  - "\u9752\u30D4\u30FC\u30DE\u30F3"
 --- !u!1 &1000010569150262
 GameObject:
   m_ObjectHideFlags: 0
@@ -528,6 +545,7 @@ GameObject:
   - component: {fileID: 8027769496472381346}
   - component: {fileID: 3537832490181505080}
   - component: {fileID: 8733009247234152407}
+  - component: {fileID: 7150503054963196777}
   m_Layer: 0
   m_Name: Product_pepper_green
   m_TagString: Untagged
@@ -662,6 +680,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &7150503054963196777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011624164476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - green peppers
+  - pimientos verdes
+  - "\u9752\u30D4\u30FC\u30DE\u30F3"
 --- !u!1 &1000012210715740
 GameObject:
   m_ObjectHideFlags: 0
@@ -944,6 +978,7 @@ GameObject:
   - component: {fileID: 1195208460876148585}
   - component: {fileID: 7633044551273391457}
   - component: {fileID: 5190631312488105698}
+  - component: {fileID: 5895401034311015564}
   m_Layer: 0
   m_Name: Product_pepper_green (1)
   m_TagString: Untagged
@@ -1078,6 +1113,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &5895401034311015564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012576489092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - green peppers
+  - pimientos verdes
+  - "\u9752\u30D4\u30FC\u30DE\u30F3"
 --- !u!1 &1000013149525234
 GameObject:
   m_ObjectHideFlags: 0
@@ -1091,6 +1142,7 @@ GameObject:
   - component: {fileID: 6791319953128029901}
   - component: {fileID: 5680363980858650912}
   - component: {fileID: 8714953903256237091}
+  - component: {fileID: 7598801667686939751}
   m_Layer: 0
   m_Name: Product_pepper_green (28)
   m_TagString: Untagged
@@ -1225,6 +1277,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &7598801667686939751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013149525234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - green peppers
+  - pimientos verdes
+  - "\u9752\u30D4\u30FC\u30DE\u30F3"
 --- !u!1 &1000013358817258
 GameObject:
   m_ObjectHideFlags: 0
@@ -1330,6 +1398,7 @@ GameObject:
   - component: {fileID: 8563120598665952965}
   - component: {fileID: 6893957335830669228}
   - component: {fileID: 1654578017218846653}
+  - component: {fileID: 2108535915301436311}
   m_Layer: 0
   m_Name: Product_pepper_green (29)
   m_TagString: Untagged
@@ -1464,6 +1533,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &2108535915301436311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013484369520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - green peppers
+  - pimientos verdes
+  - "\u9752\u30D4\u30FC\u30DE\u30F3"
 --- !u!1 &1000014218849516
 GameObject:
   m_ObjectHideFlags: 0
@@ -1477,6 +1562,7 @@ GameObject:
   - component: {fileID: 107396671768217412}
   - component: {fileID: 3207905444100874866}
   - component: {fileID: 4132506206154955767}
+  - component: {fileID: 6255584517372398291}
   m_Layer: 0
   m_Name: Product_pepper_green (11)
   m_TagString: Untagged
@@ -1611,6 +1697,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &6255584517372398291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000014218849516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - green peppers
+  - pimientos verdes
+  - "\u9752\u30D4\u30FC\u30DE\u30F3"
 --- !u!1 &1000014222733776
 GameObject:
   m_ObjectHideFlags: 0
@@ -1624,6 +1726,7 @@ GameObject:
   - component: {fileID: 7225415259941535207}
   - component: {fileID: 4358916849238835679}
   - component: {fileID: 7958013707861077025}
+  - component: {fileID: 1756666360138246864}
   m_Layer: 0
   m_Name: Product_pepper_green (30)
   m_TagString: Untagged
@@ -1758,6 +1861,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &1756666360138246864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000014222733776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - green peppers
+  - pimientos verdes
+  - "\u9752\u30D4\u30FC\u30DE\u30F3"
 --- !u!1 &7957366752200851043
 GameObject:
   m_ObjectHideFlags: 0

@@ -381,6 +381,7 @@ GameObject:
   - component: {fileID: 5702606040868911217}
   - component: {fileID: 1749803521048236209}
   - component: {fileID: 4679336202268508260}
+  - component: {fileID: 5432666889971850729}
   m_Layer: 0
   m_Name: Product_garlic (26)
   m_TagString: Untagged
@@ -515,6 +516,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &5432666889971850729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010537369092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - garlic
+  - ajo
+  - "\u30CB\u30F3\u30CB\u30AF"
 --- !u!1 &1000010630268890
 GameObject:
   m_ObjectHideFlags: 0
@@ -528,6 +545,7 @@ GameObject:
   - component: {fileID: 6214983292802821424}
   - component: {fileID: 753442500341559796}
   - component: {fileID: 1868788699372338443}
+  - component: {fileID: 4759112285445020401}
   m_Layer: 0
   m_Name: Product_garlic (12)
   m_TagString: Untagged
@@ -662,6 +680,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &4759112285445020401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010630268890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - garlic
+  - ajo
+  - "\u30CB\u30F3\u30CB\u30AF"
 --- !u!1 &1000010661182230
 GameObject:
   m_ObjectHideFlags: 0
@@ -675,6 +709,7 @@ GameObject:
   - component: {fileID: 3505976118284547130}
   - component: {fileID: 8335242143110645384}
   - component: {fileID: 4397387049736331271}
+  - component: {fileID: 3955586818043634675}
   m_Layer: 0
   m_Name: Product_garlic (23)
   m_TagString: Untagged
@@ -809,6 +844,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &3955586818043634675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010661182230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - garlic
+  - ajo
+  - "\u30CB\u30F3\u30CB\u30AF"
 --- !u!1 &1000010675324648
 GameObject:
   m_ObjectHideFlags: 0
@@ -914,6 +965,7 @@ GameObject:
   - component: {fileID: 2322839903576346795}
   - component: {fileID: 6120227829629165434}
   - component: {fileID: 2479901291180600827}
+  - component: {fileID: 7759670126210023291}
   m_Layer: 0
   m_Name: Product_garlic (20)
   m_TagString: Untagged
@@ -1048,6 +1100,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &7759670126210023291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010761245372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - garlic
+  - ajo
+  - "\u30CB\u30F3\u30CB\u30AF"
 --- !u!1 &1000010782062844
 GameObject:
   m_ObjectHideFlags: 0
@@ -1061,6 +1129,7 @@ GameObject:
   - component: {fileID: 1796214997020993417}
   - component: {fileID: 6412517460440790726}
   - component: {fileID: 3606850766451418190}
+  - component: {fileID: 6627468535697956135}
   m_Layer: 0
   m_Name: Product_garlic (22)
   m_TagString: Untagged
@@ -1195,6 +1264,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &6627468535697956135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010782062844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - garlic
+  - ajo
+  - "\u30CB\u30F3\u30CB\u30AF"
 --- !u!1 &1000010833706628
 GameObject:
   m_ObjectHideFlags: 0
@@ -1392,6 +1477,7 @@ GameObject:
   - component: {fileID: 1319243509884541238}
   - component: {fileID: 6539053193408772828}
   - component: {fileID: 977054668153088869}
+  - component: {fileID: 3224079098727078564}
   m_Layer: 0
   m_Name: Product_garlic
   m_TagString: Untagged
@@ -1526,6 +1612,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &3224079098727078564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010870192202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - garlic
+  - ajo
+  - "\u30CB\u30F3\u30CB\u30AF"
 --- !u!1 &1000010879917600
 GameObject:
   m_ObjectHideFlags: 0
@@ -1999,6 +2101,7 @@ GameObject:
   - component: {fileID: 2489695800611425590}
   - component: {fileID: 1872624316220244433}
   - component: {fileID: 1530884146113733865}
+  - component: {fileID: 6781590603561806140}
   m_Layer: 0
   m_Name: Product_garlic (27)
   m_TagString: Untagged
@@ -2133,6 +2236,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &6781590603561806140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011275083412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - garlic
+  - ajo
+  - "\u30CB\u30F3\u30CB\u30AF"
 --- !u!1 &1000011433596502
 GameObject:
   m_ObjectHideFlags: 0
@@ -2146,6 +2265,7 @@ GameObject:
   - component: {fileID: 8229898273581908248}
   - component: {fileID: 3973825373318432805}
   - component: {fileID: 3541183626634535682}
+  - component: {fileID: 1548201077770041910}
   m_Layer: 0
   m_Name: Product_garlic (4)
   m_TagString: Untagged
@@ -2280,6 +2400,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &1548201077770041910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011433596502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - garlic
+  - ajo
+  - "\u30CB\u30F3\u30CB\u30AF"
 --- !u!1 &1000011453142172
 GameObject:
   m_ObjectHideFlags: 0
@@ -2477,6 +2613,7 @@ GameObject:
   - component: {fileID: 5422465352177488639}
   - component: {fileID: 4920949576483951484}
   - component: {fileID: 1106689669525986202}
+  - component: {fileID: 2955147423575427184}
   m_Layer: 0
   m_Name: Product_garlic (6)
   m_TagString: Untagged
@@ -2611,6 +2748,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &2955147423575427184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011675265354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - garlic
+  - ajo
+  - "\u30CB\u30F3\u30CB\u30AF"
 --- !u!1 &1000011694695318
 GameObject:
   m_ObjectHideFlags: 0
@@ -2716,6 +2869,7 @@ GameObject:
   - component: {fileID: 5289064459879928071}
   - component: {fileID: 8599856414984456881}
   - component: {fileID: 1429955707881820982}
+  - component: {fileID: 3617035335869661352}
   m_Layer: 0
   m_Name: Product_garlic (5)
   m_TagString: Untagged
@@ -2850,6 +3004,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &3617035335869661352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011848803422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - garlic
+  - ajo
+  - "\u30CB\u30F3\u30CB\u30AF"
 --- !u!1 &1000011856588900
 GameObject:
   m_ObjectHideFlags: 0
@@ -2863,6 +3033,7 @@ GameObject:
   - component: {fileID: 8491376289701398237}
   - component: {fileID: 4038450745596391280}
   - component: {fileID: 4060855565825053223}
+  - component: {fileID: 1730241870440176360}
   m_Layer: 0
   m_Name: Product_garlic (8)
   m_TagString: Untagged
@@ -2997,6 +3168,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &1730241870440176360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011856588900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - garlic
+  - ajo
+  - "\u30CB\u30F3\u30CB\u30AF"
 --- !u!1 &1000011920366718
 GameObject:
   m_ObjectHideFlags: 0
@@ -3010,6 +3197,7 @@ GameObject:
   - component: {fileID: 5764005918907982584}
   - component: {fileID: 3138443441192831587}
   - component: {fileID: 6507141646228352714}
+  - component: {fileID: 5701595467003166200}
   m_Layer: 0
   m_Name: Product_garlic (24)
   m_TagString: Untagged
@@ -3144,6 +3332,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &5701595467003166200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011920366718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - garlic
+  - ajo
+  - "\u30CB\u30F3\u30CB\u30AF"
 --- !u!1 &1000012118625160
 GameObject:
   m_ObjectHideFlags: 0
@@ -3157,6 +3361,7 @@ GameObject:
   - component: {fileID: 7479474157120885660}
   - component: {fileID: 7409994660003633856}
   - component: {fileID: 3294098771071266872}
+  - component: {fileID: 2200328185809614864}
   m_Layer: 0
   m_Name: Product_garlic (17)
   m_TagString: Untagged
@@ -3291,6 +3496,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &2200328185809614864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012118625160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - garlic
+  - ajo
+  - "\u30CB\u30F3\u30CB\u30AF"
 --- !u!1 &1000012120008850
 GameObject:
   m_ObjectHideFlags: 0
@@ -3410,6 +3631,7 @@ GameObject:
   - component: {fileID: 2106165437302090828}
   - component: {fileID: 2773359151242111004}
   - component: {fileID: 1007788390502585612}
+  - component: {fileID: 6486374952500149839}
   m_Layer: 0
   m_Name: Product_garlic (19)
   m_TagString: Untagged
@@ -3544,6 +3766,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &6486374952500149839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012130306610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - garlic
+  - ajo
+  - "\u30CB\u30F3\u30CB\u30AF"
 --- !u!1 &1000012166183878
 GameObject:
   m_ObjectHideFlags: 0
@@ -4109,6 +4347,7 @@ GameObject:
   - component: {fileID: 7595063825068031219}
   - component: {fileID: 5041145512944244298}
   - component: {fileID: 6457093560881820997}
+  - component: {fileID: 1863993988691392123}
   m_Layer: 0
   m_Name: Product_garlic (7)
   m_TagString: Untagged
@@ -4243,6 +4482,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &1863993988691392123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012650121412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - garlic
+  - ajo
+  - "\u30CB\u30F3\u30CB\u30AF"
 --- !u!1 &1000012653043422
 GameObject:
   m_ObjectHideFlags: 0
@@ -4256,6 +4511,7 @@ GameObject:
   - component: {fileID: 6192660469746580696}
   - component: {fileID: 2918221598887710145}
   - component: {fileID: 7047187526274215082}
+  - component: {fileID: 4626877493362621576}
   m_Layer: 0
   m_Name: Product_garlic (2)
   m_TagString: Untagged
@@ -4390,6 +4646,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &4626877493362621576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012653043422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - garlic
+  - ajo
+  - "\u30CB\u30F3\u30CB\u30AF"
 --- !u!1 &1000012698920280
 GameObject:
   m_ObjectHideFlags: 0
@@ -4403,6 +4675,7 @@ GameObject:
   - component: {fileID: 3146624213077488901}
   - component: {fileID: 1344481264356776632}
   - component: {fileID: 6525692764004955383}
+  - component: {fileID: 7649732739729449816}
   m_Layer: 0
   m_Name: Product_garlic (16)
   m_TagString: Untagged
@@ -4537,6 +4810,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &7649732739729449816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012698920280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - garlic
+  - ajo
+  - "\u30CB\u30F3\u30CB\u30AF"
 --- !u!1 &1000012716113232
 GameObject:
   m_ObjectHideFlags: 0
@@ -4550,6 +4839,7 @@ GameObject:
   - component: {fileID: 5247197049371077222}
   - component: {fileID: 70418391529473492}
   - component: {fileID: 3034528121215598208}
+  - component: {fileID: 7238669124600256009}
   m_Layer: 0
   m_Name: Product_garlic (3)
   m_TagString: Untagged
@@ -4684,6 +4974,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &7238669124600256009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012716113232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - garlic
+  - ajo
+  - "\u30CB\u30F3\u30CB\u30AF"
 --- !u!1 &1000012789871394
 GameObject:
   m_ObjectHideFlags: 0
@@ -4881,6 +5187,7 @@ GameObject:
   - component: {fileID: 1524197973163528766}
   - component: {fileID: 5389022643258721101}
   - component: {fileID: 2070719426860303443}
+  - component: {fileID: 7866463233363928999}
   m_Layer: 0
   m_Name: Product_garlic (14)
   m_TagString: Untagged
@@ -5015,6 +5322,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &7866463233363928999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012929371388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - garlic
+  - ajo
+  - "\u30CB\u30F3\u30CB\u30AF"
 --- !u!1 &1000012948777194
 GameObject:
   m_ObjectHideFlags: 0
@@ -5028,6 +5351,7 @@ GameObject:
   - component: {fileID: 8956934526979018617}
   - component: {fileID: 7764238943600439518}
   - component: {fileID: 3402290453146361980}
+  - component: {fileID: 1311604284866979882}
   m_Layer: 0
   m_Name: Product_garlic (15)
   m_TagString: Untagged
@@ -5162,6 +5486,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &1311604284866979882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012948777194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - garlic
+  - ajo
+  - "\u30CB\u30F3\u30CB\u30AF"
 --- !u!1 &1000013048130446
 GameObject:
   m_ObjectHideFlags: 0
@@ -5175,6 +5515,7 @@ GameObject:
   - component: {fileID: 7575965059109283423}
   - component: {fileID: 9011412445063164209}
   - component: {fileID: 2320898211581574887}
+  - component: {fileID: 2966631664562194302}
   m_Layer: 0
   m_Name: Product_garlic (13)
   m_TagString: Untagged
@@ -5309,6 +5650,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &2966631664562194302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013048130446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - garlic
+  - ajo
+  - "\u30CB\u30F3\u30CB\u30AF"
 --- !u!1 &1000013149466936
 GameObject:
   m_ObjectHideFlags: 0
@@ -5506,6 +5863,7 @@ GameObject:
   - component: {fileID: 7151053437075023525}
   - component: {fileID: 55534174916492755}
   - component: {fileID: 4526305546354128856}
+  - component: {fileID: 8197130073038147951}
   m_Layer: 0
   m_Name: Product_garlic (25)
   m_TagString: Untagged
@@ -5640,6 +5998,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &8197130073038147951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013249847448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - garlic
+  - ajo
+  - "\u30CB\u30F3\u30CB\u30AF"
 --- !u!1 &1000013269329448
 GameObject:
   m_ObjectHideFlags: 0
@@ -5653,6 +6027,7 @@ GameObject:
   - component: {fileID: 3434189580831479239}
   - component: {fileID: 2490102100979358463}
   - component: {fileID: 405120896030853847}
+  - component: {fileID: 6954706934801637239}
   m_Layer: 0
   m_Name: Product_garlic (18)
   m_TagString: Untagged
@@ -5787,6 +6162,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &6954706934801637239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013269329448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - garlic
+  - ajo
+  - "\u30CB\u30F3\u30CB\u30AF"
 --- !u!1 &1000013397550222
 GameObject:
   m_ObjectHideFlags: 0
@@ -5892,6 +6283,7 @@ GameObject:
   - component: {fileID: 2412546578921296630}
   - component: {fileID: 7476171730162761080}
   - component: {fileID: 8762670751350049016}
+  - component: {fileID: 4020402611885290611}
   m_Layer: 0
   m_Name: Product_garlic (9)
   m_TagString: Untagged
@@ -6026,6 +6418,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &4020402611885290611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013536234278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - garlic
+  - ajo
+  - "\u30CB\u30F3\u30CB\u30AF"
 --- !u!1 &1000013762252758
 GameObject:
   m_ObjectHideFlags: 0
@@ -6039,6 +6447,7 @@ GameObject:
   - component: {fileID: 3562216261478464781}
   - component: {fileID: 7031298847689528532}
   - component: {fileID: 2576613999777274600}
+  - component: {fileID: 6851188624562897297}
   m_Layer: 0
   m_Name: Product_garlic (10)
   m_TagString: Untagged
@@ -6173,6 +6582,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &6851188624562897297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013762252758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - garlic
+  - ajo
+  - "\u30CB\u30F3\u30CB\u30AF"
 --- !u!1 &1000013993036038
 GameObject:
   m_ObjectHideFlags: 0
@@ -6278,6 +6703,7 @@ GameObject:
   - component: {fileID: 7179955081665290697}
   - component: {fileID: 4220795391913101158}
   - component: {fileID: 1579543444441969913}
+  - component: {fileID: 4420072493314760985}
   m_Layer: 0
   m_Name: Product_garlic (1)
   m_TagString: Untagged
@@ -6412,6 +6838,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &4420072493314760985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000014051947796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - garlic
+  - ajo
+  - "\u30CB\u30F3\u30CB\u30AF"
 --- !u!1 &1000014227262784
 GameObject:
   m_ObjectHideFlags: 0
@@ -6425,6 +6867,7 @@ GameObject:
   - component: {fileID: 2932362314059979417}
   - component: {fileID: 730082156275832472}
   - component: {fileID: 8864259374631615556}
+  - component: {fileID: 3302294013710498061}
   m_Layer: 0
   m_Name: Product_garlic (11)
   m_TagString: Untagged
@@ -6559,6 +7002,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &3302294013710498061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000014227262784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - garlic
+  - ajo
+  - "\u30CB\u30F3\u30CB\u30AF"
 --- !u!1 &1000014228182792
 GameObject:
   m_ObjectHideFlags: 0
@@ -6664,6 +7123,7 @@ GameObject:
   - component: {fileID: 7009895812138171198}
   - component: {fileID: 8793345994258997750}
   - component: {fileID: 1601567178510780079}
+  - component: {fileID: 9031869002759331234}
   m_Layer: 0
   m_Name: Product_garlic (21)
   m_TagString: Untagged
@@ -6798,6 +7258,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &9031869002759331234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000014258783314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - garlic
+  - ajo
+  - "\u30CB\u30F3\u30CB\u30AF"
 --- !u!1 &6226365484513758723
 GameObject:
   m_ObjectHideFlags: 0

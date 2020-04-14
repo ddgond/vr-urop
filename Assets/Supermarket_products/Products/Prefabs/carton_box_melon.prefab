@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4322933018070444657}
   - component: {fileID: 1243687431376226096}
   - component: {fileID: 7844659260369771776}
+  - component: {fileID: 8779826943868146562}
   m_Layer: 0
   m_Name: Product_melon (7)
   m_TagString: Untagged
@@ -147,6 +148,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &8779826943868146562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010139004856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - melons
+  - melones
+  - "\u30E1\u30ED\u30F3"
 --- !u!1 &1000010158805578
 GameObject:
   m_ObjectHideFlags: 0
@@ -251,6 +268,7 @@ GameObject:
   - component: {fileID: 4369952450003556502}
   - component: {fileID: 3915092122412877938}
   - component: {fileID: 5110824133440544987}
+  - component: {fileID: 473428833570984164}
   m_Layer: 0
   m_Name: Product_melon (6)
   m_TagString: Untagged
@@ -385,6 +403,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &473428833570984164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010229119654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - melons
+  - melones
+  - "\u30E1\u30ED\u30F3"
 --- !u!1 &1000010618794198
 GameObject:
   m_ObjectHideFlags: 0
@@ -398,6 +432,7 @@ GameObject:
   - component: {fileID: 1325976293061551800}
   - component: {fileID: 6675997792340164198}
   - component: {fileID: 2448624628309737857}
+  - component: {fileID: 800214694615004337}
   m_Layer: 0
   m_Name: Product_melon (8)
   m_TagString: Untagged
@@ -532,6 +567,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &800214694615004337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010618794198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - melons
+  - melones
+  - "\u30E1\u30ED\u30F3"
 --- !u!1 &1000011012853852
 GameObject:
   m_ObjectHideFlags: 0
@@ -545,6 +596,7 @@ GameObject:
   - component: {fileID: 449852467310652565}
   - component: {fileID: 7514106427157915339}
   - component: {fileID: 2044876714159775060}
+  - component: {fileID: 6816555616469697769}
   m_Layer: 0
   m_Name: Product_melon (10)
   m_TagString: Untagged
@@ -679,6 +731,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &6816555616469697769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011012853852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - melons
+  - melones
+  - "\u30E1\u30ED\u30F3"
 --- !u!1 &1000011491422928
 GameObject:
   m_ObjectHideFlags: 0
@@ -958,6 +1026,7 @@ GameObject:
   - component: {fileID: 9220344466153767015}
   - component: {fileID: 8530295055328502550}
   - component: {fileID: 2049369399852908493}
+  - component: {fileID: 7019674200582726209}
   m_Layer: 0
   m_Name: Product_melon (11)
   m_TagString: Untagged
@@ -1092,6 +1161,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &7019674200582726209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012258197728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - melons
+  - melones
+  - "\u30E1\u30ED\u30F3"
 --- !u!1 &1000012929079514
 GameObject:
   m_ObjectHideFlags: 0
@@ -1287,6 +1372,7 @@ GameObject:
   - component: {fileID: 1890038788809997900}
   - component: {fileID: 9117169248871320637}
   - component: {fileID: 5207243228929349562}
+  - component: {fileID: 5819731759719770282}
   m_Layer: 0
   m_Name: Product_melon (9)
   m_TagString: Untagged
@@ -1421,6 +1507,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &5819731759719770282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013516575790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - melons
+  - melones
+  - "\u30E1\u30ED\u30F3"
 --- !u!1 &1000013660120026
 GameObject:
   m_ObjectHideFlags: 0

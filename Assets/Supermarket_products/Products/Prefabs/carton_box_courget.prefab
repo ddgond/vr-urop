@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5623734301989324896}
   - component: {fileID: 7381630346616856114}
   - component: {fileID: 4893872898863416492}
+  - component: {fileID: 7419957609463797940}
   m_Layer: 0
   m_Name: Product_courget (11)
   m_TagString: Untagged
@@ -147,6 +148,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &7419957609463797940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010246065278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - zucchinis
+  - calabacines
+  - "\u30BA\u30C3\u30AD\u30FC\u30CB"
 --- !u!1 &1000010623341816
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,6 +177,7 @@ GameObject:
   - component: {fileID: 6513389436803998265}
   - component: {fileID: 2709119943619545767}
   - component: {fileID: 5649770576742276537}
+  - component: {fileID: 3280830234829400866}
   m_Layer: 0
   m_Name: Product_courget (10)
   m_TagString: Untagged
@@ -294,6 +312,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &3280830234829400866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010623341816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - zucchinis
+  - calabacines
+  - "\u30BA\u30C3\u30AD\u30FC\u30CB"
 --- !u!1 &1000010823175830
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,6 +433,7 @@ GameObject:
   - component: {fileID: 8148192386773676573}
   - component: {fileID: 5070759455213591859}
   - component: {fileID: 1567074630734768546}
+  - component: {fileID: 2028350184112674300}
   m_Layer: 0
   m_Name: Product_courget (9)
   m_TagString: Untagged
@@ -533,6 +568,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &2028350184112674300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011374388410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - zucchinis
+  - calabacines
+  - "\u30BA\u30C3\u30AD\u30FC\u30CB"
 --- !u!1 &1000012473471342
 GameObject:
   m_ObjectHideFlags: 0
@@ -638,6 +689,7 @@ GameObject:
   - component: {fileID: 3224896931301119743}
   - component: {fileID: 4107141467290022171}
   - component: {fileID: 5613924913024715034}
+  - component: {fileID: 3639247698865594321}
   m_Layer: 0
   m_Name: Product_courget (1)
   m_TagString: Untagged
@@ -772,6 +824,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &3639247698865594321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012563981562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - zucchinis
+  - calabacines
+  - "\u30BA\u30C3\u30AD\u30FC\u30CB"
 --- !u!1 &1000012818120000
 GameObject:
   m_ObjectHideFlags: 0
@@ -969,6 +1037,7 @@ GameObject:
   - component: {fileID: 454123125102772825}
   - component: {fileID: 9189079079430713366}
   - component: {fileID: 5378876360300024010}
+  - component: {fileID: 921449817722859773}
   m_Layer: 0
   m_Name: Product_courget (2)
   m_TagString: Untagged
@@ -1103,6 +1172,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &921449817722859773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013266390744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - zucchinis
+  - calabacines
+  - "\u30BA\u30C3\u30AD\u30FC\u30CB"
 --- !u!1 &1000013824085276
 GameObject:
   m_ObjectHideFlags: 0
@@ -1200,6 +1285,7 @@ GameObject:
   - component: {fileID: 3629199319933029883}
   - component: {fileID: 6651182334220961540}
   - component: {fileID: 3537474785619815455}
+  - component: {fileID: 1803178932483804688}
   m_Layer: 0
   m_Name: Product_courget
   m_TagString: Untagged
@@ -1334,6 +1420,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &1803178932483804688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000014203381496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - zucchinis
+  - calabacines
+  - "\u30BA\u30C3\u30AD\u30FC\u30CB"
 --- !u!1 &1000014217522458
 GameObject:
   m_ObjectHideFlags: 0

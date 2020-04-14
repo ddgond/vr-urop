@@ -289,6 +289,7 @@ GameObject:
   - component: {fileID: 4957035696797580819}
   - component: {fileID: 1213051370711659400}
   - component: {fileID: 9089791256797149517}
+  - component: {fileID: 235611224247731005}
   m_Layer: 0
   m_Name: Product_carot
   m_TagString: Untagged
@@ -423,6 +424,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &235611224247731005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011004937200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - carrots
+  - zanahorias
+  - "\u4EBA\u53C2"
 --- !u!1 &1000011259555082
 GameObject:
   m_ObjectHideFlags: 0
@@ -436,6 +453,7 @@ GameObject:
   - component: {fileID: 5128788229189360153}
   - component: {fileID: 290890087959077358}
   - component: {fileID: 5085885199784801021}
+  - component: {fileID: 2934078142583483588}
   m_Layer: 0
   m_Name: Product_carot (1)
   m_TagString: Untagged
@@ -570,6 +588,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &2934078142583483588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011259555082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - carrots
+  - zanahorias
+  - "\u4EBA\u53C2"
 --- !u!1 &1000011497236412
 GameObject:
   m_ObjectHideFlags: 0
@@ -675,6 +709,7 @@ GameObject:
   - component: {fileID: 296865378398185065}
   - component: {fileID: 4592781811532472058}
   - component: {fileID: 2792412272722601205}
+  - component: {fileID: 5756367398453122344}
   m_Layer: 0
   m_Name: Product_carot (5)
   m_TagString: Untagged
@@ -809,6 +844,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &5756367398453122344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011826097110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - carrots
+  - zanahorias
+  - "\u4EBA\u53C2"
 --- !u!1 &1000011923094436
 GameObject:
   m_ObjectHideFlags: 0
@@ -914,6 +965,7 @@ GameObject:
   - component: {fileID: 8197631705324234399}
   - component: {fileID: 3652132517403917819}
   - component: {fileID: 5988410879702282069}
+  - component: {fileID: 5898079527930670567}
   m_Layer: 0
   m_Name: Product_carot (3)
   m_TagString: Untagged
@@ -1048,6 +1100,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &5898079527930670567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012039845522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - carrots
+  - zanahorias
+  - "\u4EBA\u53C2"
 --- !u!1 &1000012113472776
 GameObject:
   m_ObjectHideFlags: 0
@@ -1331,6 +1399,7 @@ GameObject:
   - component: {fileID: 8553926328323914534}
   - component: {fileID: 8484467878753044406}
   - component: {fileID: 2203044672249987850}
+  - component: {fileID: 4563851326490608248}
   m_Layer: 0
   m_Name: Product_carot (8)
   m_TagString: Untagged
@@ -1465,6 +1534,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &4563851326490608248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012875114150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - carrots
+  - zanahorias
+  - "\u4EBA\u53C2"
 --- !u!1 &1000013274658642
 GameObject:
   m_ObjectHideFlags: 0
@@ -1478,6 +1563,7 @@ GameObject:
   - component: {fileID: 395690740012207593}
   - component: {fileID: 4761733437325110321}
   - component: {fileID: 8502630643276962646}
+  - component: {fileID: 8771091870592719757}
   m_Layer: 0
   m_Name: Product_carot (2)
   m_TagString: Untagged
@@ -1612,6 +1698,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &8771091870592719757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013274658642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - carrots
+  - zanahorias
+  - "\u4EBA\u53C2"
 --- !u!1 &1000014053244628
 GameObject:
   m_ObjectHideFlags: 0
@@ -1625,6 +1727,7 @@ GameObject:
   - component: {fileID: 5170286862642216259}
   - component: {fileID: 2178196772007368834}
   - component: {fileID: 3279162933511901126}
+  - component: {fileID: 6148122181796672049}
   m_Layer: 0
   m_Name: Product_carot (7)
   m_TagString: Untagged
@@ -1759,6 +1862,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &6148122181796672049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000014053244628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - carrots
+  - zanahorias
+  - "\u4EBA\u53C2"
 --- !u!1 &1000014054751862
 GameObject:
   m_ObjectHideFlags: 0
@@ -1772,6 +1891,7 @@ GameObject:
   - component: {fileID: 8938356248314655989}
   - component: {fileID: 3322346798229019588}
   - component: {fileID: 6839236218589235630}
+  - component: {fileID: 9199416009842780885}
   m_Layer: 0
   m_Name: Product_carot (4)
   m_TagString: Untagged
@@ -1906,6 +2026,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &9199416009842780885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000014054751862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - carrots
+  - zanahorias
+  - "\u4EBA\u53C2"
 --- !u!1 &1000014248735252
 GameObject:
   m_ObjectHideFlags: 0

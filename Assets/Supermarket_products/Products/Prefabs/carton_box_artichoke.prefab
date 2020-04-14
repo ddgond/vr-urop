@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1309142884915932337}
   - component: {fileID: 2175470504318272936}
   - component: {fileID: 1138848484568310917}
+  - component: {fileID: 1355041602445184403}
   m_Layer: 0
   m_Name: Product_artichoke (3)
   m_TagString: Untagged
@@ -147,6 +148,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &1355041602445184403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010673880118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - artichokes
+  - alcachofas
+  - "\u30A2\u30FC\u30C6\u30A3\u30C1\u30E7\u30FC\u30AF"
 --- !u!1 &1000010675870960
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,6 +177,7 @@ GameObject:
   - component: {fileID: 6062859877965823524}
   - component: {fileID: 557496502000173564}
   - component: {fileID: 3243255109267717900}
+  - component: {fileID: 5228336333623212491}
   m_Layer: 0
   m_Name: Product_artichoke (11)
   m_TagString: Untagged
@@ -294,6 +312,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &5228336333623212491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010675870960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - artichokes
+  - alcachofas
+  - "\u30A2\u30FC\u30C6\u30A3\u30C1\u30E7\u30FC\u30AF"
 --- !u!1 &1000010713711416
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,6 +341,7 @@ GameObject:
   - component: {fileID: 1328254380654920852}
   - component: {fileID: 8882928924204911545}
   - component: {fileID: 1229343179134359562}
+  - component: {fileID: 1826510266730022596}
   m_Layer: 0
   m_Name: Product_artichoke (1)
   m_TagString: Untagged
@@ -441,6 +476,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &1826510266730022596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010713711416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - artichokes
+  - alcachofas
+  - "\u30A2\u30FC\u30C6\u30A3\u30C1\u30E7\u30FC\u30AF"
 --- !u!1 &1000011060763016
 GameObject:
   m_ObjectHideFlags: 0
@@ -546,6 +597,7 @@ GameObject:
   - component: {fileID: 3245070275307057918}
   - component: {fileID: 6267316704867412191}
   - component: {fileID: 823054711339850935}
+  - component: {fileID: 201920658342163963}
   m_Layer: 0
   m_Name: Product_artichoke (8)
   m_TagString: Untagged
@@ -680,6 +732,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &201920658342163963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011238922772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - artichokes
+  - alcachofas
+  - "\u30A2\u30FC\u30C6\u30A3\u30C1\u30E7\u30FC\u30AF"
 --- !u!1 &1000011390984818
 GameObject:
   m_ObjectHideFlags: 0
@@ -877,6 +945,7 @@ GameObject:
   - component: {fileID: 5469203762063415462}
   - component: {fileID: 8714788089651228108}
   - component: {fileID: 5183873352848781609}
+  - component: {fileID: 6756129137809522785}
   m_Layer: 0
   m_Name: Product_artichoke (2)
   m_TagString: Untagged
@@ -1011,6 +1080,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &6756129137809522785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011601618504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - artichokes
+  - alcachofas
+  - "\u30A2\u30FC\u30C6\u30A3\u30C1\u30E7\u30FC\u30AF"
 --- !u!1 &1000011931480528
 GameObject:
   m_ObjectHideFlags: 0
@@ -1385,6 +1470,7 @@ GameObject:
   - component: {fileID: 6138194921858151022}
   - component: {fileID: 3978162243665799892}
   - component: {fileID: 7813688367236544138}
+  - component: {fileID: 3506565406561702484}
   m_Layer: 0
   m_Name: Product_artichoke (4)
   m_TagString: Untagged
@@ -1519,6 +1605,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &3506565406561702484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013188106128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - artichokes
+  - alcachofas
+  - "\u30A2\u30FC\u30C6\u30A3\u30C1\u30E7\u30FC\u30AF"
 --- !u!1 &1000013253828978
 GameObject:
   m_ObjectHideFlags: 0
@@ -1532,6 +1634,7 @@ GameObject:
   - component: {fileID: 3148542873166770657}
   - component: {fileID: 5695283894605507595}
   - component: {fileID: 6708707294346269062}
+  - component: {fileID: 9078559580108094575}
   m_Layer: 0
   m_Name: Product_artichoke (7)
   m_TagString: Untagged
@@ -1666,6 +1769,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &9078559580108094575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013253828978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - artichokes
+  - alcachofas
+  - "\u30A2\u30FC\u30C6\u30A3\u30C1\u30E7\u30FC\u30AF"
 --- !u!1 &1000014160602046
 GameObject:
   m_ObjectHideFlags: 0

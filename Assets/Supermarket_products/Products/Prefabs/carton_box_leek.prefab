@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7712518098923685154}
   - component: {fileID: 1526896962741556330}
   - component: {fileID: 650256396459909032}
+  - component: {fileID: 1509812202905037410}
   m_Layer: 0
   m_Name: Product_leek (1)
   m_TagString: Untagged
@@ -147,6 +148,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &1509812202905037410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010003036768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - leeks
+  - puerros
+  - "\u9577\u30CD\u30AE"
 --- !u!1 &1000010218540924
 GameObject:
   m_ObjectHideFlags: 0
@@ -612,6 +629,7 @@ GameObject:
   - component: {fileID: 3041766400770224815}
   - component: {fileID: 4553587286938978712}
   - component: {fileID: 7899441723674171060}
+  - component: {fileID: 2754089595415156236}
   m_Layer: 0
   m_Name: Product_leek (18)
   m_TagString: Untagged
@@ -746,6 +764,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &2754089595415156236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011069706890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - leeks
+  - puerros
+  - "\u9577\u30CD\u30AE"
 --- !u!1 &1000011652380292
 GameObject:
   m_ObjectHideFlags: 0
@@ -759,6 +793,7 @@ GameObject:
   - component: {fileID: 8208325018941428695}
   - component: {fileID: 5299602574690876397}
   - component: {fileID: 3190691116902238430}
+  - component: {fileID: 4348917759394111088}
   m_Layer: 0
   m_Name: Product_leek (2)
   m_TagString: Untagged
@@ -893,6 +928,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &4348917759394111088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011652380292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - leeks
+  - puerros
+  - "\u9577\u30CD\u30AE"
 --- !u!1 &1000013003137664
 GameObject:
   m_ObjectHideFlags: 0
@@ -906,6 +957,7 @@ GameObject:
   - component: {fileID: 8463521874230741601}
   - component: {fileID: 3917661752236795739}
   - component: {fileID: 3627031024839511849}
+  - component: {fileID: 7064343420908031723}
   m_Layer: 0
   m_Name: Product_leek (19)
   m_TagString: Untagged
@@ -1040,6 +1092,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &7064343420908031723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013003137664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - leeks
+  - puerros
+  - "\u9577\u30CD\u30AE"
 --- !u!1 &1000013015067194
 GameObject:
   m_ObjectHideFlags: 0
@@ -1237,6 +1305,7 @@ GameObject:
   - component: {fileID: 2352490113412800792}
   - component: {fileID: 5469590843885238792}
   - component: {fileID: 4170511591776733815}
+  - component: {fileID: 1556875472218930773}
   m_Layer: 0
   m_Name: Product_leek (17)
   m_TagString: Untagged
@@ -1371,6 +1440,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &1556875472218930773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013383524408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - leeks
+  - puerros
+  - "\u9577\u30CD\u30AE"
 --- !u!1 &1000013701824308
 GameObject:
   m_ObjectHideFlags: 0
@@ -1384,6 +1469,7 @@ GameObject:
   - component: {fileID: 2344659560649864928}
   - component: {fileID: 2119250617774985779}
   - component: {fileID: 674585459558439195}
+  - component: {fileID: 7945947405308814996}
   m_Layer: 0
   m_Name: Product_leek
   m_TagString: Untagged
@@ -1518,6 +1604,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &7945947405308814996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013701824308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - leeks
+  - puerros
+  - "\u9577\u30CD\u30AE"
 --- !u!1 &3340072857017516116
 GameObject:
   m_ObjectHideFlags: 0

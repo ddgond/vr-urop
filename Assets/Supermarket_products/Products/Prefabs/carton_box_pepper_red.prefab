@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 941394905074919942}
   - component: {fileID: 3336319378353511997}
   - component: {fileID: 5014657003044268823}
+  - component: {fileID: 156188635469803632}
   m_Layer: 0
   m_Name: Product_pepper_red (17)
   m_TagString: Untagged
@@ -147,6 +148,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &156188635469803632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011238536570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - red peppers
+  - pimientos rojos
+  - "\u8D64\u30D4\u30FC\u30DE\u30F3"
 --- !u!1 &1000011381411474
 GameObject:
   m_ObjectHideFlags: 0
@@ -252,6 +269,7 @@ GameObject:
   - component: {fileID: 3623494151657510224}
   - component: {fileID: 1446555926294647933}
   - component: {fileID: 2148235653901663437}
+  - component: {fileID: 9088868851667377683}
   m_Layer: 0
   m_Name: Product_pepper_red (13)
   m_TagString: Untagged
@@ -386,6 +404,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &9088868851667377683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011553604518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - red peppers
+  - pimientos rojos
+  - "\u8D64\u30D4\u30FC\u30DE\u30F3"
 --- !u!1 &1000011735585528
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,6 +433,7 @@ GameObject:
   - component: {fileID: 745383407030933873}
   - component: {fileID: 3369749416003117410}
   - component: {fileID: 3599315412568573458}
+  - component: {fileID: 9060769356662445506}
   m_Layer: 0
   m_Name: Product_pepper_red (1)
   m_TagString: Untagged
@@ -533,6 +568,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &9060769356662445506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011735585528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - red peppers
+  - pimientos rojos
+  - "\u8D64\u30D4\u30FC\u30DE\u30F3"
 --- !u!1 &1000012378186178
 GameObject:
   m_ObjectHideFlags: 0
@@ -908,6 +959,7 @@ GameObject:
   - component: {fileID: 959584920016426121}
   - component: {fileID: 5643291601066823541}
   - component: {fileID: 5320683772477299420}
+  - component: {fileID: 1504223319150183231}
   m_Layer: 0
   m_Name: Product_pepper_red (26)
   m_TagString: Untagged
@@ -1042,6 +1094,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &1504223319150183231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012854624264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - red peppers
+  - pimientos rojos
+  - "\u8D64\u30D4\u30FC\u30DE\u30F3"
 --- !u!1 &1000012882971250
 GameObject:
   m_ObjectHideFlags: 0
@@ -1239,6 +1307,7 @@ GameObject:
   - component: {fileID: 2348170522992913406}
   - component: {fileID: 5376153835573652512}
   - component: {fileID: 8698828788942823555}
+  - component: {fileID: 7520118723537666236}
   m_Layer: 0
   m_Name: Product_pepper_red (24)
   m_TagString: Untagged
@@ -1373,6 +1442,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &7520118723537666236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013161807282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - red peppers
+  - pimientos rojos
+  - "\u8D64\u30D4\u30FC\u30DE\u30F3"
 --- !u!1 &1000013424765692
 GameObject:
   m_ObjectHideFlags: 0
@@ -1386,6 +1471,7 @@ GameObject:
   - component: {fileID: 3513688364364660327}
   - component: {fileID: 5098566177542417702}
   - component: {fileID: 9030222933800030689}
+  - component: {fileID: 2690029038972794015}
   m_Layer: 0
   m_Name: Product_pepper_red
   m_TagString: Untagged
@@ -1520,6 +1606,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &2690029038972794015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013424765692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - red peppers
+  - pimientos rojos
+  - "\u8D64\u30D4\u30FC\u30DE\u30F3"
 --- !u!1 &1000013546738814
 GameObject:
   m_ObjectHideFlags: 0
@@ -1625,6 +1727,7 @@ GameObject:
   - component: {fileID: 8309748364358192801}
   - component: {fileID: 6997585941636871888}
   - component: {fileID: 3636856903979481085}
+  - component: {fileID: 5581040478828007939}
   m_Layer: 0
   m_Name: Product_pepper_red (12)
   m_TagString: Untagged
@@ -1759,6 +1862,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &5581040478828007939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013964511584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - red peppers
+  - pimientos rojos
+  - "\u8D64\u30D4\u30FC\u30DE\u30F3"
 --- !u!1 &910095213478281563
 GameObject:
   m_ObjectHideFlags: 0
@@ -1772,6 +1891,7 @@ GameObject:
   - component: {fileID: 1027962090937608320}
   - component: {fileID: 400684216111387251}
   - component: {fileID: 6806749914046316253}
+  - component: {fileID: 1602553318034613339}
   m_Layer: 0
   m_Name: Product_pepper_red (27)
   m_TagString: Untagged
@@ -1906,6 +2026,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &1602553318034613339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910095213478281563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - red peppers
+  - pimientos rojos
+  - "\u8D64\u30D4\u30FC\u30DE\u30F3"
 --- !u!1 &6120912644466042425
 GameObject:
   m_ObjectHideFlags: 0

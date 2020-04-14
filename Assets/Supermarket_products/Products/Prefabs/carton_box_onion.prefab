@@ -197,6 +197,7 @@ GameObject:
   - component: {fileID: 2594303882256544730}
   - component: {fileID: 7083993322662279788}
   - component: {fileID: 6244637392050851379}
+  - component: {fileID: 9189070051158808259}
   m_Layer: 0
   m_Name: Product_onion
   m_TagString: Untagged
@@ -331,6 +332,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &9189070051158808259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010358471954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - onions
+  - cebollas
+  - "\u7389\u306D\u304E"
 --- !u!1 &1000010372036594
 GameObject:
   m_ObjectHideFlags: 0
@@ -430,6 +447,7 @@ GameObject:
   - component: {fileID: 2917802495805384808}
   - component: {fileID: 5585898438991619763}
   - component: {fileID: 4019744141386033222}
+  - component: {fileID: 2884586442396825480}
   m_Layer: 0
   m_Name: Product_onion (4)
   m_TagString: Untagged
@@ -564,6 +582,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &2884586442396825480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010860598892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - onions
+  - cebollas
+  - "\u7389\u306D\u304E"
 --- !u!1 &1000010906155496
 GameObject:
   m_ObjectHideFlags: 0
@@ -577,6 +611,7 @@ GameObject:
   - component: {fileID: 4960848171332388584}
   - component: {fileID: 4583887816508040922}
   - component: {fileID: 5054611793355855375}
+  - component: {fileID: 8384055113664884949}
   m_Layer: 0
   m_Name: Product_onion (18)
   m_TagString: Untagged
@@ -711,6 +746,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &8384055113664884949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010906155496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - onions
+  - cebollas
+  - "\u7389\u306D\u304E"
 --- !u!1 &1000010948289876
 GameObject:
   m_ObjectHideFlags: 0
@@ -816,6 +867,7 @@ GameObject:
   - component: {fileID: 4729924761968172075}
   - component: {fileID: 6229928514266635252}
   - component: {fileID: 412553157580338417}
+  - component: {fileID: 4675866456448681182}
   m_Layer: 0
   m_Name: Product_onion (14)
   m_TagString: Untagged
@@ -950,6 +1002,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &4675866456448681182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012035221470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - onions
+  - cebollas
+  - "\u7389\u306D\u304E"
 --- !u!1 &1000012276198254
 GameObject:
   m_ObjectHideFlags: 0
@@ -963,6 +1031,7 @@ GameObject:
   - component: {fileID: 1830707788534479651}
   - component: {fileID: 3015065638033448122}
   - component: {fileID: 1108269401825596810}
+  - component: {fileID: 5618970317998585333}
   m_Layer: 0
   m_Name: Product_onion (32)
   m_TagString: Untagged
@@ -1097,6 +1166,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &5618970317998585333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012276198254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - onions
+  - cebollas
+  - "\u7389\u306D\u304E"
 --- !u!1 &1000012319582634
 GameObject:
   m_ObjectHideFlags: 0
@@ -1202,6 +1287,7 @@ GameObject:
   - component: {fileID: 3306106103886983888}
   - component: {fileID: 5278270802119209947}
   - component: {fileID: 2075948282305636109}
+  - component: {fileID: 2905670820804396464}
   m_Layer: 0
   m_Name: Product_onion (27)
   m_TagString: Untagged
@@ -1336,6 +1422,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &2905670820804396464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012622236796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - onions
+  - cebollas
+  - "\u7389\u306D\u304E"
 --- !u!1 &1000012771841156
 GameObject:
   m_ObjectHideFlags: 0
@@ -1625,6 +1727,7 @@ GameObject:
   - component: {fileID: 1853015859618731000}
   - component: {fileID: 1710332459460149374}
   - component: {fileID: 5009972285369829092}
+  - component: {fileID: 2172112292076976054}
   m_Layer: 0
   m_Name: Product_onion (21)
   m_TagString: Untagged
@@ -1759,6 +1862,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &2172112292076976054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013684855742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - onions
+  - cebollas
+  - "\u7389\u306D\u304E"
 --- !u!1 &1000013942728508
 GameObject:
   m_ObjectHideFlags: 0
@@ -1772,6 +1891,7 @@ GameObject:
   - component: {fileID: 8033910728647652124}
   - component: {fileID: 9046003266798245383}
   - component: {fileID: 293171269875329274}
+  - component: {fileID: 6469867668357836507}
   m_Layer: 0
   m_Name: Product_onion (15)
   m_TagString: Untagged
@@ -1906,6 +2026,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &6469867668357836507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013942728508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - onions
+  - cebollas
+  - "\u7389\u306D\u304E"
 --- !u!1 &1000014154895704
 GameObject:
   m_ObjectHideFlags: 0

@@ -465,6 +465,7 @@ GameObject:
   - component: {fileID: 3405707088975005262}
   - component: {fileID: 6762420299607517334}
   - component: {fileID: 3498038574091085605}
+  - component: {fileID: 3836072639370348971}
   m_Layer: 0
   m_Name: Product_avocado (13)
   m_TagString: Untagged
@@ -599,6 +600,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &3836072639370348971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012049574306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - avocados
+  - aguacates
+  - "\u30A2\u30DC\u30AB\u30C9"
 --- !u!1 &1000012148846402
 GameObject:
   m_ObjectHideFlags: 0
@@ -612,6 +629,7 @@ GameObject:
   - component: {fileID: 7440300791529415195}
   - component: {fileID: 7111513732290273381}
   - component: {fileID: 5279440040808910455}
+  - component: {fileID: 6020075978697543295}
   m_Layer: 0
   m_Name: Product_avocado (15)
   m_TagString: Untagged
@@ -746,6 +764,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &6020075978697543295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012148846402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - avocados
+  - aguacates
+  - "\u30A2\u30DC\u30AB\u30C9"
 --- !u!1 &1000012320906480
 GameObject:
   m_ObjectHideFlags: 0
@@ -759,6 +793,7 @@ GameObject:
   - component: {fileID: 4239709517862885452}
   - component: {fileID: 372675876547197419}
   - component: {fileID: 4352204311705600059}
+  - component: {fileID: 6223667840613805814}
   m_Layer: 0
   m_Name: Product_avocado (16)
   m_TagString: Untagged
@@ -893,6 +928,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &6223667840613805814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012320906480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - avocados
+  - aguacates
+  - "\u30A2\u30DC\u30AB\u30C9"
 --- !u!1 &1000012584855878
 GameObject:
   m_ObjectHideFlags: 0
@@ -906,6 +957,7 @@ GameObject:
   - component: {fileID: 8742010335112692938}
   - component: {fileID: 4416917043733390370}
   - component: {fileID: 3845556215791542965}
+  - component: {fileID: 3596442158287261801}
   m_Layer: 0
   m_Name: Product_avocado (6)
   m_TagString: Untagged
@@ -1040,6 +1092,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &3596442158287261801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012584855878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - avocados
+  - aguacates
+  - "\u30A2\u30DC\u30AB\u30C9"
 --- !u!1 &1000013063672732
 GameObject:
   m_ObjectHideFlags: 0
@@ -1145,6 +1213,7 @@ GameObject:
   - component: {fileID: 4000188795760731742}
   - component: {fileID: 7201829680496463080}
   - component: {fileID: 6144952858949168369}
+  - component: {fileID: 6946845100103992765}
   m_Layer: 0
   m_Name: Product_avocado (14)
   m_TagString: Untagged
@@ -1279,6 +1348,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &6946845100103992765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013571467860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - avocados
+  - aguacates
+  - "\u30A2\u30DC\u30AB\u30C9"
 --- !u!1 &1000013960560280
 GameObject:
   m_ObjectHideFlags: 0
@@ -1292,6 +1377,7 @@ GameObject:
   - component: {fileID: 7026654397251970018}
   - component: {fileID: 5370915165436133109}
   - component: {fileID: 498779661254548153}
+  - component: {fileID: 2033614076183383710}
   m_Layer: 0
   m_Name: Product_avocado (12)
   m_TagString: Untagged
@@ -1426,6 +1512,22 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   snapAttachEaseInCompleted: 0
   interactable: {fileID: 0}
+--- !u!114 &2033614076183383710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013960560280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23555e1efc1c99847966ae0faa743e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label:
+  - avocados
+  - aguacates
+  - "\u30A2\u30DC\u30AB\u30C9"
 --- !u!1 &1000014216515824
 GameObject:
   m_ObjectHideFlags: 0
