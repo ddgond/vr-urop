@@ -1805,6 +1805,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   question: {fileID: 1264691054}
+  configJson: {fileID: 4900000, guid: fae1b017ebcb20642b79bddd6ffed2ab, type: 3}
 --- !u!1 &447868889
 GameObject:
   m_ObjectHideFlags: 0
