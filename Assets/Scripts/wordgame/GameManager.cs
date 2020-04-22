@@ -24,6 +24,9 @@ public class GameSentence
             {
                 // highlight the current question
                 output += "(" + part.content + ")";
+            } else if (i < partIndex && part.isQuestion)
+            {
+                output += part.answer;
             } else
             {
                 output += part.content;

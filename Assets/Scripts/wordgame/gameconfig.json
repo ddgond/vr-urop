@@ -1,6 +1,28 @@
 {
   "sentences":[
-    {
+	{
+      "parts":[
+        {
+          "isQuestion":false,
+          "content":"日本語を"
+        },
+        {
+          "isQuestion":true,
+          "content":"べん",
+          "answer":"勉"
+        },
+		{
+          "isQuestion":true,
+          "content":"きょう",
+          "answer":"強"
+        },
+        {
+          "isQuestion":false,
+          "content":"する"
+        }
+      ]
+    },
+	{
       "parts":[
         {
           "isQuestion":false,
