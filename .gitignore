@@ -10,6 +10,8 @@
 /[Ll]ogs/
 /[Mm]emoryCaptures/
 
+game-editor/node_modules
+
 # Never ignore Asset meta data
 !/[Aa]ssets/**/*.meta
 

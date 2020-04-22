@@ -1,0 +1,36 @@
+body {
+    font-family: sans-serif;
+}
+
+#display {
+    margin: 32px;
+    font-size: 24pt;
+}
+
+#display span {
+    padding: 0px 4px;
+    cursor: pointer;
+}
+
+#sentence-input {
+    width: 400px;
+}
+
+#display span:hover {
+    background-color: rgb(221, 221, 221);
+}
+
+.spaced {
+    margin-top: 16px;
+}
+
+#output {
+    display: inline-block;
+    padding: 8px;
+    white-space: pre;
+}
+
+textarea {
+    width: 400px;
+    height: 120px;
+}
