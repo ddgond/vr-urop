@@ -1,36 +1,65 @@
 body {
-    font-family: sans-serif;
+  font-family: sans-serif;
+  background-color: #fffafa;
 }
 
 #display {
-    margin: 32px;
-    font-size: 24pt;
+  margin: 32px;
+  font-size: 24pt;
 }
 
 #display span {
-    padding: 0px 4px;
-    cursor: pointer;
+  padding: 0px 4px;
+  cursor: pointer;
 }
 
 #sentence-input {
-    width: 400px;
+  width: 400px;
 }
 
 #display span:hover {
-    background-color: rgb(221, 221, 221);
+  background-color: rgb(221, 221, 221);
 }
 
 .spaced {
-    margin-top: 16px;
+  margin-top: 16px;
 }
 
-#output {
-    display: inline-block;
-    padding: 8px;
-    white-space: pre;
+ul {
+  font-size: 14pt;
+  text-align: left;
 }
 
 textarea {
-    width: 400px;
-    height: 120px;
+  width: 684px;
+  height: 150px;
+  margin: 8px;
+}
+
+.emph {
+  color: rgb(112, 0, 0);
+  font-weight: bold;
+}
+
+.box {
+  display: flex;
+  justify-content: center;
+}
+
+.box > div {
+  border: 1px solid black;
+  margin: 16px;
+  text-align: center;
+  box-shadow: 2px 2px 12px;
+  padding: 16px;
+  min-width: 700px;
+  background-color: white;
+}
+
+h2 {
+  margin: 8px;
+}
+
+.u-bold {
+  font-weight: bold;
 }
