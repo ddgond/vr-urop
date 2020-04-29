@@ -22,9 +22,6 @@ public class DialogflowAPIScript : MonoBehaviour {
 	}
 
 	IEnumerator RefreshAccessToken() {
-		string gcloudPath = Path.Combine(Application.dataPath, "StreamingAssets/CloudSDK/google-cloud-sdk/bin/gcloud");
-		string gacCredsPath = Path.Combine(Application.dataPath, "StreamingAssets/CloudSDK/vrurop.json");
-		string keyPath = Path.Combine(Application.dataPath, "StreamingAssets/CloudSDK/key.txt");
 
 		using (UnityWebRequest webRequest = UnityWebRequest.Get(googleTokenUrl))
 		{
