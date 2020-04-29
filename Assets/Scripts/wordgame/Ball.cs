@@ -49,13 +49,22 @@ public class Ball : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
+        if (dead) return;
+
         if (col.gameObject.CompareTag("Weapon"))
         {
             dead = true;
             game.SubmitAnswer(text.text);
             //Instantiate(explode, location.position, transform.rotation);
 
-        }
+        } 
+    }
 
+    private void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.CompareTag("Despawn"))
+        {
+            dead = true;
+        }
     }
 }

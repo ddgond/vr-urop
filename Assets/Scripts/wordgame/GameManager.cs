@@ -50,11 +50,20 @@ public class GameConfig
 public class GameManager : MonoBehaviour
 {
     public TextMeshPro question;
+    public TextMeshPro scoreMesh;
     public TextAsset configJson;
     private GameConfig config;
+    private string[] options;
     private bool win = false;
     private int sentIndex = 0;
     private int partIndex = 0;
+    private int score = 0;
+    private int optsize = 6;
+    public AudioClip correct;
+    public AudioClip incorrect;
+    public AudioSource audioSource;
+    private int lastAns = 0;
+
 
     // Start is called before the first frame update
     void Start()
@@ -65,7 +74,7 @@ public class GameManager : MonoBehaviour
     }
 
     public bool next()
-    {
+    { 
         // scroll and find the next question
         do
         {
@@ -82,8 +91,30 @@ public class GameManager : MonoBehaviour
             }
         }
         while (!config.sentences[sentIndex].parts[partIndex].isQuestion);
+
+        // generate new kanji choices for RequestText
+        options = new string[optsize];
+        for (int i = 0; i < optsize - 1; i++)
+        {
+            options[i] = config.kanjiList[Random.Range(0, config.kanjiList.Length)].ToString();
+        }
+        options[optsize - 1] = config.sentences[sentIndex].parts[partIndex].answer;
         return true;
      }
+
+    public void ChangeScore(int change)
+    {
+        if (change > 0)
+        {
+            audioSource.PlayOneShot(correct, 1f);
+        } else
+        {
+            audioSource.PlayOneShot(incorrect, 0.6f);
+        }
+
+        score += change;
+        scoreMesh.text = "Score: " + score;
+    }
 
 
     public bool SubmitAnswer(string text)
@@ -95,9 +126,10 @@ public class GameManager : MonoBehaviour
         Debug.Log("Submitted: " + text);
         if (text == part.answer)
         {
+            ChangeScore(10);
             if (!next())
             {
-                question.text = "win";
+                question.text = "Final Score: " + score;
                 win = true;
                 return true;
             }
@@ -106,6 +138,7 @@ public class GameManager : MonoBehaviour
             return true;
         }
 
+        ChangeScore(-3);
         return false;
     }
 
@@ -114,11 +147,22 @@ public class GameManager : MonoBehaviour
     {
         if (win) return "";
 
-        if (Random.Range(0, 6) == 0)
+        int index = Random.Range(0, optsize);
+
+        // make it unlikely to have the correct kanji twice in a row
+        if (lastAns == 0 && index == optsize - 1) index = Random.Range(0, optsize);
+
+        if (index != optsize - 1) lastAns++;
+        else lastAns = 0;
+
+        // guarantee that the correct kanji is shown at least once per 'optsize'
+        if (lastAns > optsize)
         {
-            return config.sentences[sentIndex].parts[partIndex].answer;
+            index = optsize - 1;
+            lastAns = 0;
         }
 
-        return config.kanjiList[Random.Range(0, config.kanjiList.Length)].ToString();
+
+        return options[index];
     }
 }

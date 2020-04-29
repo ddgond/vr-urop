@@ -11,7 +11,7 @@ public class Spawn : MonoBehaviour
     void Start()
     {
         game = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        InvokeRepeating("SpawnBall", 2.0f, 0.5f);
+        InvokeRepeating("SpawnBall", 2.0f, 0.35f);
     }
 
     void SpawnBall()
