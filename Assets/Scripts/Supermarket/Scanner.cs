@@ -32,6 +32,11 @@ public class Scanner : MonoBehaviour
             collider.attachedRigidbody.velocity = Vector3.zero;
             GetComponentInChildren<AudioSource>().Play();
         }
+        Debug.Log("Debugging");
+        foreach (List<string> l in scannedItems)
+        {
+            Debug.Log(l[0]);
+        }
     }
 
     void Add(List<string> other)

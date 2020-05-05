@@ -118,7 +118,7 @@ public class SupermarketClipboard : MonoBehaviour
             for (int j = 0; j < scannedItems.Count; j++)
             {
                 List<string> scannedItem = scannedItems[j];
-                if (item.SequenceEqual(scannedItem))
+                if (item[0] == scannedItem[0])
                 {
                     if (itemCount[i] == scannedAmounts[j])
                     {
